@@ -1,12 +1,13 @@
 export default function mapStateToPropsFactory(component) {
     switch (component) {
         case 'App':
-            return state => {
-                console.log('Состояние', state);
-                return {
-                    account: state.account
-                }
-            }
+            return state => ({
+                account: state.account
+            })
+        case 'LoginForm':
+            return state => ({
+                loginError: state.loginError
+            })
         default:
             return {}
     }

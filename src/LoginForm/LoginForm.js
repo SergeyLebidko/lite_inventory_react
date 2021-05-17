@@ -3,8 +3,9 @@ import style from './LoginForm.module.scss';
 
 import {connect} from 'react-redux';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import mapStateToPropsFactory from '../store/stateMaps';
 
-function LoginForm({loadToken}) {
+function LoginForm({loginError, loadToken}) {
     let [login, setLogin] = useState('');
     let [password, setPassword] = useState('');
 
@@ -22,8 +23,9 @@ function LoginForm({loadToken}) {
             Логин: <input type={"text"} value={login} onChange={loginChangeHandler}/>
             Пароль: <input type={"text"} value={password} onChange={passwordChangeHandler}/>
             <input type={"button"} value={"Войти"} onClick={() => loadToken(login, password)}/>
+            {loginError ? <div>Данные не верны</div> : ''}
         </div>
     );
 }
 
-export default connect(null, mapDispatchToPropsFactory('LoginForm'))(LoginForm);
+export default connect(mapStateToPropsFactory('LoginForm'), mapDispatchToPropsFactory('LoginForm'))(LoginForm);

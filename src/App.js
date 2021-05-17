@@ -14,7 +14,7 @@ function App({account, loadAccount}) {
     return (
         <div>
             {account !== null ?
-                <div>Добро пожаловать в LiteInventory, {account.login}</div>
+                <div>Добро пожаловать в LiteInventory, {account.username}</div>
                 :
                 <LoginForm/>
             }

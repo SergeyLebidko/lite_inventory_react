@@ -1,11 +1,12 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
-import {account, token} from './reducers';
+import {account, token, loginError} from './reducers';
 
 let combinedReducer = combineReducers({
     account,
-    token
+    token,
+    loginError
 });
 let store = createStore(combinedReducer, {}, applyMiddleware(thunk));
 

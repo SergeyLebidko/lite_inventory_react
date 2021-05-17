@@ -20,3 +20,14 @@ export const token = (state = null, action) => {
             return state
     }
 }
+
+// Редуктор для ошибок входа на сайт
+export const loginError = (state = false, action) => {
+    switch (action.type) {
+        case t.SET_LOGIN_ERROR: {
+            return action.error
+        }
+        default:
+            return state
+    }
+}
