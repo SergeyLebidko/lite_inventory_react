@@ -1,10 +1,11 @@
-import {loadToken, loadAccount} from './actionCreators';
+import {loadToken, loadAccount, logoutAccount} from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
         case 'App':
             return dispatch => ({
-                loadAccount: () => dispatch(loadAccount())
+                loadAccount: () => dispatch(loadAccount()),
+                logoutAccount: () => dispatch(logoutAccount())
             })
         case 'LoginForm':
             return dispatch => ({

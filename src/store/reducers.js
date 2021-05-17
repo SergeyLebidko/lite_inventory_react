@@ -5,6 +5,8 @@ export const account = (state = null, action) => {
     switch (action.type) {
         case act.SET_ACCOUNT:
             return action.account;
+        case act.CLEAR_ACCOUNT:
+            return null;
         default:
             return state
     }
