@@ -2,13 +2,16 @@ import React from 'react';
 import LoginForm from './LoginForm/LoginForm';
 import './App.css';
 
-function App() {
+import {connect} from 'react-redux';
+import {accountStateMap} from './store/stateMaps';
+
+function App({account}) {
     return (
         <div>
-            Здесь будет мое приложение
+            Аккаунт сейчас: {account !== null ? 'Есть' : 'Нет'}
             <LoginForm/>
         </div>
     );
 }
 
-export default App;
+export default connect(accountStateMap)(App);
