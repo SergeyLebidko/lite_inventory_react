@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import style from './LoginForm.module.scss';
 
 import {connect} from 'react-redux';
-import {accountDispatchMap} from '../store/dispatchMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function LoginForm({loadAccount}) {
+function LoginForm({loadToken}) {
     let [login, setLogin] = useState('');
     let [password, setPassword] = useState('');
 
@@ -18,12 +18,12 @@ function LoginForm({loadAccount}) {
 
     return (
         <div>
-            Здесь будет форма для входа
+            Для использования сервиса введите учетные данные:
             Логин: <input type={"text"} value={login} onChange={loginChangeHandler}/>
             Пароль: <input type={"text"} value={password} onChange={passwordChangeHandler}/>
-            <input type={"button"} value={"Войти"} onClick={() => loadAccount(login, password)}/>
+            <input type={"button"} value={"Войти"} onClick={() => loadToken(login, password)}/>
         </div>
     );
 }
 
-export default connect(null, accountDispatchMap)(LoginForm);
+export default connect(null, mapDispatchToPropsFactory('LoginForm'))(LoginForm);

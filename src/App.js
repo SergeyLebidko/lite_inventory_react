@@ -1,17 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import LoginForm from './LoginForm/LoginForm';
 import './App.css';
 
 import {connect} from 'react-redux';
-import {accountStateMap} from './store/stateMaps';
+import mapStateToPropsFactory from './store/stateMaps';
+import mapDispatchToPropsFactory from './store/dispatchMaps';
 
-function App({account}) {
+function App({account, loadAccount}) {
+
+    // При монтированни компонента пытаемся получить данные аккаунта
+    useEffect(() => loadAccount(), []);
+
     return (
         <div>
-            Аккаунт сейчас: {account !== null ? 'Есть' : 'Нет'}
-            <LoginForm/>
+            {account !== null ?
+                <div>Добро пожаловать в LiteInventory, {account.login}</div>
+                :
+                <LoginForm/>
+            }
         </div>
     );
 }
 
-export default connect(accountStateMap)(App);
+export default connect(mapStateToPropsFactory('App'), mapDispatchToPropsFactory('App'))(App);

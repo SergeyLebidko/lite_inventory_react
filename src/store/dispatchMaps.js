@@ -1,7 +1,16 @@
-import {loadAccount} from './actionCreators';
+import {loadToken, loadAccount} from './actionCreators';
 
-export function accountDispatchMap(dispatch){
-    return {
-        loadAccount: (username, password) => dispatch(loadAccount(username, password))
+export default function mapDispatchToPropsFactory(component) {
+    switch (component) {
+        case 'App':
+            return dispatch => ({
+                loadAccount: () => dispatch(loadAccount())
+            })
+        case 'LoginForm':
+            return dispatch => ({
+                loadToken: (username, password) => dispatch(loadToken(username, password))
+            });
+        default:
+            return () => ({})
     }
 }
