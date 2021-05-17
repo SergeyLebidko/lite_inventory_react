@@ -28,4 +28,6 @@ function LoginForm({loginError, loadToken}) {
     );
 }
 
-export default connect(mapStateToPropsFactory('LoginForm'), mapDispatchToPropsFactory('LoginForm'))(LoginForm);
+let stateMap = mapStateToPropsFactory('LoginForm');
+let dispatchMap = mapDispatchToPropsFactory('LoginForm');
+export default connect(stateMap, dispatchMap)(LoginForm);

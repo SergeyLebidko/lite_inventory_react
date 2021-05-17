@@ -1,6 +1,6 @@
 export default function mapStateToPropsFactory(component) {
     switch (component) {
-        case 'App':
+        case 'AccountControl':
             return state => ({
                 account: state.account
             })
