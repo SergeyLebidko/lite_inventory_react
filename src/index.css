@@ -17,6 +17,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body {
     line-height: 1.2;
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
 }
 
 ol {

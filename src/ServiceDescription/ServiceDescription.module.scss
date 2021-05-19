@@ -1,0 +1,19 @@
+@import '../variables';
+
+.container {
+  font-size: 1.2em;
+  background-color: $dark_background-color;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    margin: 10px 0;
+    text-align: justify;
+  }
+}

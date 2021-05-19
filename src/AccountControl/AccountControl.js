@@ -12,7 +12,7 @@ function AccountControl({account, loadAccount, logoutAccount}) {
     useEffect(() => loadAccount(), []);
 
     return (
-        <div>
+        <div className={style.container}>
             {account !== null ?
                 <div>
                     Добро пожаловать в LiteInventory, {account.username}

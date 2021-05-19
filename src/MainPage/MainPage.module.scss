@@ -1,0 +1,15 @@
+@import '../variables';
+
+.container {
+  background-color: white;
+  border-radius: $border-radius;
+  max-width: 950px;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.container > div {
+  width: 50%;
+}
