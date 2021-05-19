@@ -7,13 +7,16 @@
   padding: 10px;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
+  font-family: $main-font-family;
 
   h1 {
     text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
   }
 
   p {
-    margin: 10px 0;
+    margin: 15px 0;
     text-align: justify;
   }
 }

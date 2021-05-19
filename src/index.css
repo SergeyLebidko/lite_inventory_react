@@ -9,6 +9,7 @@ time, mark, audio, video {
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    font-weight: normal;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -42,4 +43,11 @@ th {
 canvas {
     margin: 0;
     padding: 0;
+}
+
+/* Добавляем кастомный шрифт */
+
+@font-face {
+    font-family: "Roboto Light";
+    src: local("Roboto Light"), url("fonts/Roboto-Light.ttf") format('truetype');
 }
