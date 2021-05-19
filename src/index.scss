@@ -49,18 +49,27 @@ canvas {
 
 /* Общие стилия для кнопок и полей ввода */
 
-input[type=button] {
-  background-color: white;
+input, button {
+  border: none;
+  outline: none;
   border-radius: $border-radius;
-  border: 1px solid $dark_background-color;
+}
+
+button, input[type=button] {
+  background-color: $btn-background-color;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 10px 15px;
   transition: all 100ms;
 }
 
-input[type=button]:active {
+button, input[type=button]:active {
   transform: scale(0.9);
   transition: all 100ms;
+}
+
+input[type=text], input[type=password] {
+  padding: 5px 10px;
+  background-color: $input-background-color;
 }
 
 /* Добавляем кастомный шрифт */
