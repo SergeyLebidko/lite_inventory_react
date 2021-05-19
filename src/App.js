@@ -1,17 +1,13 @@
 import React from 'react';
 import {HashRouter, Switch, Route} from 'react-router-dom';
-import ServiceDescription from './ServiceDescription/ServiceDescription';
-import AccountControl from './AccountControl/AccountControl';
+import MainPage from './MainPage/MainPage';
 import './App.css';
 
 function App() {
     return (
         <HashRouter>
             <Switch>
-                <Route exact path="/">
-                    <ServiceDescription/>
-                    <AccountControl/>
-                </Route>
+                <Route exact path="/" component={MainPage}/>
                 <Route path="*">
                     <div>Такая страница не найдена...</div>
                 </Route>
