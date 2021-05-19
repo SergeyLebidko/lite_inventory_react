@@ -1,15 +1,16 @@
-import {loadToken, loadAccount, logoutAccount} from './actionCreators';
+import {login, loadAccount, logout, setAccountControlMode} from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
         case 'AccountControl':
             return dispatch => ({
                 loadAccount: () => dispatch(loadAccount()),
-                logoutAccount: () => dispatch(logoutAccount())
+                logout: () => dispatch(logout()),
+                setMode: mode => dispatch(setAccountControlMode(mode))
             })
         case 'LoginForm':
             return dispatch => ({
-                loadToken: (username, password) => dispatch(loadToken(username, password))
+                login: (username, password) => dispatch(login(username, password))
             });
         default:
             return () => ({})

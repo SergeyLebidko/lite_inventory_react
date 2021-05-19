@@ -1,6 +1,8 @@
 import $ from 'jquery';
-import {SET_ACCOUNT, CLEAR_ACCOUNT, SET_LOGIN_ERROR, CLEAR_LOGIN_ERROR} from './actions';
+import {SET_ACCOUNT, CLEAR_ACCOUNT, SET_LOGIN_ERROR, CLEAR_LOGIN_ERROR, SET_ACCOUNT_CONTROL_MODE} from './actions';
 import {LOGIN_URL, ACCOUNT_DATA_URL, LOGOUT_URL} from '../settings';
+
+import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
 
 const TOKEN_NAME = 'li_token';
 
@@ -16,14 +18,15 @@ export function loadAccount() {
             }).then(account => {
                 dispatch(setAccount(account));
             }).catch(() => {
+                dispatch(clearAccount());
                 localStorage.removeItem(TOKEN_NAME);
-            })
+            });
         }
     }
 }
 
 // Функция загружает и сохраняет в local storage токен, полученный по переданным логину и паролю
-export function loadToken(username, password) {
+export function login(username, password) {
     return dispatch => {
         $.ajax(LOGIN_URL, {
             method: 'post',
@@ -33,16 +36,25 @@ export function loadToken(username, password) {
             }
         }).then(data => {
             localStorage.setItem(TOKEN_NAME, data.token);
-            dispatch(loadAccount());
+            return $.ajax(ACCOUNT_DATA_URL, {
+                headers: {
+                    authorization: data.token
+                }
+            });
+        }).then(account => {
+            dispatch(setAccount(account));
             dispatch(clearLoginError());
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
         }).catch(() => {
+            localStorage.removeItem(TOKEN_NAME);
+            dispatch(clearAccount());
             dispatch(setLoginError());
-        })
+        });
     }
 }
 
 // Функция вызывает хук logout и очищает токен в local storage и данные аккаунта в redux
-export function logoutAccount() {
+export function logout() {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
         if (token) {
@@ -59,29 +71,34 @@ export function logoutAccount() {
     }
 }
 
-function setAccount(account) {
+export function setAccount(account) {
     return {
         type: SET_ACCOUNT,
         account
     }
 }
 
-function clearAccount() {
+export function clearAccount() {
     return {
         type: CLEAR_ACCOUNT
     }
 }
 
-function setLoginError() {
+export function setLoginError() {
     return {
         type: SET_LOGIN_ERROR,
-        error: true
     }
 }
 
-function clearLoginError() {
+export function clearLoginError() {
     return {
-        type: SET_LOGIN_ERROR,
-        error: false
+        type: CLEAR_LOGIN_ERROR,
+    }
+}
+
+export function setAccountControlMode(mode) {
+    return {
+        type: SET_ACCOUNT_CONTROL_MODE,
+        mode
     }
 }

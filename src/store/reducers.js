@@ -1,4 +1,5 @@
 import * as act from './actions';
+import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
 
 // Редуктор для действий с аккаунтом
 export const account = (state = null, action) => {
@@ -16,9 +17,22 @@ export const account = (state = null, action) => {
 export const loginError = (state = false, action) => {
     switch (action.type) {
         case act.SET_LOGIN_ERROR: {
-            return action.error
+            return true;
+        }
+        case act.CLEAR_LOGIN_ERROR: {
+            return false;
         }
         default:
             return state
+    }
+}
+
+// Редуктор для режимов компонента управления аккаунтом
+export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, action) => {
+    switch (action.type) {
+        case act.SET_ACCOUNT_CONTROL_MODE:
+            return action.mode;
+        default:
+            return state;
     }
 }
