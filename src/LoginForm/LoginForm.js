@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './LoginForm.module.scss';
 
 import {connect} from 'react-redux';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 import mapStateToPropsFactory from '../store/stateMaps';
 
-function LoginForm({loginError, login, cancelHandler}) {
+function LoginForm({error, clearError, login, cancelHandler}) {
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
+
+    // Сбрасываем ошибки при монтировании и размонтированнии компонента
+    useEffect(() => clearError(), []);
 
     let usernameChangeHandler = event => setUsername(event.target.value);
 
@@ -45,7 +48,7 @@ function LoginForm({loginError, login, cancelHandler}) {
                     </tr>
                     </tbody>
                 </table>
-                {loginError ? <div>Ошибка!</div> : ''}
+                {error ? <div>Ошибка!</div> : ''}
                 <div className={style.control}>
                     <input type="button" value="Отмена" onClick={() => cancelHandler()}/>
                     <input type="button" value="Войти" onClick={() => login(username, password)}/>

@@ -7,7 +7,7 @@ export default function mapStateToPropsFactory(component) {
             })
         case 'LoginForm':
             return state => ({
-                loginError: state.loginError
+                error: state.loginError
             })
         default:
             return {}

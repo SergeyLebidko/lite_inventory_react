@@ -1,4 +1,4 @@
-import {login, loadAccount, logout, setAccountControlMode} from './actionCreators';
+import {login, loadAccount, logout, setAccountControlMode, clearLoginError} from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
@@ -10,7 +10,8 @@ export default function mapDispatchToPropsFactory(component) {
             })
         case 'LoginForm':
             return dispatch => ({
-                login: (username, password) => dispatch(login(username, password))
+                login: (username, password) => dispatch(login(username, password)),
+                clearError: () => dispatch(clearLoginError())
             });
         default:
             return () => ({})
