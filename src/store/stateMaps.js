@@ -10,6 +10,6 @@ export default function mapStateToPropsFactory(component) {
                 error: state.loginError
             })
         default:
-            return {}
+            return null
     }
 }

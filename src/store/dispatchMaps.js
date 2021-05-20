@@ -14,6 +14,6 @@ export default function mapDispatchToPropsFactory(component) {
                 clearError: () => dispatch(clearLoginError())
             });
         default:
-            return () => ({})
+            return null
     }
 }

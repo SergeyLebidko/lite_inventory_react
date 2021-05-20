@@ -5,10 +5,12 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 import LoginForm from "../LoginForm/LoginForm";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 export const ACCOUNT_CONTROL_MODES = {
     MENU_MODE: 'menu_mode',
-    LOGIN_FORM_MODE: 'login_form_mode'
+    LOGIN_FORM_MODE: 'login_form_mode',
+    REGISTER_FORM_MODE: 'register_form_mode'
 }
 
 function AccountControl({mode, account, setMode, loadAccount, logout}) {
@@ -48,7 +50,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                             />
                         </li>
                         <li>
-                            <input type="button" value="Зарегистрироваться"/>
+                            <input type="button"
+                                   value="Зарегистрироваться"
+                                   onClick={() => setMode(ACCOUNT_CONTROL_MODES.REGISTER_FORM_MODE)}
+                            />
                         </li>
                         <li>
                             <input type="button" value="Сбросить пароль"/>
@@ -60,6 +65,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
         }
         case ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE: {
             content = <LoginForm cancelHandler={cancelHandler}/>;
+            break;
+        }
+        case ACCOUNT_CONTROL_MODES.REGISTER_FORM_MODE: {
+            content = <RegisterForm cancelHandler={cancelHandler}/>;
             break;
         }
     }
