@@ -1,4 +1,12 @@
-import {login, register, loadAccount, logout, setAccountControlMode, clearLoginError} from './actionCreators';
+import {
+    login,
+    register,
+    loadAccount,
+    logout,
+    setAccountControlMode,
+    clearLoginError,
+    clearRegisterError
+} from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
@@ -17,7 +25,8 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 register: (username, password, email, firstName, lastName) => {
                     dispatch(register(username, password, email, firstName, lastName))
-                }
+                },
+                clearError: () => dispatch(clearRegisterError())
             });
         default:
             return null

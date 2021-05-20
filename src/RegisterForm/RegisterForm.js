@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function RegisterForm({error, register, cancelHandler}) {
+function RegisterForm({error, clearError, register, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
 
     let [username, setUsername] = useState('');
@@ -15,6 +15,9 @@ function RegisterForm({error, register, cancelHandler}) {
     let [email, setEmail] = useState('');
     let [firstName, setFirstName] = useState('');
     let [lastName, setLastName] = useState('');
+
+    // Сбрасываем ошибки при монтировании и размонтированнии компонента
+    useEffect(() => clearError(), []);
 
     let usernameChangeHandler = event => setUsername(event.target.value);
     let password1ChangeHandler = event => setPassword1(event.target.value);
