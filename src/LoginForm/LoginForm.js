@@ -19,8 +19,8 @@ function LoginForm({error, clearError, login, cancelHandler}) {
 
     let loginHandler = () => {
         let errorList = [];
-        if (username.length === 0) errorList.push('Введите имя пользователя.');
-        if (password.length === 0) errorList.push('Введите пароль.');
+        if (!username) errorList.push('Введите имя пользователя.');
+        if (!password) errorList.push('Введите пароль.');
         if (errorList.length > 0) {
             setInputError(errorList.join(' '));
             setTimeout(() => setInputError(null), 4000);
