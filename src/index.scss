@@ -78,3 +78,12 @@ input[type=text], input[type=password] {
   font-family: "Roboto Light";
   src: local("Roboto Light"), url("fonts/Roboto-Light.ttf") format('truetype');
 }
+
+/* Класс для блоков с ошибками */
+
+.error {
+  border-radius: $border-radius;
+  background-color: orangered;
+  color: white;
+  padding: 10px 20px;
+}

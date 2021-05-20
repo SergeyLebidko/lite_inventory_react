@@ -45,10 +45,11 @@ export function login(username, password) {
             dispatch(setAccount(account));
             dispatch(clearLoginError());
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
-        }).catch(() => {
+        }).catch(err => {
             localStorage.removeItem(TOKEN_NAME);
             dispatch(clearAccount());
-            dispatch(setLoginError());
+            if (err.statusText === 'Forbidden') dispatch(setLoginError('Неверное имя пользователя и/или пароль'));
+            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен'));
         });
     }
 }
@@ -84,9 +85,10 @@ export function clearAccount() {
     }
 }
 
-export function setLoginError() {
+export function setLoginError(error) {
     return {
         type: SET_LOGIN_ERROR,
+        error
     }
 }
 

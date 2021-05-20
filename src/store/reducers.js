@@ -14,13 +14,13 @@ export const account = (state = null, action) => {
 }
 
 // Редуктор для ошибок входа на сайт
-export const loginError = (state = false, action) => {
+export const loginError = (state = null, action) => {
     switch (action.type) {
         case act.SET_LOGIN_ERROR: {
-            return true;
+            return action.error;
         }
         case act.CLEAR_LOGIN_ERROR: {
-            return false;
+            return null;
         }
         default:
             return state

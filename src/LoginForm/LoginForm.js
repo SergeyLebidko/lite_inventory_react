@@ -48,7 +48,7 @@ function LoginForm({error, clearError, login, cancelHandler}) {
                     </tr>
                     </tbody>
                 </table>
-                {error ? <div>Ошибка!</div> : ''}
+                {error ? <div className="error">{error}</div> : ''}
                 <div className={style.control}>
                     <input type="button" value="Отмена" onClick={() => cancelHandler()}/>
                     <input type="button" value="Войти" onClick={() => login(username, password)}/>
