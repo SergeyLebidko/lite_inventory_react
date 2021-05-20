@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import {SET_ACCOUNT, CLEAR_ACCOUNT, SET_LOGIN_ERROR, CLEAR_LOGIN_ERROR, SET_ACCOUNT_CONTROL_MODE} from './actions';
-import {LOGIN_URL, ACCOUNT_DATA_URL, LOGOUT_URL} from '../settings';
+import * as act from './actions';
+import {LOGIN_URL, ACCOUNT_DATA_URL, LOGOUT_URL, REGISTER_URL} from '../settings';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
 
@@ -22,6 +22,26 @@ export function loadAccount() {
                 localStorage.removeItem(TOKEN_NAME);
             });
         }
+    }
+}
+
+// Функция регистрирует аккаунт
+export function register(username, password, email, firstName, lastName) {
+    return dispatch => {
+        $.ajax(REGISTER_URL, {
+            method: 'post',
+            data: {
+                username,
+                password,
+                email,
+                first_name: firstName,
+                last_name: lastName
+            }
+        }).then(() => {
+            setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE)
+        }).catch(err => {
+            console.log(err);
+        });
     }
 }
 
@@ -75,33 +95,46 @@ export function logout() {
 
 export function setAccount(account) {
     return {
-        type: SET_ACCOUNT,
+        type: act.SET_ACCOUNT,
         account
     }
 }
 
 export function clearAccount() {
     return {
-        type: CLEAR_ACCOUNT
+        type: act.CLEAR_ACCOUNT
     }
 }
 
 export function setLoginError(error) {
     return {
-        type: SET_LOGIN_ERROR,
+        type: act.SET_LOGIN_ERROR,
         error
     }
 }
 
 export function clearLoginError() {
     return {
-        type: CLEAR_LOGIN_ERROR,
+        type: act.CLEAR_LOGIN_ERROR,
+    }
+}
+
+export function setRegisterError(error) {
+    return {
+        type: act.SET_REGISTER_ERROR,
+        error
+    }
+}
+
+export function clearRegisterError() {
+    return {
+        type: act.CLEAR_REGISTER_ERROR
     }
 }
 
 export function setAccountControlMode(mode) {
     return {
-        type: SET_ACCOUNT_CONTROL_MODE,
+        type: act.SET_ACCOUNT_CONTROL_MODE,
         mode
     }
 }

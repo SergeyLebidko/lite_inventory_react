@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function RegisterForm({cancelHandler}) {
+function RegisterForm({register, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
 
     let [username, setUsername] = useState('');
