@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function RegisterForm({register, cancelHandler}) {
+function RegisterForm({error, register, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
 
     let [username, setUsername] = useState('');
@@ -15,7 +15,6 @@ function RegisterForm({register, cancelHandler}) {
     let [email, setEmail] = useState('');
     let [firstName, setFirstName] = useState('');
     let [lastName, setLastName] = useState('');
-
 
     let usernameChangeHandler = event => setUsername(event.target.value);
     let password1ChangeHandler = event => setPassword1(event.target.value);
@@ -37,7 +36,7 @@ function RegisterForm({register, cancelHandler}) {
             return;
         }
 
-        // TODO Вставить код отправки данных формы на сервер
+        register(username, password1, email, firstName, lastName)
     }
 
     return (
@@ -97,6 +96,7 @@ function RegisterForm({register, cancelHandler}) {
                 </tr>
                 </tbody>
             </table>
+            {error ? <div className="error">{error}</div> : ''}
             {inputError ? <div className="error">{inputError}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={cancelHandler}/>

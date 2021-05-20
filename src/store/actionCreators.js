@@ -38,9 +38,11 @@ export function register(username, password, email, firstName, lastName) {
                 last_name: lastName
             }
         }).then(() => {
-            setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE)
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
-            console.log(err);
+            if (err.status === 400) dispatch(setRegisterError(err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearRegisterError()), 4000);
         });
     }
 }
