@@ -19,41 +19,39 @@ function LoginForm({error, clearError, login, cancelHandler}) {
     return (
         <div className={style.container}>
             <h1>Введите учетные данные:</h1>
-            <form>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label htmlFor="username_field">Логин:</label>
-                        </td>
-                        <td>
-                            <input id="username_field"
-                                   type="text"
-                                   value={username}
-                                   onChange={usernameChangeHandler}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label htmlFor="password_field">Пароль:</label>
-                        </td>
-                        <td>
-                            <input id="password_field"
-                                   type="password"
-                                   value={password}
-                                   onChange={passwordChangeHandler}
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                {error ? <div className="error">{error}</div> : ''}
-                <div className={style.control}>
-                    <input type="button" value="Отмена" onClick={() => cancelHandler()}/>
-                    <input type="button" value="Войти" onClick={() => login(username, password)}/>
-                </div>
-            </form>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <label htmlFor="username_field">Логин:</label>
+                    </td>
+                    <td>
+                        <input id="username_field"
+                               type="text"
+                               value={username}
+                               onChange={usernameChangeHandler}
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label htmlFor="password_field">Пароль:</label>
+                    </td>
+                    <td>
+                        <input id="password_field"
+                               type="password"
+                               value={password}
+                               onChange={passwordChangeHandler}
+                        />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {error ? <div className="error">{error}</div> : ''}
+            <div className={style.control}>
+                <input type="button" value="Отмена" onClick={() => cancelHandler()}/>
+                <input type="button" value="Войти" onClick={() => login(username, password)}/>
+            </div>
         </div>
     );
 }
