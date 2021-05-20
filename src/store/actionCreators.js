@@ -41,7 +41,7 @@ export function register(username, password, email, firstName, lastName) {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
             if (err.status === 400) dispatch(setRegisterError(err.responseJSON['detail']));
-            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен.'));
+            if (err.statusText === 'error') dispatch(setRegisterError('Сервис временно недоступен.'));
             setTimeout(() => dispatch(clearRegisterError()), 4000);
         });
     }
