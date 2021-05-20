@@ -8,6 +8,7 @@ import mapStateToPropsFactory from '../store/stateMaps';
 function LoginForm({error, clearError, login, cancelHandler}) {
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
+    let [inputError, setInputError] = useState(null);
 
     // Сбрасываем ошибки при монтировании и размонтированнии компонента
     useEffect(() => clearError(), []);
@@ -15,6 +16,18 @@ function LoginForm({error, clearError, login, cancelHandler}) {
     let usernameChangeHandler = event => setUsername(event.target.value);
 
     let passwordChangeHandler = event => setPassword(event.target.value);
+
+    let loginHandler = () => {
+        let errorList = [];
+        if (username.length === 0) errorList.push('Введите имя пользователя.');
+        if (password.length === 0) errorList.push('Введите пароль.');
+        if (errorList.length > 0) {
+            setInputError(errorList.join(' '));
+            setTimeout(() => setInputError(null), 4000);
+            return;
+        }
+        login(username, password);
+    }
 
     return (
         <div className={style.container}>
@@ -48,9 +61,10 @@ function LoginForm({error, clearError, login, cancelHandler}) {
                 </tbody>
             </table>
             {error ? <div className="error">{error}</div> : ''}
+            {inputError ? <div className="error">{inputError}</div> : ''}
             <div className={style.control}>
-                <input type="button" value="Отмена" onClick={() => cancelHandler()}/>
-                <input type="button" value="Войти" onClick={() => login(username, password)}/>
+                <input type="button" value="Отмена" onClick={cancelHandler}/>
+                <input type="button" value="Войти" onClick={loginHandler}/>
             </div>
         </div>
     );

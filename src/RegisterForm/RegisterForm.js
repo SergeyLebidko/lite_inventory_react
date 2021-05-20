@@ -7,8 +7,15 @@ import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function RegisterForm({cancelHandler}){
     return (
-        <div>
-            Здесь будет форма регистрации
+        <div className={style.container}>
+            <h1>Введите данные для регистрации</h1>
+            <table>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <input/>
         </div>
     );
 }

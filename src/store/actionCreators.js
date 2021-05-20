@@ -48,8 +48,9 @@ export function login(username, password) {
         }).catch(err => {
             localStorage.removeItem(TOKEN_NAME);
             dispatch(clearAccount());
-            if (err.statusText === 'Forbidden') dispatch(setLoginError('Неверное имя пользователя и/или пароль'));
-            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен'));
+            if (err.statusText === 'Forbidden') dispatch(setLoginError('Неверное имя пользователя и/или пароль.'));
+            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearLoginError()), 4000);
         });
     }
 }
