@@ -10,4 +10,7 @@ export const CLEAR_REGISTER_ERROR = 'clear_register_error';
 export const SET_RESET_PASSWORD_UUID = 'set_reset_password_uuid';
 export const CLEAR_RESET_PASSWORD_UUID = 'clear_reset_password_uuid';
 
+export const SET_RESET_PASSWORD_ERROR = 'set_reset_password_error';
+export const CLEAR_RESET_PASSWORD_ERROR = 'clear_reset_password_error';
+
 export const SET_ACCOUNT_CONTROL_MODE = 'set_account_control_mode';

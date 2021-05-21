@@ -51,7 +51,19 @@ export const resetPasswordUuid = (state = null, action) => {
             return null
         }
         default:
+            return state
+    }
+}
+
+// Редуктор для ошибок сброса пароля
+export const resetPasswordError = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_RESET_PASSWORD_ERROR:
+            return action.error
+        case act.CLEAR_RESET_PASSWORD_ERROR:
             return null
+        default:
+            return state
     }
 }
 

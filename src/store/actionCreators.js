@@ -3,6 +3,7 @@ import * as act from './actions';
 import * as url from '../urls';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
+import {SET_RESET_PASSWORD_ERROR} from "./actions";
 
 const TOKEN_NAME = 'li_token';
 
@@ -82,13 +83,35 @@ export function resetPassword(email) {
     return dispatch => {
         $.ajax(url.RESET_PASSWORD_URL, {
             method: 'post',
-            email
+            data: {email}
         }).then(data => {
             dispatch(setResetPasswordUuid(data.uuid));
         }).catch(err => {
+            if (err.status === 400) dispatch(setResetPasswordError(err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setResetPasswordError('Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearResetPasswordError()), 4000);
+        });
+    }
+}
 
-            // TODO Протестировать и удалить вывод
-            console.log(err);
+// Функция отправляет на бекэнд код сброса пароля и новый пароль
+export function resetPasswordConfirm(uuid, code, password) {
+    return dispatch => {
+        $.ajax(`${url.RESET_PASSWORD_CONFIRM_URL}${uuid}/`, {
+            method: 'post',
+            data: {
+                code,
+                password
+            }
+        }).then(() => {
+            dispatch(clearResetPasswordUuid());
+            dispatch(clearResetPasswordError());
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
+        }).catch(err => {
+            if (err.status === 400 || err.status === 403) dispatch(setResetPasswordError(err.responseJSON['detail']));
+            if (err.status === 404) dispatch(setResetPasswordError('Неверный UUID запроса. Попробуйте запросить код сброса еще раз'));
+            if (err.statusText === 'error') dispatch(setResetPasswordError('Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearResetPasswordError()), 4000);
         });
     }
 }
@@ -167,5 +190,18 @@ export function setResetPasswordUuid(uuid) {
 export function clearResetPasswordUuid() {
     return {
         type: act.CLEAR_RESET_PASSWORD_UUID
+    }
+}
+
+export function setResetPasswordError(error) {
+    return {
+        type: act.SET_RESET_PASSWORD_ERROR,
+        error
+    }
+}
+
+export function clearResetPasswordError() {
+    return {
+        type: act.CLEAR_RESET_PASSWORD_ERROR
     }
 }

@@ -1,14 +1,22 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
-import {account, loginError, registerError, resetPasswordUuid, accountControlMode} from './reducers';
+import {
+    account,
+    loginError,
+    registerError,
+    resetPasswordError,
+    resetPasswordUuid,
+    accountControlMode
+} from './reducers';
 
 let combinedReducer = combineReducers({
     account,
     loginError,
     accountControlMode,
     registerError,
-    resetPasswordUuid
+    resetPasswordUuid,
+    resetPasswordError
 });
 let store = createStore(combinedReducer, {}, applyMiddleware(thunk));
 

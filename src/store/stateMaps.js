@@ -9,7 +9,7 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'RegisterForm':
             return state => ({
-                'error': state.registerError
+                error: state.registerError
             });
         case 'LoginForm':
             return state => ({
@@ -17,6 +17,7 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'ResetPasswordForm':
             return state => ({
+                error: state.resetPasswordError,
                 uuid: state.resetPasswordUuid
             });
         default:

@@ -6,7 +6,10 @@ import {
     setAccountControlMode,
     clearLoginError,
     clearRegisterError,
-    resetPassword
+    resetPassword,
+    resetPasswordConfirm,
+    clearResetPasswordError,
+    clearResetPasswordUuid
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -31,7 +34,10 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'ResetPasswordForm':
             return dispatch => ({
-                resetPassword: email => dispatch(resetPassword(email))
+                resetPassword: email => dispatch(resetPassword(email)),
+                resetPasswordConfirm: (uuid, code, password) => dispatch(resetPasswordConfirm(uuid, code, password)),
+                clearError: () => dispatch(clearResetPasswordError()),
+                clearUuid: () => dispatch(clearResetPasswordUuid())
             });
         default:
             return null

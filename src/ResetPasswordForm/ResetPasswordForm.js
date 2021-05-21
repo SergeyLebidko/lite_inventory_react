@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import style from './ResetPasswordForm.module.scss';
 
@@ -6,17 +6,57 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function ResetPasswordForm({uuid, resetPassword, cancelHandler}) {
+function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, cancelHandler, clearError, clearUuid}) {
     let [inputError, setInputError] = useState(null);
     let [email, setEmail] = useState('');
     let [code, setCode] = useState('');
     let [password1, setPassword1] = useState('');
     let [password2, setPassword2] = useState('');
 
+    // При монтировании сбрасываем ошибки и uuid
+    useEffect(() => {
+        clearError();
+        clearUuid()
+    }, []);
+
+    // При получении uuid сбрасываем ошибки и содержимое полей
+    useEffect(() => {
+        clearError();
+        setInputError(null);
+        setCode('');
+        setPassword1('');
+        setPassword2('');
+    }, [uuid]);
+
     let emailChangeHandler = event => setEmail(event.target.value);
     let codeChangeHandler = event => setCode(event.target.value);
     let password1ChangeHandler = event => setPassword1(event.target.value);
     let password2ChangeHandler = event => setPassword2(event.target.value);
+
+    // Обработчик отправки кода
+    let sendCodeHandler = () => {
+        if (!validate(email)) {
+            setInputError('Введите корректный email');
+            setTimeout(() => setInputError(null), 4000);
+            return;
+        }
+        resetPassword(email);
+    }
+
+    // Обработчик отправки пароля
+    let sendPasswordHandler = () => {
+        let errors = [];
+        if (!code) errors.push('Введите код.');
+        if (!password1 || !password2) errors.push('Введите новый пароль и подтверждение.');
+        if (password1 !== password2) errors.push('Пароль и подтверждение не совпадают');
+        if (errors.length > 0) {
+            setInputError(errors.join(' '));
+            setTimeout(() => setInputError(null), 4000);
+            return;
+        }
+
+        resetPasswordConfirm(uuid, code, password1);
+    }
 
     return (
         <div className={style.container}>
@@ -60,7 +100,7 @@ function ResetPasswordForm({uuid, resetPassword, cancelHandler}) {
                         </tr>
                         <tr>
                             <td>
-                                <label htmlFor="password2_field">Новый пароль (ещё раз):</label>
+                                <label htmlFor="password2_field">Новый пароль<br/>(ещё раз):</label>
                             </td>
                             <td>
                                 <input type="password"
@@ -74,13 +114,14 @@ function ResetPasswordForm({uuid, resetPassword, cancelHandler}) {
                 }
                 </tbody>
             </table>
+            {error === null ? '' : <div className="error">{error}</div>}
             {inputError === null ? '' : <div className="error">{inputError}</div>}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={cancelHandler}/>
                 {uuid === null ?
-                    <input type="button" value="Отправить код"/>
+                    <input type="button" value="Отправить код" onClick={sendCodeHandler}/>
                     :
-                    <input type="button" value="Сбросить пароль"/>
+                    <input type="button" value="Сбросить пароль" onClick={sendPasswordHandler}/>
                 }
             </div>
         </div>
