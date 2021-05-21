@@ -41,6 +41,20 @@ export const registerError = (state = null, action) => {
     }
 }
 
+// Редуктор для управления uuid для сброса пароля
+export const resetPasswordUuid = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_RESET_PASSWORD_UUID: {
+            return action.uuid
+        }
+        case act.CLEAR_RESET_PASSWORD_UUID: {
+            return null
+        }
+        default:
+            return null
+    }
+}
+
 // Редуктор для режимов компонента управления аккаунтом
 export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, action) => {
     switch (action.type) {

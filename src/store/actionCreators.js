@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import * as act from './actions';
-import {LOGIN_URL, ACCOUNT_DATA_URL, LOGOUT_URL, REGISTER_URL} from '../settings';
+import * as url from '../urls';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
 
@@ -11,7 +11,7 @@ export function loadAccount() {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
         if (token) {
-            $.ajax(ACCOUNT_DATA_URL, {
+            $.ajax(url.ACCOUNT_DATA_URL, {
                 headers: {
                     authorization: token
                 }
@@ -28,7 +28,7 @@ export function loadAccount() {
 // Функция регистрирует аккаунт
 export function register(username, password, email, firstName, lastName) {
     return dispatch => {
-        $.ajax(REGISTER_URL, {
+        $.ajax(url.REGISTER_URL, {
             method: 'post',
             data: {
                 username,
@@ -50,7 +50,7 @@ export function register(username, password, email, firstName, lastName) {
 // Функция загружает и сохраняет в local storage токен, полученный по переданным логину и паролю
 export function login(username, password) {
     return dispatch => {
-        $.ajax(LOGIN_URL, {
+        $.ajax(url.LOGIN_URL, {
             method: 'post',
             data: {
                 username,
@@ -58,7 +58,7 @@ export function login(username, password) {
             }
         }).then(data => {
             localStorage.setItem(TOKEN_NAME, data.token);
-            return $.ajax(ACCOUNT_DATA_URL, {
+            return $.ajax(url.ACCOUNT_DATA_URL, {
                 headers: {
                     authorization: data.token
                 }
@@ -77,12 +77,28 @@ export function login(username, password) {
     }
 }
 
+// Функция отправляет email на хук сброса пароля и помещает в хранилище полученный uuid
+export function resetPassword(email) {
+    return dispatch => {
+        $.ajax(url.RESET_PASSWORD_URL, {
+            method: 'post',
+            email
+        }).then(data => {
+            dispatch(setResetPasswordUuid(data.uuid));
+        }).catch(err => {
+
+            // TODO Протестировать и удалить вывод
+            console.log(err);
+        });
+    }
+}
+
 // Функция вызывает хук logout и очищает токен в local storage и данные аккаунта в redux
 export function logout() {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
         if (token) {
-            $.ajax(LOGOUT_URL, {
+            $.ajax(url.LOGOUT_URL, {
                 method: 'post',
                 headers: {
                     authorization: token
@@ -138,5 +154,18 @@ export function setAccountControlMode(mode) {
     return {
         type: act.SET_ACCOUNT_CONTROL_MODE,
         mode
+    }
+}
+
+export function setResetPasswordUuid(uuid) {
+    return {
+        type: act.SET_RESET_PASSWORD_UUID,
+        uuid
+    }
+}
+
+export function clearResetPasswordUuid() {
+    return {
+        type: act.CLEAR_RESET_PASSWORD_UUID
     }
 }

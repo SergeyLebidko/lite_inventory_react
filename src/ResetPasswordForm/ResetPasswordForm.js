@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {validate} from 'email-validator';
 import style from './ResetPasswordForm.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function ResetPasswordForm({cancelHandler}) {
+function ResetPasswordForm({uuid, resetPassword, cancelHandler}) {
+    let [inputError, setInputError] = useState(null);
+
     return (
         <div className={style.container}>
             Здесь будет форма сброса пароля

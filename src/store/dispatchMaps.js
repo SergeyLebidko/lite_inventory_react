@@ -5,7 +5,8 @@ import {
     logout,
     setAccountControlMode,
     clearLoginError,
-    clearRegisterError
+    clearRegisterError,
+    resetPassword
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -27,6 +28,10 @@ export default function mapDispatchToPropsFactory(component) {
                     dispatch(register(username, password, email, firstName, lastName))
                 },
                 clearError: () => dispatch(clearRegisterError())
+            });
+        case 'ResetPasswordForm':
+            return dispatch => ({
+                resetPassword: email => dispatch(resetPassword(email))
             });
         default:
             return null
