@@ -23,9 +23,6 @@ function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, ca
     useEffect(() => {
         clearError();
         setInputError(null);
-        setCode('');
-        setPassword1('');
-        setPassword2('');
     }, [uuid]);
 
     let emailChangeHandler = event => setEmail(event.target.value);
