@@ -17,7 +17,7 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'ResetPasswordForm':
             return state => ({
-                uuid: resetPasswordUuid
+                uuid: state.resetPasswordUuid
             });
         default:
             return null
