@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
+import LoginForm from '../LoginForm/LoginForm';
+import RegisterForm from '../RegisterForm/RegisterForm';
+import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
+import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
 import style from './AccountControl.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
-import LoginForm from "../LoginForm/LoginForm";
-import RegisterForm from "../RegisterForm/RegisterForm";
-import ResetPasswordForm from "../ResetPasswordForm/ResetPasswordForm";
 
 export const ACCOUNT_CONTROL_MODES = {
     MENU_MODE: 'menu_mode',
     LOGIN_FORM_MODE: 'login_form_mode',
     REGISTER_FORM_MODE: 'register_form_mode',
-    RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode'
+    RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode',
+    REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode'
 }
 
 function AccountControl({mode, account, setMode, loadAccount, logout}) {
@@ -52,7 +54,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                                 <input type="button" value="Выйти" onClick={() => logout()}/>
                             </li>
                             <li>
-                                <input type="button" value="Удалить аккаунт"/>
+                                <input type="button"
+                                       value="Удалить аккаунт"
+                                       onClick={() => setMode(ACCOUNT_CONTROL_MODES.REMOVE_ACCOUNT_FORM_MODE)}
+                                />
                             </li>
                         </ul>
                     </>
@@ -94,6 +99,9 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
         }
         case ACCOUNT_CONTROL_MODES.RESET_PASSWORD_FORM_MODE: {
             content = <ResetPasswordForm cancelHandler={cancelHandler}/>
+        }
+        case ACCOUNT_CONTROL_MODES.REMOVE_ACCOUNT_FORM_MODE: {
+            content = <RemoveAccountForm cancelHandler={cancelHandler}/>
         }
     }
 
