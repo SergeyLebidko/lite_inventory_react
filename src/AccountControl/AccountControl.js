@@ -38,7 +38,23 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                                 account['username']
                             }
                         </h1>
-                        <button onClick={() => logout()}>Выйти</button>
+                        <ul className={style.action_list}>
+                            <li>
+                                <input type="button" value="Мой инвентарь"/>
+                            </li>
+                            <li>
+                                <input type="button" value="Редактировать аккаунт"/>
+                            </li>
+                            <li>
+                                <input type="button" value="Сменить пароль"/>
+                            </li>
+                            <li>
+                                <input type="button" value="Выйти" onClick={() => logout()}/>
+                            </li>
+                            <li>
+                                <input type="button" value="Удалить аккаунт"/>
+                            </li>
+                        </ul>
                     </>
                 );
             } else {
