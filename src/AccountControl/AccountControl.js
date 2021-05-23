@@ -33,7 +33,7 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                 // Отображаем меню, если пользователь залогинен
                 content = (
                     <>
-                        <h1>
+                        <h1 className={style.username_header}>
                             {account['first_name'] || account['last_name'] ?
                                 `${account['first_name']} ${account['last_name']}`
                                 :
@@ -99,9 +99,11 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
         }
         case ACCOUNT_CONTROL_MODES.RESET_PASSWORD_FORM_MODE: {
             content = <ResetPasswordForm cancelHandler={cancelHandler}/>
+            break;
         }
         case ACCOUNT_CONTROL_MODES.REMOVE_ACCOUNT_FORM_MODE: {
             content = <RemoveAccountForm cancelHandler={cancelHandler}/>
+            break;
         }
     }
 

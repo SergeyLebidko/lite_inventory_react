@@ -134,6 +134,28 @@ export function logout() {
     }
 }
 
+// Функция выплняет удаление аккаунта
+export function removeAccount(password) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.REMOVE_ACCOUNT_URL, {
+            method: 'delete',
+            headers: {
+                'authorization': token
+            },
+            data: {password}
+        }).then(() => {
+            dispatch(clearAccount());
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
+            dispatch(clearRemoveAccountError());
+        }).catch(err => {
+            if (err.status === 403) dispatch(setRemoveAccountError(err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setRemoveAccountError('Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearRemoveAccountError()), 4000);
+        });
+    }
+}
+
 export function setAccount(account) {
     return {
         type: act.SET_ACCOUNT,
@@ -203,5 +225,18 @@ export function setResetPasswordError(error) {
 export function clearResetPasswordError() {
     return {
         type: act.CLEAR_RESET_PASSWORD_ERROR
+    }
+}
+
+export function setRemoveAccountError(error) {
+    return {
+        type: act.SET_REMOVE_ACCOUNT_ERROR,
+        error
+    }
+}
+
+export function clearRemoveAccountError() {
+    return {
+        type: act.CLEAR_REMOVE_ACCOUNT_ERROR
     }
 }

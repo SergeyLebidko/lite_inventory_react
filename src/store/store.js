@@ -7,7 +7,8 @@ import {
     registerError,
     resetPasswordError,
     resetPasswordUuid,
-    accountControlMode
+    accountControlMode,
+    removeAccountError
 } from './reducers';
 
 let combinedReducer = combineReducers({
@@ -16,7 +17,8 @@ let combinedReducer = combineReducers({
     accountControlMode,
     registerError,
     resetPasswordUuid,
-    resetPasswordError
+    resetPasswordError,
+    removeAccountError
 });
 let store = createStore(combinedReducer, {}, applyMiddleware(thunk));
 

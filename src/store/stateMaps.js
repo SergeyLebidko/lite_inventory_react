@@ -1,5 +1,3 @@
-import {resetPasswordUuid} from "./reducers";
-
 export default function mapStateToPropsFactory(component) {
     switch (component) {
         case 'AccountControl':
@@ -19,6 +17,10 @@ export default function mapStateToPropsFactory(component) {
             return state => ({
                 error: state.resetPasswordError,
                 uuid: state.resetPasswordUuid
+            });
+        case 'RemoveAccountForm':
+            return state => ({
+                error: state.removeAccountError
             });
         default:
             return null
