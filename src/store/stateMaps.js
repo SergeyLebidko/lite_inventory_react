@@ -1,3 +1,5 @@
+import {changePasswordError} from "./reducers";
+
 export default function mapStateToPropsFactory(component) {
     switch (component) {
         case 'AccountControl':
@@ -21,6 +23,10 @@ export default function mapStateToPropsFactory(component) {
         case 'RemoveAccountForm':
             return state => ({
                 error: state.removeAccountError
+            });
+        case 'ChangePasswordForm':
+            return state => ({
+                error: state.changePasswordError
             });
         default:
             return null

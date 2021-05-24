@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './ChangePasswordForm.module.scss';
 
 import {connect} from 'react-redux'
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function ChangePasswordForm({cancelHandler}) {
+function ChangePasswordForm({error, change, clearError, cancelHandler}) {
     let [currentPassword, setCurrentPassword] = useState('');
     let [password1, setPassword1] = useState('');
     let [password2, setPassword2] = useState('');
     let [inputError, setInputError] = useState(null);
+
+    // Сбрасываем ошибки при монтировании и размонтировании компонента
+    useEffect(() => clearError(), []);
 
     let changeCurrentPasswordHandler = event => setCurrentPassword(event.target.value);
     let changePassword1Handler = event => setPassword1(event.target.value);
@@ -26,7 +29,7 @@ function ChangePasswordForm({cancelHandler}) {
             return;
         }
 
-        // TODO Вставить код отправки на сервер
+        change(currentPassword, password1);
     }
 
     return (
@@ -72,6 +75,7 @@ function ChangePasswordForm({cancelHandler}) {
                 </tr>
                 </tbody>
             </table>
+            {error === null ? '' : <div className="error">{error}</div>}
             {inputError === null ? '' : <div className="error">{inputError}</div>}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={cancelHandler}/>

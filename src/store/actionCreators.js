@@ -134,7 +134,30 @@ export function logout() {
     }
 }
 
-// Функция выплняет удаление аккаунта
+// Функция выполняет смену пароля
+export function changePassword(currentPassword, nextPassword) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.CHANGE_PASSWORD_URL, {
+            method: 'post',
+            headers: {
+                authorization: token
+            },
+            data: {
+                password: currentPassword,
+                next_password: nextPassword
+            }
+        }).then(() => {
+            localStorage.removeItem(TOKEN_NAME);
+            dispatch(clearChangePasswordError());
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
+        }).catch(err => {
+            // TODO Вставить код обработки ошибок
+        });
+    }
+}
+
+// Функция выполняет удаление аккаунта
 export function removeAccount(password) {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
@@ -238,5 +261,18 @@ export function setRemoveAccountError(error) {
 export function clearRemoveAccountError() {
     return {
         type: act.CLEAR_REMOVE_ACCOUNT_ERROR
+    }
+}
+
+export function setChangePasswordError(error) {
+    return {
+        type: act.SET_CHANGE_PASSWORD_ERROR,
+        error
+    }
+}
+
+export function clearChangePasswordError() {
+    return {
+        type: act.CLEAR_CHANGE_PASSWORD_ERROR
     }
 }

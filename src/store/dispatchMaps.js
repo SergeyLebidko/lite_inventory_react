@@ -10,7 +10,9 @@ import {
     resetPasswordConfirm,
     clearResetPasswordError,
     clearResetPasswordUuid,
-    removeAccount
+    removeAccount,
+    changePassword,
+    clearChangePasswordError
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -43,7 +45,12 @@ export default function mapDispatchToPropsFactory(component) {
         case 'RemoveAccountForm':
             return dispatch => ({
                 remove: password => dispatch(removeAccount(password))
-            })
+            });
+        case 'ChangePasswordForm':
+            return dispatch => ({
+                change: (currentPassword, nextPassword) => dispatch(changePassword(currentPassword, nextPassword)),
+                clearError: () => dispatch(clearChangePasswordError())
+            });
         default:
             return null
     }

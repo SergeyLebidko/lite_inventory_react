@@ -16,4 +16,7 @@ export const CLEAR_RESET_PASSWORD_ERROR = 'clear_reset_password_error';
 export const SET_REMOVE_ACCOUNT_ERROR = 'set_remove_account_error';
 export const CLEAR_REMOVE_ACCOUNT_ERROR = 'clear_remove_account_error';
 
+export const SET_CHANGE_PASSWORD_ERROR = 'set_change_password_error';
+export const CLEAR_CHANGE_PASSWORD_ERROR = 'clear_Change_password_error';
+
 export const SET_ACCOUNT_CONTROL_MODE = 'set_account_control_mode';

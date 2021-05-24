@@ -67,13 +67,25 @@ export const resetPasswordError = (state = null, action) => {
     }
 }
 
+// Редуктор для ошибок изменения пароля на аккаунте
+export const changePasswordError = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_CHANGE_PASSWORD_ERROR:
+            return action.error
+        case act.CLEAR_CHANGE_PASSWORD_ERROR:
+            return null
+        default:
+            return state
+    }
+}
+
 // Редуктор для ошибок удаления аккаунта
 export const removeAccountError = (state = null, action) => {
     switch (action.type) {
         case act.SET_REMOVE_ACCOUNT_ERROR:
             return action.error
         case act.CLEAR_REMOVE_ACCOUNT_ERROR:
-            return null;
+            return null
         default:
             return state
     }

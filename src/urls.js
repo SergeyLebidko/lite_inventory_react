@@ -6,4 +6,5 @@ export const REGISTER_URL = URL_PREFIX + 'register/';
 export const LOGOUT_URL = URL_PREFIX + 'logout/';
 export const RESET_PASSWORD_URL = URL_PREFIX + 'reset_password/';
 export const RESET_PASSWORD_CONFIRM_URL = URL_PREFIX + 'reset_password_confirm/';
+export const CHANGE_PASSWORD_URL = URL_PREFIX + 'change_password/';
 export const REMOVE_ACCOUNT_URL = URL_PREFIX + 'remove_account/';
