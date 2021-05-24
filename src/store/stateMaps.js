@@ -1,5 +1,3 @@
-import {changePasswordError} from "./reducers";
-
 export default function mapStateToPropsFactory(component) {
     switch (component) {
         case 'AccountControl':

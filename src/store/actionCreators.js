@@ -3,7 +3,6 @@ import * as act from './actions';
 import * as url from '../urls';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
-import {SET_RESET_PASSWORD_ERROR} from "./actions";
 
 const TOKEN_NAME = 'li_token';
 
@@ -41,9 +40,9 @@ export function register(username, password, email, firstName, lastName) {
         }).then(() => {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
-            if (err.status === 400) dispatch(setRegisterError(err.responseJSON['detail']));
-            if (err.statusText === 'error') dispatch(setRegisterError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearRegisterError()), 4000);
+            if (err.status === 400) dispatch(setError(act.SET_REGISTER_ERROR, err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setError(act.SET_REGISTER_ERROR, 'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_REGISTER_ERROR)), 4000);
         });
     }
 }
@@ -66,14 +65,14 @@ export function login(username, password) {
             });
         }).then(account => {
             dispatch(setAccount(account));
-            dispatch(clearLoginError());
+            dispatch(clearError(act.CLEAR_LOGIN_ERROR));
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
         }).catch(err => {
             localStorage.removeItem(TOKEN_NAME);
             dispatch(clearAccount());
-            if (err.statusText === 'Forbidden') dispatch(setLoginError('Неверное имя пользователя и/или пароль.'));
-            if (err.statusText === 'error') dispatch(setLoginError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearLoginError()), 4000);
+            if (err.statusText === 'Forbidden') dispatch(setError(act.SET_LOGIN_ERROR, 'Неверное имя пользователя и/или пароль.'));
+            if (err.statusText === 'error') dispatch(setError(act.SET_LOGIN_ERROR, 'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_LOGIN_ERROR)), 4000);
         });
     }
 }
@@ -87,9 +86,9 @@ export function resetPassword(email) {
         }).then(data => {
             dispatch(setResetPasswordUuid(data.uuid));
         }).catch(err => {
-            if (err.status === 400) dispatch(setResetPasswordError(err.responseJSON['detail']));
-            if (err.statusText === 'error') dispatch(setResetPasswordError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearResetPasswordError()), 4000);
+            if (err.status === 400) dispatch(setError(act.SET_RESET_PASSWORD_ERROR, err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setError(act.SET_RESET_PASSWORD_ERROR, 'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_RESET_PASSWORD_ERROR)), 4000);
         });
     }
 }
@@ -105,13 +104,13 @@ export function resetPasswordConfirm(uuid, code, password) {
             }
         }).then(() => {
             dispatch(clearResetPasswordUuid());
-            dispatch(clearResetPasswordError());
+            dispatch(clearError(act.CLEAR_RESET_PASSWORD_ERROR));
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
-            if (err.status === 400 || err.status === 403) dispatch(setResetPasswordError(err.responseJSON['detail']));
-            if (err.status === 404) dispatch(setResetPasswordError('Неверный UUID запроса. Попробуйте запросить код сброса еще раз.'));
-            if (err.statusText === 'error') dispatch(setResetPasswordError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearResetPasswordError()), 4000);
+            if (err.status === 400 || err.status === 403) dispatch(setError(act.SET_RESET_PASSWORD_ERROR, err.responseJSON['detail']));
+            if (err.status === 404) dispatch(setError(act.SET_RESET_PASSWORD_ERROR, 'Неверный UUID запроса. Попробуйте запросить код сброса еще раз.'));
+            if (err.statusText === 'error') dispatch(setError(act.SET_RESET_PASSWORD_ERROR, 'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_RESET_PASSWORD_ERROR)), 4000);
         });
     }
 }
@@ -149,12 +148,12 @@ export function changePassword(currentPassword, nextPassword) {
             }
         }).then(() => {
             localStorage.removeItem(TOKEN_NAME);
-            dispatch(clearChangePasswordError());
+            dispatch(clearError(act.CLEAR_CHANGE_PASSWORD_ERROR));
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
-            if (err.status === 403 || err.status === 400) dispatch(setChangePasswordError(err.responseJSON['detail']));
-            if (err.statusText === 'error') dispatch(setChangePasswordError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearChangePasswordError()), 4000);
+            if (err.status === 403 || err.status === 400) dispatch(setError(act.SET_CHANGE_PASSWORD_ERROR, err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setError(act.SET_CHANGE_PASSWORD_ERROR, 'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_CHANGE_PASSWORD_ERROR)), 4000);
         });
     }
 }
@@ -173,11 +172,11 @@ export function removeAccount(password) {
             localStorage.removeItem(TOKEN_NAME);
             dispatch(clearAccount());
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
-            dispatch(clearRemoveAccountError());
+            dispatch(clearError(act.CLEAR_REMOVE_ACCOUNT_ERROR));
         }).catch(err => {
-            if (err.status === 403) dispatch(setRemoveAccountError(err.responseJSON['detail']));
-            if (err.statusText === 'error') dispatch(setRemoveAccountError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearRemoveAccountError()), 4000);
+            if (err.status === 403) dispatch(setError(act.SET_REMOVE_ACCOUNT_ERROR, err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setError(act.SET_REMOVE_ACCOUNT_ERROR,'Сервис временно недоступен.'));
+            setTimeout(() => dispatch(clearError(act.CLEAR_REMOVE_ACCOUNT_ERROR)), 4000);
         });
     }
 }
@@ -215,8 +214,6 @@ export function clearResetPasswordUuid() {
     }
 }
 
-// ---------- Блок создателей действий для работы с ошибками ----------
-
 export function setError(errorType, error) {
     return {
         type: errorType,
@@ -227,72 +224,5 @@ export function setError(errorType, error) {
 export function clearError(errorType) {
     return {
         type: errorType
-    }
-}
-
-// ----------
-
-export function setLoginError(error) {
-    return {
-        type: act.SET_LOGIN_ERROR,
-        error
-    }
-}
-
-export function clearLoginError() {
-    return {
-        type: act.CLEAR_LOGIN_ERROR,
-    }
-}
-
-export function setRegisterError(error) {
-    return {
-        type: act.SET_REGISTER_ERROR,
-        error
-    }
-}
-
-export function clearRegisterError() {
-    return {
-        type: act.CLEAR_REGISTER_ERROR
-    }
-}
-
-export function setResetPasswordError(error) {
-    return {
-        type: act.SET_RESET_PASSWORD_ERROR,
-        error
-    }
-}
-
-export function clearResetPasswordError() {
-    return {
-        type: act.CLEAR_RESET_PASSWORD_ERROR
-    }
-}
-
-export function setRemoveAccountError(error) {
-    return {
-        type: act.SET_REMOVE_ACCOUNT_ERROR,
-        error
-    }
-}
-
-export function clearRemoveAccountError() {
-    return {
-        type: act.CLEAR_REMOVE_ACCOUNT_ERROR
-    }
-}
-
-export function setChangePasswordError(error) {
-    return {
-        type: act.SET_CHANGE_PASSWORD_ERROR,
-        error
-    }
-}
-
-export function clearChangePasswordError() {
-    return {
-        type: act.CLEAR_CHANGE_PASSWORD_ERROR
     }
 }
