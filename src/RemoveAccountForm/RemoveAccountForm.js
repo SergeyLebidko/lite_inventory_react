@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './RemoveAccount.form.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function RemoveAccountForm({error, remove, cancelHandler}) {
+function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
     let [password, setPassword] = useState('');
+
+    // Сбрасываем ошибки при монтировании/размонтировании компонента
+    useEffect(() => clearError(), []);
 
     let changePasswordHandler = event => setPassword(event.target.value);
 
