@@ -109,7 +109,7 @@ export function resetPasswordConfirm(uuid, code, password) {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
             if (err.status === 400 || err.status === 403) dispatch(setResetPasswordError(err.responseJSON['detail']));
-            if (err.status === 404) dispatch(setResetPasswordError('Неверный UUID запроса. Попробуйте запросить код сброса еще раз'));
+            if (err.status === 404) dispatch(setResetPasswordError('Неверный UUID запроса. Попробуйте запросить код сброса еще раз.'));
             if (err.statusText === 'error') dispatch(setResetPasswordError('Сервис временно недоступен.'));
             setTimeout(() => dispatch(clearResetPasswordError()), 4000);
         });
@@ -152,7 +152,9 @@ export function changePassword(currentPassword, nextPassword) {
             dispatch(clearChangePasswordError());
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
-            // TODO Вставить код обработки ошибок
+            if (err.status === 403 || err.status === 400) dispatch(setChangePasswordError(err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setChangePasswordError('Сервис временно недоступен.'));
+            setTimeout(() => clearChangePasswordError(), 4000);
         });
     }
 }
