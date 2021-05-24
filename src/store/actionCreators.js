@@ -154,7 +154,7 @@ export function changePassword(currentPassword, nextPassword) {
         }).catch(err => {
             if (err.status === 403 || err.status === 400) dispatch(setChangePasswordError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setChangePasswordError('Сервис временно недоступен.'));
-            setTimeout(() => clearChangePasswordError(), 4000);
+            setTimeout(() => dispatch(clearChangePasswordError()), 4000);
         });
     }
 }
@@ -170,6 +170,7 @@ export function removeAccount(password) {
             },
             data: {password}
         }).then(() => {
+            localStorage.removeItem(TOKEN_NAME);
             dispatch(clearAccount());
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
             dispatch(clearRemoveAccountError());
@@ -194,6 +195,43 @@ export function clearAccount() {
     }
 }
 
+export function setAccountControlMode(mode) {
+    return {
+        type: act.SET_ACCOUNT_CONTROL_MODE,
+        mode
+    }
+}
+
+export function setResetPasswordUuid(uuid) {
+    return {
+        type: act.SET_RESET_PASSWORD_UUID,
+        uuid
+    }
+}
+
+export function clearResetPasswordUuid() {
+    return {
+        type: act.CLEAR_RESET_PASSWORD_UUID
+    }
+}
+
+// ---------- Блок создателей действий для работы с ошибками ----------
+
+export function setError(errorType, error) {
+    return {
+        type: errorType,
+        error
+    }
+}
+
+export function clearError(errorType) {
+    return {
+        type: errorType
+    }
+}
+
+// ----------
+
 export function setLoginError(error) {
     return {
         type: act.SET_LOGIN_ERROR,
@@ -217,26 +255,6 @@ export function setRegisterError(error) {
 export function clearRegisterError() {
     return {
         type: act.CLEAR_REGISTER_ERROR
-    }
-}
-
-export function setAccountControlMode(mode) {
-    return {
-        type: act.SET_ACCOUNT_CONTROL_MODE,
-        mode
-    }
-}
-
-export function setResetPasswordUuid(uuid) {
-    return {
-        type: act.SET_RESET_PASSWORD_UUID,
-        uuid
-    }
-}
-
-export function clearResetPasswordUuid() {
-    return {
-        type: act.CLEAR_RESET_PASSWORD_UUID
     }
 }
 
