@@ -3,6 +3,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
 import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
+import ChangePasswordForm from '../ChangePasswordForm/ChangePasswordForm';
 import style from './AccountControl.module.scss';
 
 import {connect} from 'react-redux';
@@ -14,7 +15,8 @@ export const ACCOUNT_CONTROL_MODES = {
     LOGIN_FORM_MODE: 'login_form_mode',
     REGISTER_FORM_MODE: 'register_form_mode',
     RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode',
-    REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode'
+    REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode',
+    CHANGE_PASSWORD_FORM_MODE: 'change_password_form_mode'
 }
 
 function AccountControl({mode, account, setMode, loadAccount, logout}) {
@@ -48,7 +50,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                                 <input type="button" value="Редактировать аккаунт"/>
                             </li>
                             <li>
-                                <input type="button" value="Сменить пароль"/>
+                                <input type="button"
+                                       value="Сменить пароль"
+                                       onClick={() => setMode(ACCOUNT_CONTROL_MODES.CHANGE_PASSWORD_FORM_MODE)}
+                                />
                             </li>
                             <li>
                                 <input type="button" value="Выйти" onClick={() => logout()}/>
@@ -103,6 +108,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
         }
         case ACCOUNT_CONTROL_MODES.REMOVE_ACCOUNT_FORM_MODE: {
             content = <RemoveAccountForm cancelHandler={cancelHandler}/>
+            break;
+        }
+        case ACCOUNT_CONTROL_MODES.CHANGE_PASSWORD_FORM_MODE: {
+            content = <ChangePasswordForm cancelHandler={cancelHandler}/>
             break;
         }
     }
