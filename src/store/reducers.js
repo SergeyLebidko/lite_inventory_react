@@ -13,34 +13,6 @@ export const account = (state = null, action) => {
     }
 }
 
-// Редуктор для ошибок входа на сайт
-export const loginError = (state = null, action) => {
-    switch (action.type) {
-        case act.SET_LOGIN_ERROR: {
-            return action.error;
-        }
-        case act.CLEAR_LOGIN_ERROR: {
-            return null;
-        }
-        default:
-            return state
-    }
-}
-
-// Редуктор для ошибок регистрации
-export const registerError = (state = null, action) => {
-    switch (action.type) {
-        case act.SET_REGISTER_ERROR: {
-            return action.error;
-        }
-        case act.CLEAR_REGISTER_ERROR: {
-            return null;
-        }
-        default:
-            return state;
-    }
-}
-
 // Редуктор для управления uuid для сброса пароля
 export const resetPasswordUuid = (state = null, action) => {
     switch (action.type) {
@@ -55,47 +27,24 @@ export const resetPasswordUuid = (state = null, action) => {
     }
 }
 
-// Редуктор для ошибок сброса пароля
-export const resetPasswordError = (state = null, action) => {
-    switch (action.type) {
-        case act.SET_RESET_PASSWORD_ERROR:
-            return action.error
-        case act.CLEAR_RESET_PASSWORD_ERROR:
-            return null
-        default:
-            return state
-    }
-}
-
-// Редуктор для ошибок изменения пароля на аккаунте
-export const changePasswordError = (state = null, action) => {
-    switch (action.type) {
-        case act.SET_CHANGE_PASSWORD_ERROR:
-            return action.error
-        case act.CLEAR_CHANGE_PASSWORD_ERROR:
-            return null
-        default:
-            return state
-    }
-}
-
-// Редуктор для ошибок удаления аккаунта
-export const removeAccountError = (state = null, action) => {
-    switch (action.type) {
-        case act.SET_REMOVE_ACCOUNT_ERROR:
-            return action.error
-        case act.CLEAR_REMOVE_ACCOUNT_ERROR:
-            return null
-        default:
-            return state
-    }
-}
-
 // Редуктор для режимов компонента управления аккаунтом
 export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, action) => {
     switch (action.type) {
         case act.SET_ACCOUNT_CONTROL_MODE:
             return action.mode;
+        default:
+            return state;
+    }
+}
+
+// ---------- Универсальный редуктор для отображения ошибок --------
+
+export const error = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_ERROR:
+            return action.error;
+        case act.CLEAR_ERROR:
+            return null;
         default:
             return state;
     }

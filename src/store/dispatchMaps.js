@@ -12,14 +12,6 @@ import {
     clearError
 } from './actionCreators';
 
-import {
-    CLEAR_LOGIN_ERROR,
-    CLEAR_REGISTER_ERROR,
-    CLEAR_RESET_PASSWORD_ERROR,
-    CLEAR_REMOVE_ACCOUNT_ERROR,
-    CLEAR_CHANGE_PASSWORD_ERROR
-} from './actions';
-
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
         case 'AccountControl':
@@ -31,31 +23,31 @@ export default function mapDispatchToPropsFactory(component) {
         case 'LoginForm':
             return dispatch => ({
                 login: (username, password) => dispatch(login(username, password)),
-                clearError: () => dispatch(clearError(CLEAR_LOGIN_ERROR))
+                clearError: () => dispatch(clearError())
             });
         case 'RegisterForm':
             return dispatch => ({
                 register: (username, password, email, firstName, lastName) => {
                     dispatch(register(username, password, email, firstName, lastName))
                 },
-                clearError: () => dispatch(clearError(CLEAR_REGISTER_ERROR))
+                clearError: () => dispatch(clearError())
             });
         case 'ResetPasswordForm':
             return dispatch => ({
                 resetPassword: email => dispatch(resetPassword(email)),
                 resetPasswordConfirm: (uuid, code, password) => dispatch(resetPasswordConfirm(uuid, code, password)),
-                clearError: () => dispatch(clearError(CLEAR_RESET_PASSWORD_ERROR)),
+                clearError: () => dispatch(clearError()),
                 clearUuid: () => dispatch(clearResetPasswordUuid())
             });
         case 'RemoveAccountForm':
             return dispatch => ({
                 remove: password => dispatch(removeAccount(password)),
-                clearError: () => dispatch(clearError(CLEAR_REMOVE_ACCOUNT_ERROR))
+                clearError: () => dispatch(clearError())
             });
         case 'ChangePasswordForm':
             return dispatch => ({
                 change: (currentPassword, nextPassword) => dispatch(changePassword(currentPassword, nextPassword)),
-                clearError: () => dispatch(clearError(CLEAR_CHANGE_PASSWORD_ERROR))
+                clearError: () => dispatch(clearError())
             });
         default:
             return null

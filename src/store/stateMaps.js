@@ -7,24 +7,24 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'RegisterForm':
             return state => ({
-                error: state.registerError
+                error: state.error
             });
         case 'LoginForm':
             return state => ({
-                error: state.loginError
+                error: state.error
             });
         case 'ResetPasswordForm':
             return state => ({
-                error: state.resetPasswordError,
+                error: state.error,
                 uuid: state.resetPasswordUuid
             });
         case 'RemoveAccountForm':
             return state => ({
-                error: state.removeAccountError
+                error: state.error
             });
         case 'ChangePasswordForm':
             return state => ({
-                error: state.changePasswordError
+                error: state.error
             });
         default:
             return null
