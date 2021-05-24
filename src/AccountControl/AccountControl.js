@@ -4,6 +4,7 @@ import RegisterForm from '../RegisterForm/RegisterForm';
 import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
 import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
 import ChangePasswordForm from '../ChangePasswordForm/ChangePasswordForm';
+import EditAccountForm from '../EditAccountForm/EditAccountForm';
 import style from './AccountControl.module.scss';
 
 import {connect} from 'react-redux';
@@ -16,7 +17,8 @@ export const ACCOUNT_CONTROL_MODES = {
     REGISTER_FORM_MODE: 'register_form_mode',
     RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode',
     REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode',
-    CHANGE_PASSWORD_FORM_MODE: 'change_password_form_mode'
+    CHANGE_PASSWORD_FORM_MODE: 'change_password_form_mode',
+    EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
 }
 
 function AccountControl({mode, account, setMode, loadAccount, logout}) {
@@ -47,7 +49,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                                 <input type="button" value="Мой инвентарь"/>
                             </li>
                             <li>
-                                <input type="button" value="Редактировать аккаунт"/>
+                                <input type="button"
+                                       value="Редактировать аккаунт"
+                                       onClick={() => setMode(ACCOUNT_CONTROL_MODES.EDIT_ACCOUNT_FORM_MODE)}
+                                />
                             </li>
                             <li>
                                 <input type="button"
@@ -112,6 +117,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
         }
         case ACCOUNT_CONTROL_MODES.CHANGE_PASSWORD_FORM_MODE: {
             content = <ChangePasswordForm cancelHandler={cancelHandler}/>
+            break;
+        }
+        case ACCOUNT_CONTROL_MODES.EDIT_ACCOUNT_FORM_MODE: {
+            content = <EditAccountForm cancelHandler={cancelHandler}/>
             break;
         }
     }
