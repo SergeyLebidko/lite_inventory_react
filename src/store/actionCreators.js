@@ -150,6 +150,7 @@ export function changePassword(currentPassword, nextPassword) {
         }).then(() => {
             localStorage.removeItem(TOKEN_NAME);
             dispatch(clearError());
+            dispatch(clearAccount());
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.LOGIN_FORM_MODE));
         }).catch(err => {
             if (err.status === 403 || err.status === 400) dispatch(setError(err.responseJSON['detail']));
@@ -161,7 +162,7 @@ export function changePassword(currentPassword, nextPassword) {
 
 // Функция выполняет редактирование аккаунта
 export function editAccount(data) {
-    return dispatch => {
+    return (dispatch, getState) => {
         // Если никакие поля не были изменены, то просто переходим обратно в меню операций с аккаунтом
         if (Object.keys(data).length === 0) {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
@@ -175,7 +176,8 @@ export function editAccount(data) {
             },
             data
         }).then(() => {
-            dispatch(setAccount(data));
+            let nextAccountData = {...getState().account, ...data};
+            dispatch(setAccount(nextAccountData));
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
         }).catch(err => {
             if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
