@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import style from './EditAccountForm.module.scss';
 
@@ -13,6 +13,9 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
     let [lastName, setLastName] = useState(account.last_name);
 
     let [inputError, setInputError] = useState(null);
+
+    // Сбрасываем ошибки
+    useEffect(() => clearError(), []);
 
     let usernameChangeHandler = event => setUsername(event.target.value);
     let emailChangeHandler = event => setEmail(event.target.value);
@@ -29,7 +32,12 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
             return;
         }
 
-        edit(username, email, firstName, lastName);
+        let data = {};
+        if (username !== account.username) data = {...data, username};
+        if (email !== account.email) data = {...data, email};
+        if (firstName !== account.first_name) data = {...data, first_name: firstName};
+        if (lastName !== account.last_name) data = {...data, last_name: lastName}
+        edit(data);
     }
 
     return (

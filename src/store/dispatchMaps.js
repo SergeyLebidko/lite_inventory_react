@@ -52,7 +52,7 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'EditAccountForm':
             return dispatch => ({
-                edit: (username, email, firstName, lastName) => dispatch(editAccount(username, email, firstName, lastName)),
+                edit: data => dispatch(editAccount(data)),
                 clearError: () => dispatch(clearError())
             });
         default:

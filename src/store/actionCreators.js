@@ -160,23 +160,22 @@ export function changePassword(currentPassword, nextPassword) {
 }
 
 // Функция выполняет редактирование аккаунта
-export function editAccount(username, email, firstName, lastName) {
+export function editAccount(data) {
     return dispatch => {
+        if (Object.keys(data).length === 0) {
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
+            return;
+        }
         let token = localStorage.getItem(TOKEN_NAME);
-        let data = {
-            username,
-            email,
-            first_name: firstName,
-            last_name: lastName
-        };
         $.ajax(url.EDIT_ACCOUNT_URL, {
-            method: 'post',
+            method: 'patch',
             headers: {
                 authorization: token
             },
             data
         }).then(() => {
             dispatch(setAccount(data));
+            dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
         }).catch(err => {
             if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Произошла сетевая ошибка.'));
