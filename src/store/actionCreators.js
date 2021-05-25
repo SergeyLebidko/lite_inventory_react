@@ -159,6 +159,32 @@ export function changePassword(currentPassword, nextPassword) {
     }
 }
 
+// Функция выполняет редактирование аккаунта
+export function editAccount(username, email, firstName, lastName) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        let data = {
+            username,
+            email,
+            first_name: firstName,
+            last_name: lastName
+        };
+        $.ajax(url.EDIT_ACCOUNT_URL, {
+            method: 'post',
+            headers: {
+                authorization: token
+            },
+            data
+        }).then(() => {
+            dispatch(setAccount(data));
+        }).catch(err => {
+            if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
+            if (err.statusText === 'error') dispatch(setError('Произошла сетевая ошибка.'));
+            setTimeout(() => dispatch(clearError()), 4000);
+        });
+    }
+}
+
 // Функция выполняет удаление аккаунта
 export function removeAccount(password) {
     return dispatch => {

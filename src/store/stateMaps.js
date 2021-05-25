@@ -28,7 +28,8 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'EditAccountForm':
             return state => ({
-                account: state.account
+                account: state.account,
+                error: state.error
             });
         default:
             return null

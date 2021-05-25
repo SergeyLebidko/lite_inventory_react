@@ -9,7 +9,8 @@ import {
     clearResetPasswordUuid,
     removeAccount,
     changePassword,
-    clearError
+    clearError,
+    editAccount
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -47,6 +48,11 @@ export default function mapDispatchToPropsFactory(component) {
         case 'ChangePasswordForm':
             return dispatch => ({
                 change: (currentPassword, nextPassword) => dispatch(changePassword(currentPassword, nextPassword)),
+                clearError: () => dispatch(clearError())
+            });
+        case 'EditAccountForm':
+            return dispatch => ({
+                edit: (username, email, firstName, lastName) => dispatch(editAccount(username, email, firstName, lastName)),
                 clearError: () => dispatch(clearError())
             });
         default:
