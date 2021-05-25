@@ -162,6 +162,7 @@ export function changePassword(currentPassword, nextPassword) {
 // Функция выполняет редактирование аккаунта
 export function editAccount(data) {
     return dispatch => {
+        // Если никакие поля не были изменены, то просто переходим обратно в меню операций с аккаунтом
         if (Object.keys(data).length === 0) {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
             return;

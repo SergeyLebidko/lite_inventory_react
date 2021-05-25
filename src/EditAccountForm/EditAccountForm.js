@@ -32,6 +32,7 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
             return;
         }
 
+        // Передаем только те поля, которые действительно изменились
         let data = {};
         if (username !== account.username) data = {...data, username};
         if (email !== account.email) data = {...data, email};
