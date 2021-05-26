@@ -22,10 +22,7 @@ export const ACCOUNT_CONTROL_MODES = {
     EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
 }
 
-function AccountControl({history, mode, account, setMode, loadAccount, logout}) {
-    // При монтированни компонента пытаемся получить данные аккаунта
-    useEffect(() => loadAccount(), []);
-
+function AccountControl({history, mode, account, setMode, logout}) {
     let cancelHandler = () => setMode(ACCOUNT_CONTROL_MODES.MENU_MODE);
 
     let content;

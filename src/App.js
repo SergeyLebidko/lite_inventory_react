@@ -5,7 +5,13 @@ import Inventory from './Inventory/Inventory';
 import NoMatch from './NoMatch/NoMatch';
 import './App.css';
 
-function App() {
+import {connect} from 'react-redux';
+import mapDispatchToPropsFactory from './store/dispatchMaps';
+
+function App({loadAccount}) {
+    // При монтировании компонента пытаемся получить данные аккаунта
+    useEffect(() => loadAccount(), []);
+
     return (
         <HashRouter>
             <Switch>
@@ -17,4 +23,5 @@ function App() {
     );
 }
 
-export default App;
+let dispatchMap = mapDispatchToPropsFactory('App');
+export default connect(null, dispatchMap)(App);

@@ -15,9 +15,12 @@ import {
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
-        case 'AccountControl':
+        case 'App':
             return dispatch => ({
                 loadAccount: () => dispatch(loadAccount()),
+            })
+        case 'AccountControl':
+            return dispatch => ({
                 logout: () => dispatch(logout()),
                 setMode: mode => dispatch(setAccountControlMode(mode))
             })
