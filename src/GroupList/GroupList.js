@@ -27,7 +27,7 @@ function GroupList({groups, parentGroupId}) {
     );
 
     return (
-        <ul>
+        <ul className={style.container}>
             {content}
         </ul>
     );
