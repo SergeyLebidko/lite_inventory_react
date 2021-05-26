@@ -1,23 +1,20 @@
 import React, {useEffect} from 'react';
 import style from './GroupBlock.module.scss';
+import GroupList from '../GroupList/GroupList';
 
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function GroupBlock({groups, loadGroups}) {
+function GroupBlock({loadGroups}) {
     // При монтировании компонента загружаем список групп
     useEffect(() => loadGroups(), []);
 
     return (
         <div className={style.container}>
-            <ul>
-                {groups.map(value => <li key={value.id}>{value.title}</li>)}
-            </ul>
+            <GroupList/>
         </div>
     );
 }
 
-let stateMap = mapStateToPropsFactory('GroupBlock');
 let dispatchMap = mapDispatchToPropsFactory('GroupBlock');
-export default connect(stateMap, dispatchMap)(GroupBlock);
+export default connect(null, dispatchMap)(GroupBlock);

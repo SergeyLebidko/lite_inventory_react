@@ -35,7 +35,7 @@ export default function mapStateToPropsFactory(component) {
             return state => ({
                 hasAccount: state.account !== null
             })
-        case 'GroupBlock':
+        case 'GroupList':
             return state => ({
                 groups: state.groups
             });

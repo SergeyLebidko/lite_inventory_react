@@ -10,7 +10,8 @@ import {
     removeAccount,
     changePassword,
     clearError,
-    editAccount, loadGroups
+    editAccount,
+    loadGroups
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
