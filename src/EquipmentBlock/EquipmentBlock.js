@@ -3,7 +3,7 @@ import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock() {
     return (
-        <div>
+        <div className={style.container}>
             Здесь будет список оборудования
         </div>
     );

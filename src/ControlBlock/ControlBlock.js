@@ -3,7 +3,7 @@ import style from './ControlBlock.module.scss';
 
 function ControlBlock() {
     return (
-        <div>
+        <div className={style.container}>
             Здесь будет блок управления
         </div>
     );

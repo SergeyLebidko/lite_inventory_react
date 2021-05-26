@@ -3,7 +3,7 @@ import style from './GroupBlock.module.scss';
 
 function GroupBlock(){
     return (
-        <div>
+        <div className={style.container}>
             Список групп
         </div>
     );
