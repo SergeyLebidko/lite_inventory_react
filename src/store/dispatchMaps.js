@@ -10,7 +10,7 @@ import {
     removeAccount,
     changePassword,
     clearError,
-    editAccount
+    editAccount, loadGroups
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -54,6 +54,10 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 edit: data => dispatch(editAccount(data)),
                 clearError: () => dispatch(clearError())
+            });
+        case 'GroupBlock':
+            return dispatch => ({
+                loadGroups: () => dispatch(loadGroups())
             });
         default:
             return null

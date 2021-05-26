@@ -3,7 +3,6 @@ import * as act from './actions';
 import * as url from '../urls';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
-import {CLEAR_ERROR} from "./actions";
 
 const TOKEN_NAME = 'li_token';
 
@@ -210,6 +209,22 @@ export function removeAccount(password) {
     }
 }
 
+// Функция выполняет загрузку списка групп
+export function loadGroups() {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.GROUPS_URL, {
+            headers: {
+                authorization: token
+            }
+        }).then(groups => {
+            dispatch(setGroups(groups));
+        }).catch(err => {
+            // TODO Вставить код обработки ошибок
+        });
+    }
+}
+
 export function setAccount(account) {
     return {
         type: act.SET_ACCOUNT,
@@ -252,6 +267,13 @@ export function setError(error) {
 
 export function clearError() {
     return {
-        type: CLEAR_ERROR
+        type: act.CLEAR_ERROR
+    }
+}
+
+export function setGroups(groups) {
+    return {
+        type: act.SET_GROUPS,
+        groups
     }
 }

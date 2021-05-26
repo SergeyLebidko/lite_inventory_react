@@ -37,6 +37,16 @@ export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, acti
     }
 }
 
+// Редуктор для работы с группами
+export const groups = (state = [], action) => {
+    switch (action.type) {
+        case act.SET_GROUPS:
+            return action.groups;
+        default:
+            return state;
+    }
+}
+
 // ---------- Универсальный редуктор для отображения ошибок --------
 
 export const error = (state = null, action) => {

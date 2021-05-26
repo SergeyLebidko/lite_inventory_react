@@ -23,7 +23,6 @@ export const ACCOUNT_CONTROL_MODES = {
 }
 
 function AccountControl({history, mode, account, setMode, loadAccount, logout}) {
-
     // При монтированни компонента пытаемся получить данные аккаунта
     useEffect(() => loadAccount(), []);
 

@@ -8,3 +8,5 @@ export const SET_ERROR = 'set_error';
 export const CLEAR_ERROR = 'clear_error';
 
 export const SET_ACCOUNT_CONTROL_MODE = 'set_account_control_mode';
+
+export const SET_GROUPS = 'set_groups';

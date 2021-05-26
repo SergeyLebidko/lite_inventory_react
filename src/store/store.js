@@ -5,14 +5,16 @@ import {
     account,
     resetPasswordUuid,
     accountControlMode,
-    error
+    error,
+    groups
 } from './reducers';
 
 let combinedReducer = combineReducers({
     account,
     accountControlMode,
     resetPasswordUuid,
-    error
+    error,
+    groups
 });
 let store = createStore(combinedReducer, {}, applyMiddleware(thunk));
 
