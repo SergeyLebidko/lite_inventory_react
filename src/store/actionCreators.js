@@ -277,3 +277,16 @@ export function setGroups(groups) {
         groups
     }
 }
+
+export function setSelectedGroup(selectedGroup){
+    return {
+        type: act.SET_SELECTED_GROUP,
+        selectedGroup
+    }
+}
+
+export function clearSelectedGroup() {
+    return {
+        type: act.CLEAR_SELECTED_GROUP
+    }
+}

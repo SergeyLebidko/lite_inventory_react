@@ -37,7 +37,8 @@ export default function mapStateToPropsFactory(component) {
             })
         case 'GroupList':
             return state => ({
-                groups: state.groups
+                groups: state.groups,
+                selectedGroup: state.selectedGroup
             });
         default:
             return null

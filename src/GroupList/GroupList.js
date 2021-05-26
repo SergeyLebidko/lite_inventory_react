@@ -3,32 +3,44 @@ import style from './GroupList.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function hasUnderGroup(groups, parentGroupId) {
     for (let group of groups) if (group.group === parentGroupId) return true;
     return false;
 }
 
-function GroupList({groups, parentGroupId}) {
+function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup}) {
     if (groups.length === 0) return '';
 
     let currentGroups = groups.filter(value => value.group === parentGroupId);
-    let content = (
-        <>
-            {currentGroups.map(value => {
-                return (
-                    <li key={value.id}>
-                        <span>{value.title}</span>
-                        {hasUnderGroup(groups, value.id) ? <GroupList groups={groups} parentGroupId={value.id}/> : ''}
-                    </li>
-                )
-            })}
-        </>
-    );
+
+    let createListElement = group => {
+        let spanClass = selectedGroup && selectedGroup.id === group.id ? style.selected : '';
+        let underGroupContent = '';
+
+        if (hasUnderGroup(groups, group.id)) {
+            underGroupContent = (
+                <GroupList groups={groups}
+                           parentGroupId={group.id}
+                           selectedGroup={selectedGroup}
+                           setSelectedGroup={setSelectedGroup}
+                />
+            );
+        }
+        return (
+            <li key={group.id}>
+                <span className={spanClass} onClick={() => setSelectedGroup(group)}>
+                      {group.title}
+                </span>
+                {underGroupContent}
+            </li>
+        )
+    }
 
     return (
         <ul className={style.container}>
-            {content}
+            {currentGroups.map(group => createListElement(group))}
         </ul>
     );
 }
@@ -38,5 +50,6 @@ GroupList.defaultProps = {
 }
 
 let stateMap = mapStateToPropsFactory('GroupList');
-export default connect(stateMap)(GroupList);
+let dispatchMap = mapDispatchToPropsFactory('GroupList');
+export default connect(stateMap, dispatchMap)(GroupList);
 

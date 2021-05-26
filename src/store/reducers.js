@@ -47,6 +47,18 @@ export const groups = (state = [], action) => {
     }
 }
 
+// Редуктор для работы с выбранной (selected) группой
+export const selectedGroup = (state = null, action) => {
+    switch (action.type) {
+        case (act.SET_SELECTED_GROUP):
+            return action.selectedGroup
+        case (act.CLEAR_SELECTED_GROUP):
+            return null;
+        default:
+            return state;
+    }
+}
+
 // ---------- Универсальный редуктор для отображения ошибок --------
 
 export const error = (state = null, action) => {

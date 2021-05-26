@@ -1,10 +1,23 @@
+@import '../variables';
+
 .container {
   list-style-type: none;
   padding-left: 0;
 
   span {
-    display: inline-block;
+    display: block;
     padding: 5px 15px 5px 5px;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(235, 235, 235);
+    }
+
+    &.selected {
+      background-color: $dark-background-color;
+      color: white;
+    }
   }
 
   .container {
