@@ -1,0 +1,11 @@
+@import '../variables';
+
+.container {
+  background-color: white;
+  max-width: 300px;
+  padding: 20px;
+  margin: auto;
+  border-radius: $border-radius;
+  box-shadow: $main-shadow;
+  text-align: center;
+}

@@ -31,6 +31,10 @@ export default function mapStateToPropsFactory(component) {
                 account: state.account,
                 error: state.error
             });
+        case 'Inventory':
+            return state => ({
+                hasAccount: state.account !== null
+            })
         default:
             return null
     }

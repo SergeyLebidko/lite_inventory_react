@@ -4,14 +4,26 @@ import GroupBlock from '../GroupBlock/GroupBlock';
 import EquipmentBlock from '../EquipmentBlock/EquipmentBlock';
 import style from './Inventory.module.scss';
 
-function Inventory(){
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
+
+function Inventory({hasAccount}) {
     return (
         <>
-            <ControlBlock/>
-            <GroupBlock/>
-            <EquipmentBlock/>
+            {hasAccount ?
+                <>
+                    <ControlBlock/>
+                    <GroupBlock/>
+                    <EquipmentBlock/>
+                </>
+                :
+                <div className={style.container}>
+                    Для доступа к инвентарю Вам нужно выполнить вход или зарегистрироваться
+                </div>
+            }
         </>
-    );
+    )
 }
 
-export default Inventory;
+let stateMap = mapStateToPropsFactory('Inventory');
+export default connect(stateMap)(Inventory);
