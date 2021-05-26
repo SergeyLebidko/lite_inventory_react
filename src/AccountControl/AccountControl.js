@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {withRouter} from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
@@ -21,7 +22,7 @@ export const ACCOUNT_CONTROL_MODES = {
     EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
 }
 
-function AccountControl({mode, account, setMode, loadAccount, logout}) {
+function AccountControl({history, mode, account, setMode, loadAccount, logout}) {
 
     // При монтированни компонента пытаемся получить данные аккаунта
     useEffect(() => loadAccount(), []);
@@ -46,7 +47,10 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
                         </h1>
                         <ul className={style.action_list}>
                             <li>
-                                <input type="button" value="Мой инвентарь"/>
+                                <input type="button"
+                                       value="Мой инвентарь"
+                                       onClick={() => history.push('/inventory')}
+                                />
                             </li>
                             <li>
                                 <input type="button"
@@ -134,5 +138,5 @@ function AccountControl({mode, account, setMode, loadAccount, logout}) {
 
 let stateMap = mapStateToPropsFactory('AccountControl');
 let dispatchMap = mapDispatchToPropsFactory('AccountControl');
-export default connect(stateMap, dispatchMap)(AccountControl);
+export default connect(stateMap, dispatchMap)(withRouter(AccountControl));
 
