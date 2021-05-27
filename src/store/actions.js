@@ -17,3 +17,12 @@ export const CLEAR_GROUPS_LOAD_ERROR = 'clear_groups_load_error';
 
 export const SET_SELECTED_GROUP = 'set_selected_group';
 export const CLEAR_SELECTED_GROUP = 'clear_selected_group';
+
+export const SET_EQUIPMENT_CARDS = 'set_equipment_cards';
+export const CLEAR_EQUIPMENT_CARDS = 'clear_equipment_cards';
+
+export const SET_EQUIPMENT_FEATURES = 'set_equipment_features';
+export const CLEAR_EQUIPMENT_FEATURES = 'clear_equipment_features';
+
+export const SET_LOAD_EQUIPMENTS_ERROR = 'set_load_equipments_error';
+export const CLEAR_LOAD_EQUIPMENTS_ERROR = 'clear_load_equipments_error';

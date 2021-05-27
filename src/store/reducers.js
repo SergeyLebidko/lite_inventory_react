@@ -63,13 +63,49 @@ export const selectedGroup = (state = null, action) => {
 
 // Редуктор для работы с ошибками загрузки групп
 export const groupsLoadError = (state = null, action) => {
-    switch (action.type){
+    switch (action.type) {
         case act.SET_GROUPS_LOAD_ERROR:
             return action.loadError;
         case act.CLEAR_GROUPS_LOAD_ERROR:
             return null;
         default:
             return state
+    }
+}
+
+// Редуктор для карточек оборудования
+export const equipmentCards = (state = [], action) => {
+    switch (action.type) {
+        case act.SET_EQUIPMENT_CARDS:
+            return action.equipmentCards;
+        case act.CLEAR_EQUIPMENT_CARDS:
+            return [];
+        default:
+            return state
+    }
+}
+
+// Редактор для характеристик оборудования
+export const equipmentFeatures = (state = [], action) => {
+    switch (action.type) {
+        case act.SET_EQUIPMENT_FEATURES:
+            return action.equipmentFeatures;
+        case act.CLEAR_EQUIPMENT_FEATURES:
+            return [];
+        default:
+            return state;
+    }
+}
+
+// Редуктор для ошибок загрузки оборудования и его характеристик
+export const loadEquipmentsError = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_LOAD_EQUIPMENTS_ERROR:
+            return action.loadError;
+        case act.CLEAR_LOAD_EQUIPMENTS_ERROR:
+            return null;
+        default:
+            return state;
     }
 }
 

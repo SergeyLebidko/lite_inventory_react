@@ -14,7 +14,7 @@ import {
     loadGroups,
     clearSelectedGroup,
     setSelectedGroup,
-    clearGroupsLoadError
+    clearGroupsLoadError, clearLoadEquipmentsError, loadEquipments
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -71,6 +71,11 @@ export default function mapDispatchToPropsFactory(component) {
         case 'GroupList':
             return dispatch => ({
                 setSelectedGroup: group => dispatch(setSelectedGroup(group))
+            });
+        case 'EquipmentBlock':
+            return dispatch => ({
+                clearEquipmentsLoadError: () => dispatch(clearLoadEquipmentsError()),
+                loadEquipments: group => dispatch(loadEquipments(group))
             });
         default:
             return null

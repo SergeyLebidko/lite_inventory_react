@@ -225,6 +225,15 @@ export function loadGroups() {
     }
 }
 
+// Функция выполняет загрузку списка оборудования для переданной группы
+export function loadEquipments(group) {
+    return dispatch => {
+        if (!group) return;
+
+        // TODO Вставить код загрузки
+    }
+}
+
 export function setAccount(account) {
     return {
         type: act.SET_ACCOUNT,
@@ -307,5 +316,44 @@ export function setGroupsLoadError(loadError) {
 export function clearGroupsLoadError() {
     return {
         type: act.CLEAR_GROUPS_LOAD_ERROR
+    }
+}
+
+export function setEquipmentCards(equipmentCards) {
+    return {
+        type: act.SET_EQUIPMENT_CARDS,
+        equipmentCards
+    }
+}
+
+export function clearEquipmentCards() {
+    return {
+        type: act.CLEAR_EQUIPMENT_CARDS
+    }
+}
+
+export function setEquipmentFeatures(equipmentFeatures) {
+    return {
+        type: act.SET_EQUIPMENT_FEATURES,
+        equipmentFeatures
+    }
+}
+
+export function clearEquipmentFeatures() {
+    return {
+        type: act.CLEAR_EQUIPMENT_FEATURES
+    }
+}
+
+export function setLoadEquipmentsError(loadError) {
+    return {
+        type: act.SET_LOAD_EQUIPMENTS_ERROR,
+        loadError
+    }
+}
+
+export function clearLoadEquipmentsError() {
+    return {
+        type: act.CLEAR_LOAD_EQUIPMENTS_ERROR
     }
 }

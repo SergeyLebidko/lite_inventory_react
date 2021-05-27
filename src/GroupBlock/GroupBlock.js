@@ -7,7 +7,7 @@ import mapDispatchToPropsFactory from '../store/dispatchMaps';
 import mapStateToPropsFactory from '../store/stateMaps';
 
 function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearGroupsLoadError}) {
-    // При монтировании компонента загружаем список групп и сбрасываем выбранную группу
+    // При монтировании компонента загружаем список групп и сбрасываем выбранную группу и ошибки загрузки
     useEffect(() => {
         clearGroupsLoadError();
         clearSelectedGroup();
