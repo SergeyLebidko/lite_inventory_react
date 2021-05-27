@@ -161,7 +161,7 @@ export function changePassword(currentPassword, nextPassword) {
 
 // Функция выполняет редактирование аккаунта
 export function editAccount(data) {
-    return (dispatch, getState) => {
+    return dispatch => {
         // Если никакие поля не были изменены, то просто переходим обратно в меню операций с аккаунтом
         if (Object.keys(data).length === 0) {
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
@@ -174,9 +174,8 @@ export function editAccount(data) {
                 authorization: token
             },
             data
-        }).then(() => {
-            let nextAccountData = {...getState().account, ...data};
-            dispatch(setAccount(nextAccountData));
+        }).then(editedAccount => {
+            dispatch(setAccount(editedAccount));
             dispatch(setAccountControlMode(ACCOUNT_CONTROL_MODES.MENU_MODE));
         }).catch(err => {
             if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
