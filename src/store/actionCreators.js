@@ -243,8 +243,6 @@ export function loadEquipments(group) {
 
             dispatch(setEquipmentCards(cards));
 
-            console.log('После диспатча списка карточек');
-
             let featureRequests = [];
             for (let card of cards) {
                 featureRequests.push(
@@ -255,14 +253,16 @@ export function loadEquipments(group) {
                         data: {
                             card: card.id
                         }
-                    }).then(features => {
-                        return features;
-                    })
+                    }).then(features => features)
                 )
             }
             return $.when(...featureRequests);
-        }).then((...data) => {
-            console.log('Получил список свойств', data);
+        }).then((...features) => {
+            let featuresForStore = [];
+            for (let feature of features) featuresForStore = featuresForStore.concat(feature);
+
+            console.log('Получил список свойств', featuresForStore);
+            dispatch(setEquipmentFeatures(features))
         }).then(() => {
             return $.ajax(url.EQUIPMENT_TYPES_URL, {
                 headers: {
@@ -271,7 +271,9 @@ export function loadEquipments(group) {
             })
         }).then(types => {
             console.log('Получил список типов', types);
-        });
+
+            dispatch(setEquipmentTypes(types));
+        }).catch(err => console.log('Возникла ошибка: ', err));
     }
 }
 
