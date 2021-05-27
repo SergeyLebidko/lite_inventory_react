@@ -45,11 +45,7 @@ export default function mapStateToPropsFactory(component) {
                 selectedGroup: state.selectedGroup
             });
         case 'EquipmentBlock':
-            return state => ({
-                equipmentsLoadError: state.equipmentsLoadError,
-                selectedGroup: state.selectedGroup,
-                cards: state.equipmentCards
-            })
+            return state => ({})
         default:
             return null
     }

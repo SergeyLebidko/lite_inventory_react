@@ -228,13 +228,50 @@ export function loadGroups() {
 // Функция выполняет загрузку списка оборудования для переданной группы
 export function loadEquipments(group) {
     return dispatch => {
-        if (!group) {
-            dispatch(clearEquipmentCards());
-            dispatch(clearEquipmentFeatures());
-            return;
-        }
+        let token = localStorage.getItem(TOKEN_NAME);
 
-        // TODO Вставить код загрузки
+        // Сперва загружаем список карточек, входящих в переданную группу
+        $.ajax(url.EQUIPMENT_CARDS_URL, {
+            headers: {
+                authorization: token
+            },
+            data: {
+                group: group.id
+            }
+        }).then(cards => {
+            console.log('Получил список карточек', cards);
+
+            dispatch(setEquipmentCards(cards));
+
+            console.log('После диспатча списка карточек');
+
+            let featureRequests = [];
+            for (let card of cards) {
+                featureRequests.push(
+                    $.ajax(url.EQUIPMENT_FEATURES_URL, {
+                        headers: {
+                            authorization: token
+                        },
+                        data: {
+                            card: card.id
+                        }
+                    }).then(features => {
+                        return features;
+                    })
+                )
+            }
+            return $.when(...featureRequests);
+        }).then((...data) => {
+            console.log('Получил список свойств', data);
+        }).then(() => {
+            return $.ajax(url.EQUIPMENT_TYPES_URL, {
+                headers: {
+                    authorization: token
+                },
+            })
+        }).then(types => {
+            console.log('Получил список типов', types);
+        });
     }
 }
 

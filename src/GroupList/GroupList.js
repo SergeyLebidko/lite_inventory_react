@@ -10,27 +10,33 @@ function hasUnderGroup(groups, parentGroupId) {
     return false;
 }
 
-function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup}) {
+function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup, loadEquipments}) {
     if (groups.length === 0) return '';
 
     let currentGroups = groups.filter(value => value.group === parentGroupId);
 
     let createListElement = group => {
         let spanClass = selectedGroup && selectedGroup.id === group.id ? style.selected : '';
-        let underGroupContent = '';
 
+        let underGroupContent = '';
         if (hasUnderGroup(groups, group.id)) {
             underGroupContent = (
                 <GroupList groups={groups}
                            parentGroupId={group.id}
                            selectedGroup={selectedGroup}
                            setSelectedGroup={setSelectedGroup}
+                           loadEquipments={loadEquipments}
                 />
             );
         }
+
+        let groupClickHandler = group => {
+            setSelectedGroup(group);
+            loadEquipments(group);
+        }
         return (
             <li key={group.id}>
-                <span className={spanClass} onClick={() => setSelectedGroup(group)}>
+                <span className={spanClass} onClick={() => groupClickHandler(group)}>
                       {group.title}
                 </span>
                 {underGroupContent}
