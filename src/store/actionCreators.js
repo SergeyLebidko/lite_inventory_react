@@ -225,7 +225,7 @@ export function loadGroups() {
     }
 }
 
-// Функция выполняет загрузку списка оборудования для переданной группы
+// Функция выполняет загрузку списка оборудования
 export function loadEquipments(group) {
     return async dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
@@ -238,7 +238,7 @@ export function loadEquipments(group) {
             data: {
                 group: group.id
             }
-        }) // .then(cards => cards);
+        })
 
         // Функция для загрузки списка характеристик
         let featuresLoader = cards => {
