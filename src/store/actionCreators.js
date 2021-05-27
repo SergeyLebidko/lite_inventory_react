@@ -218,8 +218,9 @@ export function loadGroups() {
             }
         }).then(groups => {
             dispatch(setGroups(groups));
-        }).catch(err => {
-            // TODO Вставить код обработки ошибок
+        }).catch(() => {
+            dispatch(clearGroups());
+            dispatch(setGroupsLoadError('Не удалось загрузить список групп'));
         });
     }
 }
@@ -277,7 +278,13 @@ export function setGroups(groups) {
     }
 }
 
-export function setSelectedGroup(selectedGroup){
+export function clearGroups() {
+    return {
+        type: act.CLEAR_GROUPS
+    }
+}
+
+export function setSelectedGroup(selectedGroup) {
     return {
         type: act.SET_SELECTED_GROUP,
         selectedGroup
@@ -287,5 +294,18 @@ export function setSelectedGroup(selectedGroup){
 export function clearSelectedGroup() {
     return {
         type: act.CLEAR_SELECTED_GROUP
+    }
+}
+
+export function setGroupsLoadError(loadError) {
+    return {
+        type: act.SET_GROUPS_LOAD_ERROR,
+        loadError
+    }
+}
+
+export function clearGroupsLoadError() {
+    return {
+        type: act.CLEAR_GROUPS_LOAD_ERROR
     }
 }

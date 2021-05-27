@@ -7,7 +7,8 @@ import {
     accountControlMode,
     error,
     groups,
-    selectedGroup
+    selectedGroup,
+    groupsLoadError
 } from './reducers';
 
 let combinedReducer = combineReducers({
@@ -16,7 +17,8 @@ let combinedReducer = combineReducers({
     resetPasswordUuid,
     error,
     groups,
-    selectedGroup
+    selectedGroup,
+    groupsLoadError
 });
 let store = createStore(combinedReducer, {}, applyMiddleware(thunk));
 

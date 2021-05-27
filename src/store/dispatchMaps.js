@@ -13,7 +13,8 @@ import {
     editAccount,
     loadGroups,
     clearSelectedGroup,
-    setSelectedGroup
+    setSelectedGroup,
+    clearGroupsLoadError
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -64,7 +65,8 @@ export default function mapDispatchToPropsFactory(component) {
         case 'GroupBlock':
             return dispatch => ({
                 loadGroups: () => dispatch(loadGroups()),
-                clearSelectedGroup: () => dispatch(clearSelectedGroup())
+                clearSelectedGroup: () => dispatch(clearSelectedGroup()),
+                clearGroupsLoadError: () => dispatch(clearGroupsLoadError()),
             });
         case 'GroupList':
             return dispatch => ({

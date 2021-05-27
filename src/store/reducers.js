@@ -42,6 +42,8 @@ export const groups = (state = [], action) => {
     switch (action.type) {
         case act.SET_GROUPS:
             return action.groups;
+        case act.CLEAR_GROUPS:
+            return [];
         default:
             return state;
     }
@@ -59,7 +61,19 @@ export const selectedGroup = (state = null, action) => {
     }
 }
 
-// ---------- Универсальный редуктор для отображения ошибок --------
+// Редуктор для работы с ошибками загрузки групп
+export const groupsLoadError = (state = null, action) => {
+    switch (action.type){
+        case act.SET_GROUPS_LOAD_ERROR:
+            return action.loadError;
+        case act.CLEAR_GROUPS_LOAD_ERROR:
+            return null;
+        default:
+            return state
+    }
+}
+
+// ---------- Универсальный редуктор для отображения ошибок форм --------
 
 export const error = (state = null, action) => {
     switch (action.type) {

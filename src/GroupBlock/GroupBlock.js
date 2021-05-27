@@ -4,20 +4,23 @@ import GroupList from '../GroupList/GroupList';
 
 import {connect} from 'react-redux';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import mapStateToPropsFactory from '../store/stateMaps';
 
-function GroupBlock({loadGroups, clearSelectedGroup}) {
+function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearGroupsLoadError}) {
     // При монтировании компонента загружаем список групп и сбрасываем выбранную группу
     useEffect(() => {
+        clearGroupsLoadError();
+        clearSelectedGroup();
         loadGroups();
-        clearSelectedGroup()
     }, []);
 
     return (
         <div className={style.container}>
-            <GroupList/>
+            {groupsLoadError !== null ? <div className="load_error">{groupsLoadError}</div> : <GroupList/>}
         </div>
     );
 }
 
+let stateMap = mapStateToPropsFactory('GroupBlock');
 let dispatchMap = mapDispatchToPropsFactory('GroupBlock');
-export default connect(null, dispatchMap)(GroupBlock);
+export default connect(stateMap, dispatchMap)(GroupBlock);

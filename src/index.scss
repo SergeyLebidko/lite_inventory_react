@@ -88,3 +88,9 @@ input[type=text], input[type=password], input[type=email] {
   padding: 10px 20px;
   margin: 5px;
 }
+
+.load_error {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+}
