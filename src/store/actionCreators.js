@@ -227,21 +227,22 @@ export function loadGroups() {
 
 // Функция выполняет загрузку списка оборудования для переданной группы
 export function loadEquipments(group) {
-    return dispatch => {
+    return async dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
 
-        // Сперва загружаем список карточек, входящих в переданную группу
-        $.ajax(url.EQUIPMENT_CARDS_URL, {
+        // Функция для загрузки списка карточек
+        let cardsLoader = () => $.ajax(url.EQUIPMENT_CARDS_URL, {
             headers: {
                 authorization: token
             },
             data: {
                 group: group.id
             }
-        }).then(cards => {
-            console.log('Получил список карточек', cards);
+        }) // .then(cards => cards);
 
-            dispatch(setEquipmentCards(cards));
+        // Функция для загрузки списка характеристик
+        let featuresLoader = cards => {
+            let deferred = $.Deferred();
 
             let featureRequests = [];
             for (let card of cards) {
@@ -256,24 +257,41 @@ export function loadEquipments(group) {
                     }).then(features => features)
                 )
             }
-            return $.when(...featureRequests);
-        }).then((...features) => {
-            let featuresForStore = [];
-            for (let feature of features) featuresForStore = featuresForStore.concat(feature);
+            $.when(...featureRequests)
+                .then((...features) => {
+                    let featuresForStore = [];
+                    for (let feature of features) featuresForStore = featuresForStore.concat(feature);
+                    deferred.resolve(featuresForStore);
+                }).catch(err => deferred.reject(err))
 
-            console.log('Получил список свойств', featuresForStore);
-            dispatch(setEquipmentFeatures(features))
-        }).then(() => {
-            return $.ajax(url.EQUIPMENT_TYPES_URL, {
-                headers: {
-                    authorization: token
-                },
-            })
-        }).then(types => {
-            console.log('Получил список типов', types);
+            return deferred.promise();
+        }
 
+        // Функция для загрузки списка типов оборудования
+        let typesLoader = () => $.ajax(url.EQUIPMENT_TYPES_URL, {
+            headers: {
+                authorization: token
+            }
+        });
+
+        try {
+            let cards = await cardsLoader();
+            let features = await featuresLoader(cards);
+            let types = await typesLoader();
+
+            // Записываем списки карточек, характеристик и типов (актуальных для переданной группы) в хранилище
+            dispatch(clearLoadEquipmentsError());
+            dispatch(setEquipmentCards(cards));
+            dispatch(setEquipmentFeatures(features));
             dispatch(setEquipmentTypes(types));
-        }).catch(err => console.log('Возникла ошибка: ', err));
+        } catch (err) {
+
+            // В случае невозможности загрузки списка карточек - сбрасываем состояние хранилища и диспатчим ошибку
+            dispatch(clearEquipmentCards());
+            dispatch(clearEquipmentFeatures());
+            dispatch(clearEquipmentTypes());
+            dispatch(setLoadEquipmentsError('Не удалось загрузить список оборудования'));
+        }
     }
 }
 
