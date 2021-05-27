@@ -228,7 +228,11 @@ export function loadGroups() {
 // Функция выполняет загрузку списка оборудования для переданной группы
 export function loadEquipments(group) {
     return dispatch => {
-        if (!group) return;
+        if (!group) {
+            dispatch(clearEquipmentCards());
+            dispatch(clearEquipmentFeatures());
+            return;
+        }
 
         // TODO Вставить код загрузки
     }
@@ -342,6 +346,19 @@ export function setEquipmentFeatures(equipmentFeatures) {
 export function clearEquipmentFeatures() {
     return {
         type: act.CLEAR_EQUIPMENT_FEATURES
+    }
+}
+
+export function setEquipmentTypes(equipmentTypes) {
+    return {
+        type: act.SET_EQUIPMENT_TYPES,
+        equipmentTypes
+    }
+}
+
+export function clearEquipmentTypes() {
+    return {
+        type: act.CLEAR_EQUIPMENT_TYPES
     }
 }
 

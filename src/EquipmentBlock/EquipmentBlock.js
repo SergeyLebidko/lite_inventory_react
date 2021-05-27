@@ -5,24 +5,46 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function EquipmentBlock({cards, features, loadEquipments, selectedGroup, equipmentsLoadError, clearEquipmentsLoadError}) {
-    // При монтировании компонента сбрасываем ошибки
-    useEffect(() => clearEquipmentsLoadError(), []);
+function EquipmentBlock(props) {
+    let {
+        cards,
+        selectedGroup,
+        loadEquipments,
+        equipmentsLoadError,
+        clearEquipmentsLoadError,
+        clearCards,
+        clearFeatures,
+        clearTypes
+    } = props;
+
+    // При монтировании компонента сбрасываем ошибки и списки карточек, характеристи и типов
+    useEffect(() => {
+        clearEquipmentsLoadError();
+        clearCards();
+        clearFeatures();
+        clearTypes();
+    }, []);
 
     // При изменении выбранной группы обновляем список оборудования и характеристик
     useEffect(() => {
         loadEquipments(selectedGroup)
     }, [selectedGroup]);
 
-    if (selectedGroup === null) return '';
+    let content;
+
+    if (equipmentsLoadError !== null) {
+        content = <div className="load_error">{equipmentsLoadError}</div>;
+    } else {
+        if (!selectedGroup) {
+            content = '';
+        } else {
+            // TODO content = Список объектов с карточками
+        }
+    }
 
     return (
         <div className={style.container}>
-            {equipmentsLoadError !== null ?
-                <div className="load_error">{equipmentsLoadError}</div>
-                :
-                "Здесь будет список оборудования"
-            }
+            {content}
         </div>
     );
 }
