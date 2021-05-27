@@ -21,7 +21,7 @@ export const CLEAR_SELECTED_GROUP = 'clear_selected_group';
 export const SET_EQUIPMENT_CARDS = 'set_equipment_cards';
 export const CLEAR_EQUIPMENT_CARDS = 'clear_equipment_cards';
 
-export const SET_EQUIPMENT_TYPES = 'set_equipment_cards';
+export const SET_EQUIPMENT_TYPES = 'set_equipment_types';
 export const CLEAR_EQUIPMENT_TYPES = 'clear_equipment_types';
 
 export const SET_EQUIPMENT_FEATURES = 'set_equipment_features';
