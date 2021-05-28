@@ -17,7 +17,7 @@ import {
     clearGroupsLoadError,
     loadEquipments,
     clearLoadEquipmentsError,
-    setSelectedCard, clearSelectedCard,
+    setSelectedCard, clearSelectedCard, clearEquipmentCards, clearEquipmentFeatures, clearEquipmentTypes,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -69,9 +69,12 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 loadGroups: () => dispatch(loadGroups()),
                 clearSelectedGroup: () => dispatch(clearSelectedGroup()),
+                clearSelectedCard: () => dispatch(clearSelectedCard()),
                 clearGroupsLoadError: () => dispatch(clearGroupsLoadError()),
                 clearEquipmentsLoadError: () => dispatch(clearLoadEquipmentsError()),
-                clearSelectedCard: () => dispatch(clearSelectedCard())
+                clearEquipmentCards: () => dispatch(clearEquipmentCards()),
+                clearEquipmentFeatures: () => dispatch(clearEquipmentFeatures()),
+                clearEquipmentTypes: () => dispatch(clearEquipmentTypes())
             });
         case 'GroupList':
             return dispatch => ({

@@ -6,13 +6,28 @@ import {connect} from 'react-redux';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 import mapStateToPropsFactory from '../store/stateMaps';
 
-function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearSelectedCard, clearGroupsLoadError, clearEquipmentsLoadError}) {
-    // При монтировании компонента загружаем список групп и сбрасываем выбранную группу, карточку и ошибки загрузки
+function GroupBlock(props) {
+    let {
+        loadGroups,
+        groupsLoadError,
+        clearSelectedGroup,
+        clearSelectedCard,
+        clearGroupsLoadError,
+        clearEquipmentsLoadError,
+        clearEquipmentCards,
+        clearEquipmentFeatures,
+        clearEquipmentTypes
+    } = props;
+
+    // При монтировании компонента сбрасываем ошибки и старые данные и загружаем новый список групп
     useEffect(() => {
         clearEquipmentsLoadError();
         clearGroupsLoadError();
         clearSelectedGroup();
         clearSelectedCard();
+        clearEquipmentCards();
+        clearEquipmentFeatures();
+        clearEquipmentTypes();
         loadGroups();
     }, []);
 
