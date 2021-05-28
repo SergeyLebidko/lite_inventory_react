@@ -10,4 +10,23 @@
   background-color: white;
   box-shadow: $main-shadow;
   border-radius: $border-radius;
+
+  ul.card_list {
+    list-style-type: none;
+    padding-left: 0;
+
+    li.card {
+      padding: 10px;
+      background-color: rgb(240, 240, 240);
+      border-radius: $border-radius;
+
+      td {
+        min-width: 15em;
+      }
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+    }
+  }
 }

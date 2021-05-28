@@ -39,8 +39,8 @@ function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
                 </tr>
                 </tbody>
             </table>
-            {error !== null ? <div className="error">{error}</div> : ''}
-            {inputError !== null ? <div className="error">{inputError}</div> : ''}
+            {error ? <div className="error">{error}</div> : ''}
+            {inputError ? <div className="error">{inputError}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={cancelHandler}/>
                 <input type="button" value="Удалить" onClick={removeClickHandler}/>

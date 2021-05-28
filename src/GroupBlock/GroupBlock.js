@@ -6,9 +6,10 @@ import {connect} from 'react-redux';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 import mapStateToPropsFactory from '../store/stateMaps';
 
-function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearGroupsLoadError}) {
+function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearGroupsLoadError, clearEquipmentsLoadError}) {
     // При монтировании компонента загружаем список групп и сбрасываем выбранную группу и ошибки загрузки
     useEffect(() => {
+        clearEquipmentsLoadError();
         clearGroupsLoadError();
         clearSelectedGroup();
         loadGroups();
@@ -16,7 +17,7 @@ function GroupBlock({loadGroups, groupsLoadError, clearSelectedGroup, clearGroup
 
     return (
         <div className={style.container}>
-            {groupsLoadError !== null ? <div className="load_error">{groupsLoadError}</div> : <GroupList/>}
+            {groupsLoadError ? <div className="load_error">{groupsLoadError}</div> : <GroupList/>}
         </div>
     );
 }

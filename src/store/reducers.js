@@ -98,7 +98,7 @@ export const equipmentFeatures = (state = [], action) => {
 }
 
 // Редуктор для работы с типами оборудования
-export const loadEquipmentTypes = (state = [], action) => {
+export const equipmentTypes = (state = [], action) => {
     switch (action.type) {
         case act.SET_EQUIPMENT_TYPES:
             return action.equipmentTypes;
