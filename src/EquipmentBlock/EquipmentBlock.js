@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
+function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
     let getTypeTitle = typeId => {
         for (let type of types) if (type.id === typeId) return type.title;
         return null;
@@ -22,8 +22,11 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
 
         let featureList = getFeaturesList(card.id);
 
+        let cardClass = style.card;
+        if (selectedCard && selectedCard.id === card.id) cardClass += ' ' + style.selected;
+
         return (
-            <li key={card.id} className={style.card} onClick={() => console.log(card)}>
+            <li key={card.id} className={cardClass} onClick={() => setSelectedCard(card)}>
                 <table>
                     <tbody>
                     {card.inv_number ?

@@ -55,6 +55,7 @@
 
             span {
               display: inline-block;
+              color: black;
             }
 
             span:first-child {
@@ -67,6 +68,11 @@
       &:not(:first-child) {
         margin-top: 10px;
       }
+    }
+
+    li.selected {
+      background-color: $dark-background-color;
+      color: white;
     }
   }
 }

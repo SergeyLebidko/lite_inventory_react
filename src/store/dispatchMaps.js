@@ -15,7 +15,9 @@ import {
     clearSelectedGroup,
     setSelectedGroup,
     clearGroupsLoadError,
-    loadEquipments, clearLoadEquipmentsError,
+    loadEquipments,
+    clearLoadEquipmentsError,
+    setSelectedCard,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -76,7 +78,9 @@ export default function mapDispatchToPropsFactory(component) {
                 loadEquipments: group => dispatch(loadEquipments(group))
             });
         case 'EquipmentBlock':
-            return dispatch => ({});
+            return dispatch => ({
+                setSelectedCard: card => dispatch(setSelectedCard(card))
+            });
         default:
             return null
     }

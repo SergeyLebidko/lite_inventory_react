@@ -49,6 +49,7 @@ export default function mapStateToPropsFactory(component) {
                 cards: state.equipmentCards,
                 types: state.equipmentTypes,
                 features: state.equipmentFeatures,
+                selectedCard: state.selectedCard,
                 equipmentsLoadError: state.equipmentsLoadError
             })
         default:
