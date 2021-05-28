@@ -367,6 +367,19 @@ export function clearSelectedGroup() {
     }
 }
 
+export function setSelectedCard(selectedCard){
+    return {
+        type: act.SET_SELECTED_CARD,
+        selectedCard
+    }
+}
+
+export function clearSelectedCard(){
+    return {
+        type: act.CLEAR_SELECTED_CARD
+    }
+}
+
 export function setGroupsLoadError(loadError) {
     return {
         type: act.SET_GROUPS_LOAD_ERROR,

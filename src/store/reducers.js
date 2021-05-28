@@ -61,6 +61,18 @@ export const selectedGroup = (state = null, action) => {
     }
 }
 
+// Редуктор для работы с выбранной (selected) карточкой оборудования
+export const selectedCard = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_SELECTED_CARD:
+            return action.selectedCard;
+        case act.CLEAR_SELECTED_CARD:
+            return null;
+        default:
+            return state;
+    }
+}
+
 // Редуктор для работы с ошибками загрузки групп
 export const groupsLoadError = (state = null, action) => {
     switch (action.type) {

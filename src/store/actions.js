@@ -29,3 +29,6 @@ export const CLEAR_EQUIPMENT_FEATURES = 'clear_equipment_features';
 
 export const SET_LOAD_EQUIPMENTS_ERROR = 'set_load_equipments_error';
 export const CLEAR_LOAD_EQUIPMENTS_ERROR = 'clear_load_equipments_error';
+
+export const SET_SELECTED_CARD = 'set_selected_card';
+export const CLEAR_SELECTED_CARD = 'clear_selected_card';
