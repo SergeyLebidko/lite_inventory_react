@@ -23,7 +23,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
         let featureList = getFeaturesList(card.id);
 
         return (
-            <li key={card.id} className={style.card}>
+            <li key={card.id} className={style.card} onClick={() => console.log(card)}>
                 <table>
                     <tbody>
                     {card.inv_number ?
@@ -36,7 +36,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     <tr>
                         <td>
@@ -56,7 +56,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     {card.comment ?
                         <tr>
@@ -68,7 +68,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     {card.worker ?
                         <tr>
@@ -80,7 +80,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     {card.purchase_date ?
                         <tr>
@@ -92,7 +92,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     {card.price ?
                         <tr>
@@ -104,7 +104,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                             </td>
                         </tr>
                         :
-                        ''
+                        null
                     }
                     </tbody>
                 </table>
@@ -114,7 +114,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                         <ul className={style.feature_list}>
                             {featureList.map(feature => {
                                 return (
-                                    <li className={style.feature}>
+                                    <li key={feature.id} className={style.feature}>
                                         <span>{feature.name}</span>
                                         <span>{feature.value}</span>
                                     </li>
@@ -123,7 +123,7 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                         </ul>
                     </details>
                     :
-                    ''
+                    null
                 }
             </li>
         );
