@@ -111,10 +111,10 @@ function EquipmentBlock({cards, types, features, equipmentsLoadError}) {
                 {featureList.length > 0 ?
                     <details>
                         <summary>Характеристики:</summary>
-                        <ul>
+                        <ul className={style.feature_list}>
                             {featureList.map(feature => {
                                 return (
-                                    <li>
+                                    <li className={style.feature}>
                                         <span>{feature.name}</span>
                                         <span>{feature.value}</span>
                                     </li>
