@@ -1,13 +1,32 @@
 @import '../variables';
 
 .container {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  height: 30px;
-  padding: 10px;
   background-color: white;
   box-shadow: $main-shadow;
   border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+
+  input {
+    margin: 2px;
+  }
+}
+
+.group_control {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  height: 30px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.equipment_control {
+  position: fixed;
+  top: 20px;
+  left: 360px;
+  right: 20px;
+  height: 30px;
+  padding: 10px;
 }
