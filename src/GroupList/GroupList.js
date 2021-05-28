@@ -10,7 +10,7 @@ function hasUnderGroup(groups, parentGroupId) {
     return false;
 }
 
-function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup, loadEquipments}) {
+function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup, loadEquipments, clearSelectedCard}) {
     if (groups.length === 0) return '';
 
     let currentGroups = groups.filter(value => value.group === parentGroupId);
@@ -26,11 +26,14 @@ function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup, load
                            selectedGroup={selectedGroup}
                            setSelectedGroup={setSelectedGroup}
                            loadEquipments={loadEquipments}
+                           clearSelectedCard={clearSelectedCard}
                 />
             );
         }
 
         let groupClickHandler = group => {
+            if (selectedGroup && selectedGroup.id === group.id) return;
+            clearSelectedCard();
             setSelectedGroup(group);
             loadEquipments(group);
         }
