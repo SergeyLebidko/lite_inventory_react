@@ -86,6 +86,8 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 setSelectedCard: card => dispatch(setSelectedCard(card))
             });
+        case 'ControlBlock':
+            return ({});
         default:
             return null
     }
