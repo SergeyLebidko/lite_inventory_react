@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import style from './ControlBlock.module.scss';
 
@@ -6,7 +6,25 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
+const NO_FORM = 'no_form';
+const STAT_FORM = 'stat_form';
+
 function ControlBlock({history, selectedGroup, selectedCard}) {
+    let [currentForm, setCurrentForm] = useState(NO_FORM);
+
+    let closeForm = () => setCurrentForm(NO_FORM);
+    let showStatForm = () => setCurrentForm(STAT_FORM);
+
+    let form;
+    switch (currentForm) {
+        case STAT_FORM:
+            form = 'Форма статистики';
+            break
+    }
+
+
+    let modalContainerStyle = currentForm === NO_FORM ? {display: 'none'} : {display: 'flex'};
+
     return (
         <>
             <div className={`${style.container} ${style.group_control}`}>
@@ -19,7 +37,10 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
                 <input type="button" value="Добавить"/>
                 <input type="button" className={selectedCard ? '' : style.no_available} value="Редактировать"/>
                 <input type="button" className={selectedCard ? '' : style.no_available} value="Удалить"/>
-                <input type="button" value="Статистика"/>
+                <input type="button" value="Статистика" onClick={showStatForm}/>
+            </div>
+            <div className={style.modal_container} style={modalContainerStyle}>
+                {form}
             </div>
         </>
     );
