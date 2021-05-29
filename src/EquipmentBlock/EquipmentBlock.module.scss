@@ -1,4 +1,5 @@
 @import '../variables';
+@import '../mixins';
 
 .container {
   position: fixed;
@@ -75,4 +76,6 @@
       color: white;
     }
   }
+
+  @extend %scroll_rules;
 }
