@@ -295,6 +295,23 @@ export function loadEquipments(group) {
     }
 }
 
+// Функция для выполнения загрузки статистики
+export function loadStat() {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.STAT_URL, {
+            headers: {
+                authorization: token
+            }
+        }).then(stat => {
+            dispatch(setStat(stat));
+        }).then(() => {
+            dispatch(clearStat());
+            dispatch(setError('Не удалось загрузить статистику'));
+        });
+    }
+}
+
 export function setAccount(account) {
     return {
         type: act.SET_ACCOUNT,
@@ -367,14 +384,14 @@ export function clearSelectedGroup() {
     }
 }
 
-export function setSelectedCard(selectedCard){
+export function setSelectedCard(selectedCard) {
     return {
         type: act.SET_SELECTED_CARD,
         selectedCard
     }
 }
 
-export function clearSelectedCard(){
+export function clearSelectedCard() {
     return {
         type: act.CLEAR_SELECTED_CARD
     }
@@ -442,5 +459,18 @@ export function setLoadEquipmentsError(loadError) {
 export function clearLoadEquipmentsError() {
     return {
         type: act.CLEAR_LOAD_EQUIPMENTS_ERROR
+    }
+}
+
+export function setStat(stat) {
+    return {
+        type: act.SET_STAT,
+        stat
+    }
+}
+
+export function clearStat() {
+    return {
+        type: act.CLEAR_STAT
     }
 }

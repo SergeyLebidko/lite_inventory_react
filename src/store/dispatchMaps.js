@@ -17,7 +17,12 @@ import {
     clearGroupsLoadError,
     loadEquipments,
     clearLoadEquipmentsError,
-    setSelectedCard, clearSelectedCard, clearEquipmentCards, clearEquipmentFeatures, clearEquipmentTypes,
+    setSelectedCard,
+    clearSelectedCard,
+    clearEquipmentCards,
+    clearEquipmentFeatures,
+    clearEquipmentTypes,
+    loadStat,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -88,6 +93,11 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'ControlBlock':
             return ({});
+        case 'StatModal':
+            return dispatch => ({
+                loadStat: () => dispatch(loadStat()),
+                clearError: () => dispatch(clearError())
+            })
         default:
             return null
     }

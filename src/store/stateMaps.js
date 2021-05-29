@@ -57,6 +57,10 @@ export default function mapStateToPropsFactory(component) {
                 selectedGroup: state.selectedGroup,
                 selectedCard: state.selectedCard
             });
+        case 'StatModal':
+            return state => ({
+                stat: state.stat
+            });
         default:
             return null
     }

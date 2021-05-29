@@ -5,6 +5,7 @@ import style from './ControlBlock.module.scss';
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import StatModal from "../StatModal/StatModal";
 
 const NO_FORM = 'no_form';
 const STAT_FORM = 'stat_form';
@@ -18,10 +19,9 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
     let form;
     switch (currentForm) {
         case STAT_FORM:
-            form = 'Форма статистики';
+            form = <StatModal closeForm={closeForm}/>;
             break
     }
-
 
     let modalContainerStyle = currentForm === NO_FORM ? {display: 'none'} : {display: 'flex'};
 

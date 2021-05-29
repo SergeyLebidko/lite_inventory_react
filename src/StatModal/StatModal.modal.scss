@@ -1,0 +1,13 @@
+@import '../forms';
+@import '../mixins';
+
+.modal {
+  width: 450px;
+  max-height: 80vh;
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 10px;
+
+  @extend %scroll_rules;
+}
+

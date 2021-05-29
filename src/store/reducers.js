@@ -133,7 +133,19 @@ export const loadEquipmentsError = (state = null, action) => {
     }
 }
 
-// ---------- Универсальный редуктор для отображения ошибок форм --------
+// Редуктор для работы со статистикой
+export const stat = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_STAT:
+            return action.stat;
+        case act.CLEAR_STAT:
+            return null;
+        default:
+            return state;
+    }
+}
+
+// ---------- Универсальный редуктор для отображения ошибок форм и модальных окон --------
 
 export const error = (state = null, action) => {
     switch (action.type) {

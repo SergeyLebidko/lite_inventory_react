@@ -32,3 +32,6 @@ export const CLEAR_LOAD_EQUIPMENTS_ERROR = 'clear_load_equipments_error';
 
 export const SET_SELECTED_CARD = 'set_selected_card';
 export const CLEAR_SELECTED_CARD = 'clear_selected_card';
+
+export const SET_STAT = 'set_stat';
+export const CLEAR_STAT = 'clear_stat';
