@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import style from './ControlBlock.module.scss';
 
@@ -12,9 +12,25 @@ const STAT_FORM = 'stat_form';
 
 function ControlBlock({history, selectedGroup, selectedCard}) {
     let [currentForm, setCurrentForm] = useState(NO_FORM);
+    let modalContainerRef = useRef(null);
 
     let closeForm = () => setCurrentForm(NO_FORM);
     let showStatForm = () => setCurrentForm(STAT_FORM);
+
+    // Отслеживаем нажатие на клавишу Esc для закрытия форм
+    useEffect(() => {
+        let formContainerKeyHandler = event => {
+            if (event.key === 'Escape' && currentForm !== NO_FORM) closeForm();
+        };
+        document.addEventListener('keydown', formContainerKeyHandler)
+        return () => document.removeEventListener('keydown', formContainerKeyHandler);
+    })
+
+    // Обработчик клика на поле вокруг модального окна. Закрывает модальное окно
+    let formContainerMouseHandler = event => {
+        if (event.target !== modalContainerRef.current) return;
+        closeForm();
+    }
 
     let form;
     switch (currentForm) {
@@ -39,7 +55,8 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
                 <input type="button" disabled={!Boolean(selectedCard)} value="Удалить"/>
                 <input type="button" value="Статистика" onClick={showStatForm}/>
             </div>
-            <div className={style.modal_container} style={modalContainerStyle}>
+            <div ref={modalContainerRef} className={style.modal_container} style={modalContainerStyle}
+                 onClick={formContainerMouseHandler}>
                 {form}
             </div>
         </>
