@@ -59,6 +59,7 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'StatModal':
             return state => ({
+                error: state.errors,
                 stat: state.stat
             });
         default:

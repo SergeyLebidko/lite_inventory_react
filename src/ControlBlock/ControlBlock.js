@@ -20,7 +20,7 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
     switch (currentForm) {
         case STAT_FORM:
             form = <StatModal closeForm={closeForm}/>;
-            break
+            break;
     }
 
     let modalContainerStyle = currentForm === NO_FORM ? {display: 'none'} : {display: 'flex'};
@@ -29,14 +29,14 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
         <>
             <div className={`${style.container} ${style.group_control}`}>
                 <input type="button" value="Добавить"/>
-                <input type="button" className={selectedGroup ? '' : style.no_available} value="Переименовать"/>
-                <input type="button" className={selectedGroup ? '' : style.no_available} value="Удалить"/>
+                <input type="button" disabled={!Boolean(selectedGroup)} value="Переименовать"/>
+                <input type="button" disabled={!Boolean(selectedGroup)} value="Удалить"/>
             </div>
             <div className={`${style.container} ${style.equipment_control}`}>
                 <input type="button" value="На главную" onClick={() => history.push('/')}/>
                 <input type="button" value="Добавить"/>
-                <input type="button" className={selectedCard ? '' : style.no_available} value="Редактировать"/>
-                <input type="button" className={selectedCard ? '' : style.no_available} value="Удалить"/>
+                <input type="button" disabled={!Boolean(selectedCard)} value="Редактировать"/>
+                <input type="button" disabled={!Boolean(selectedCard)} value="Удалить"/>
                 <input type="button" value="Статистика" onClick={showStatForm}/>
             </div>
             <div className={style.modal_container} style={modalContainerStyle}>

@@ -305,7 +305,7 @@ export function loadStat() {
             }
         }).then(stat => {
             dispatch(setStat(stat));
-        }).then(() => {
+        }).catch(() => {
             dispatch(clearStat());
             dispatch(setError('Не удалось загрузить статистику'));
         });

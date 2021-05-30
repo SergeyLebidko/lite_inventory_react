@@ -2,11 +2,16 @@
 @import '../mixins';
 
 .modal {
-  width: 450px;
+  width: 550px;
   max-height: 80vh;
   background-color: white;
   border-radius: $border-radius;
   padding: 10px;
+  box-shadow: $main-shadow;
+
+  input[type=text]:disabled {
+    color: black;
+  }
 
   @extend %scroll_rules;
 }
