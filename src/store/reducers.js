@@ -137,7 +137,7 @@ export const loadEquipmentsError = (state = null, action) => {
 export const stat = (state = null, action) => {
     switch (action.type) {
         case act.SET_STAT:
-            return action.stat;
+            return {...action.stat, sortParams: null};
         case act.CLEAR_STAT:
             return null;
         case act.SET_STAT_SORT:
@@ -151,7 +151,7 @@ export const stat = (state = null, action) => {
                 if (reverseDirection) result *= -1;
                 return result;
             });
-            return {...state, [section]: arr};
+            return {...state, [section]: arr, [section + '_sp']: `${field};${reverseDirection}`};
         default:
             return state;
     }
