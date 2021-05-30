@@ -16,11 +16,13 @@ function GroupBlock(props) {
         clearEquipmentsLoadError,
         clearEquipmentCards,
         clearEquipmentFeatures,
-        clearEquipmentTypes
+        clearEquipmentTypes,
+        clearGroups
     } = props;
 
     // При монтировании компонента сбрасываем ошибки и старые данные и загружаем новый список групп
     useEffect(() => {
+        clearGroups();
         clearEquipmentsLoadError();
         clearGroupsLoadError();
         clearSelectedGroup();

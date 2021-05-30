@@ -23,7 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
-    clearStat, setStatSort,
+    clearStat, setStatSort, clearGroups,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -74,6 +74,7 @@ export default function mapDispatchToPropsFactory(component) {
         case 'GroupBlock':
             return dispatch => ({
                 loadGroups: () => dispatch(loadGroups()),
+                clearGroups: () => dispatch(clearGroups()),
                 clearSelectedGroup: () => dispatch(clearSelectedGroup()),
                 clearSelectedCard: () => dispatch(clearSelectedCard()),
                 clearGroupsLoadError: () => dispatch(clearGroupsLoadError()),
