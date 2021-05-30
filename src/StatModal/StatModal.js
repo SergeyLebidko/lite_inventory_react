@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './StatModal.module.scss';
 
 import {connect} from 'react-redux';
@@ -6,6 +6,8 @@ import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
+    let [showZeroRow, setShowZeroRow] = useState(true);
+
     // При монтировании сбрасываем ошибки и загружаем статистику
     useEffect(() => {
         clearError();
@@ -13,6 +15,7 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
         loadStat();
     }, []);
 
+    let changeShowZeroRowHandler = () => setShowZeroRow(!showZeroRow);
 
     return (
         <div className={style.modal}>
@@ -29,6 +32,10 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                 :
                 ''
             }
+            <div className={style.zero_row_control}>
+                Показывать нулевые строки:
+                <input type="checkbox" checked={showZeroRow} onChange={changeShowZeroRowHandler}/>
+            </div>
             {
                 stat && stat.total_count > 0 ?
                     <>
