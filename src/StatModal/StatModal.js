@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
+function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, setStatSort}) {
     let [showZeroRow, setShowZeroRow] = useState(true);
 
     // При монтировании сбрасываем ошибки и загружаем статистику
@@ -43,12 +43,12 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                             <summary>Количество оборудования по группам (шт.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                             </div>
                             <ul>
@@ -67,12 +67,12 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                             <summary>Стоимость оборудования по группам (руб.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                             </div>
                             <ul>
@@ -91,12 +91,12 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                             <summary>Количество оборудования по типам (шт.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                             </div>
                             <ul>
@@ -115,12 +115,12 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                             <summary>Стоимость оборудования по типам (руб.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                                 <div>
-                                    <span>&uarr;</span>
                                     <span>&darr;</span>
+                                    <span>&uarr;</span>
                                 </div>
                             </div>
                             <ul>

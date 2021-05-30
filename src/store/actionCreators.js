@@ -474,3 +474,12 @@ export function clearStat() {
         type: act.CLEAR_STAT
     }
 }
+
+export function setStatSort(section, field, reverseDirection) {
+    return {
+        type: act.SET_STAT_SORT,
+        section,
+        field,
+        reverseDirection
+    }
+}

@@ -35,3 +35,4 @@ export const CLEAR_SELECTED_CARD = 'clear_selected_card';
 
 export const SET_STAT = 'set_stat';
 export const CLEAR_STAT = 'clear_stat';
+export const SET_STAT_SORT = 'set_stat_sort';

@@ -23,7 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
-    clearStat,
+    clearStat, setStatSort,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -98,6 +98,7 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 loadStat: () => dispatch(loadStat()),
                 clearStat: () => dispatch(clearStat()),
+                setStatSort: (section, field, reverseDirection = false) => dispatch(setStatSort(section, field, reverseDirection)),
                 clearError: () => dispatch(clearError())
             })
         default:
