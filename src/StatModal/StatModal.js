@@ -52,13 +52,15 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                                 </div>
                             </div>
                             <ul>
-                                {stat.count_by_groups.map(
-                                    value =>
-                                        <li key={value.id}>
-                                            {value.title}
-                                            <span className={style.value}>{value.equipment_count}</span>
-                                        </li>
-                                )}
+                                {stat.count_by_groups
+                                    .filter(value => showZeroRow ? true : value.equipment_count > 0)
+                                    .map(
+                                        value =>
+                                            <li key={value.id}>
+                                                {value.title}
+                                                <span className={style.value}>{value.equipment_count}</span>
+                                            </li>
+                                    )}
                             </ul>
                         </details>
                         <details>
@@ -74,13 +76,15 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                                 </div>
                             </div>
                             <ul>
-                                {stat.price_by_groups.map(
-                                    value =>
-                                        <li key={value.id}>
-                                            {value.title}
-                                            <span className={style.value}>{value.equipment_price}</span>
-                                        </li>
-                                )}
+                                {stat.price_by_groups
+                                    .filter(value => showZeroRow ? true : value.equipment_price > 0)
+                                    .map(
+                                        value =>
+                                            <li key={value.id}>
+                                                {value.title}
+                                                <span className={style.value}>{value.equipment_price}</span>
+                                            </li>
+                                    )}
                             </ul>
                         </details>
                         <details>
@@ -96,13 +100,15 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                                 </div>
                             </div>
                             <ul>
-                                {stat.count_by_types.map(
-                                    value =>
-                                        <li key={value.id}>
-                                            {value.title}
-                                            <span className={style.value}>{value.equipment_count}</span>
-                                        </li>
-                                )}
+                                {stat.count_by_types
+                                    .filter(value => showZeroRow ? true : value.equipment_count)
+                                    .map(
+                                        value =>
+                                            <li key={value.id}>
+                                                {value.title}
+                                                <span className={style.value}>{value.equipment_count}</span>
+                                            </li>
+                                    )}
                             </ul>
                         </details>
                         <details>
@@ -118,13 +124,15 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                                 </div>
                             </div>
                             <ul>
-                                {stat.price_by_types.map(
-                                    value =>
-                                        <li key={value.id}>
-                                            {value.title}
-                                            <span className={style.value}>{value.equipment_price}</span>
-                                        </li>
-                                )}
+                                {stat.price_by_types
+                                    .filter(value => showZeroRow ? true : value.equipment_price)
+                                    .map(
+                                        value =>
+                                            <li key={value.id}>
+                                                {value.title}
+                                                <span className={style.value}>{value.equipment_price}</span>
+                                            </li>
+                                    )}
                             </ul>
                         </details>
                     </>
