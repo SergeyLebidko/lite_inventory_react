@@ -128,18 +128,6 @@ export const loadEquipmentsError = (state = null, action) => {
             return action.loadError;
         case act.CLEAR_LOAD_EQUIPMENTS_ERROR:
             return null;
-        case act.SET_STAT_SORT:
-            let {section, field, reverseDirection} = action;
-            let arr = [...state[section]];
-            arr.sort((a, b) => {
-                let result;
-                if (a[field] < b[field]) result = -1;
-                if (a[field] === b[field]) result = 0;
-                if (a[field] > b[field]) result = 1;
-                if (reverseDirection) result *= -1;
-                return result;
-            });
-            return {...state, [section]: arr};
         default:
             return state;
     }
@@ -152,6 +140,18 @@ export const stat = (state = null, action) => {
             return action.stat;
         case act.CLEAR_STAT:
             return null;
+        case act.SET_STAT_SORT:
+            let {section, field, reverseDirection} = action;
+            let arr = [...state[section]];
+            arr.sort((a, b) => {
+                let result;
+                if (a[field] < b[field]) result = -1;
+                if (a[field] === b[field]) result = 0;
+                if (a[field] > b[field]) result = 1;
+                if (reverseDirection) result *= -1;
+                return result;
+            });
+            return {...state, [section]: arr};
         default:
             return state;
     }

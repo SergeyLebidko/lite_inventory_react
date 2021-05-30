@@ -43,12 +43,20 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
                             <summary>Количество оборудования по группам (шт.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('count_by_groups', 'title', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('count_by_groups', 'title', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('count_by_groups', 'equipment_count', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('count_by_groups', 'equipment_count', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                             </div>
                             <ul>
@@ -67,12 +75,20 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
                             <summary>Стоимость оборудования по группам (руб.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('price_by_groups', 'title', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('price_by_groups', 'title', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('price_by_groups', 'equipment_price', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('price_by_groups', 'equipment_price', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                             </div>
                             <ul>
@@ -91,12 +107,20 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
                             <summary>Количество оборудования по типам (шт.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('count_by_types', 'title', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('count_by_types', 'title', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('count_by_types', 'equipment_count', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('count_by_types', 'equipment_count', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                             </div>
                             <ul>
@@ -115,12 +139,20 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
                             <summary>Стоимость оборудования по типам (руб.):</summary>
                             <div className={style.sort_control}>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('price_by_types', 'title', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('price_by_types', 'title', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                                 <div>
-                                    <span>&darr;</span>
-                                    <span>&uarr;</span>
+                                    <span onClick={() => setStatSort('price_by_types', 'equipment_price', true)}>
+                                        &darr;
+                                    </span>
+                                    <span onClick={() => setStatSort('price_by_types', 'equipment_price', false)}>
+                                        &uarr;
+                                    </span>
                                 </div>
                             </div>
                             <ul>
