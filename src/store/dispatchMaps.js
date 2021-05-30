@@ -23,6 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
+    clearStat,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -96,6 +97,7 @@ export default function mapDispatchToPropsFactory(component) {
         case 'StatModal':
             return dispatch => ({
                 loadStat: () => dispatch(loadStat()),
+                clearStat: () => dispatch(clearStat()),
                 clearError: () => dispatch(clearError())
             })
         default:

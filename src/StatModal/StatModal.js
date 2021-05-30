@@ -4,31 +4,85 @@ import style from './StatModal.module.scss';
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
-import {error} from "../store/reducers";
 
-function StatModal({stat, error, closeForm, loadStat, clearError}) {
+function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
     // При монтировании сбрасываем ошибки и загружаем статистику
     useEffect(() => {
         clearError();
+        clearStat();
         loadStat();
     }, []);
 
-    console.log(stat);
 
     return (
-        <div className={style.container + ' ' + style.modal}>
+        <div className={style.modal}>
             <h1>Сводные данные по вашему инвентарю</h1>
             {stat ?
                 <ul>
                     <li>
-                        Общее количество оборудования (шт.): <input type="text" value={stat.total_count} disabled/>
+                        Общее количество оборудования (шт.): <span className={style.value}>{stat.total_count}</span>
                     </li>
                     <li>
-                        Общая стоимость оборудования (руб.): {stat.total_price}
+                        Общая стоимость оборудования (руб.): <span className={style.value}>{stat.total_price}</span>
                     </li>
                 </ul>
                 :
                 ''
+            }
+            {
+                stat && stat.total_count > 0 ?
+                    <>
+                        <details>
+                            <summary>Количество оборудования по группам (шт.):</summary>
+                            <ul>
+                                {stat.count_by_groups.map(
+                                    value =>
+                                        <li key={value.id}>
+                                            {value.title}
+                                            <span className={style.value}>{value.equipment_count}</span>
+                                        </li>
+                                )}
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>Стоимость оборудования по группам (руб.):</summary>
+                            <ul>
+                                {stat.price_by_groups.map(
+                                    value =>
+                                        <li key={value.id}>
+                                            {value.title}
+                                            <span className={style.value}>{value.equipment_price}</span>
+                                        </li>
+                                )}
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>Количество оборудования по типам (шт.):</summary>
+                            <ul>
+                                {stat.count_by_types.map(
+                                    value =>
+                                        <li key={value.id}>
+                                            {value.title}
+                                            <span className={style.value}>{value.equipment_count}</span>
+                                        </li>
+                                )}
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>Стоимость оборудования по типам (руб.):</summary>
+                            <ul>
+                                {stat.price_by_types.map(
+                                    value =>
+                                        <li key={value.id}>
+                                            {value.title}
+                                            <span className={style.value}>{value.equipment_price}</span>
+                                        </li>
+                                )}
+                            </ul>
+                        </details>
+                    </>
+                    :
+                    ''
             }
             {error ? <div className="error">{error}</div> : ''}
             <div className={style.control}>
