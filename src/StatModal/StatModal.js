@@ -34,6 +34,16 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                     <>
                         <details>
                             <summary>Количество оборудования по группам (шт.):</summary>
+                            <div className={style.sort_control}>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                            </div>
                             <ul>
                                 {stat.count_by_groups.map(
                                     value =>
@@ -46,6 +56,16 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                         </details>
                         <details>
                             <summary>Стоимость оборудования по группам (руб.):</summary>
+                            <div className={style.sort_control}>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                            </div>
                             <ul>
                                 {stat.price_by_groups.map(
                                     value =>
@@ -58,6 +78,16 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                         </details>
                         <details>
                             <summary>Количество оборудования по типам (шт.):</summary>
+                            <div className={style.sort_control}>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                            </div>
                             <ul>
                                 {stat.count_by_types.map(
                                     value =>
@@ -70,6 +100,16 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError}) {
                         </details>
                         <details>
                             <summary>Стоимость оборудования по типам (руб.):</summary>
+                            <div className={style.sort_control}>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                                <div>
+                                    <span>&uarr;</span>
+                                    <span>&darr;</span>
+                                </div>
+                            </div>
                             <ul>
                                 {stat.price_by_types.map(
                                     value =>
