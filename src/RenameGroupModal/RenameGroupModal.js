@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function RenameGroupModal({closeModal}) {
+function RenameGroupModal({closeForm}) {
     return (
         <div className={style.container + ' ' + style.modal}>
             <h1>Введите новое название для группы</h1>
@@ -20,7 +20,7 @@ function RenameGroupModal({closeModal}) {
                 </tr>
             </table>
             <div className={style.control}>
-                <input type="button" value="Отмена" onClick={closeModal}/>
+                <input type="button" value="Отмена" onClick={closeForm}/>
                 <input type="button" value="Сохранить"/>
             </div>
         </div>
