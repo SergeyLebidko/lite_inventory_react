@@ -23,7 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
-    clearStat, setStatSort, clearGroups, createGroup, setControlBlockMode,
+    clearStat, setStatSort, clearGroups, createGroup, setControlBlockMode, removeGroup,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -109,6 +109,11 @@ export default function mapDispatchToPropsFactory(component) {
                 createGroup: (title, group) => dispatch(createGroup(title, group)),
                 clearError: () => dispatch(clearError())
             });
+        case 'RemoveGroupModal':
+            return dispatch => ({
+                clearError: () => dispatch(clearError()),
+                removeGroup: group => dispatch(removeGroup(group))
+            })
         default:
             return null
     }

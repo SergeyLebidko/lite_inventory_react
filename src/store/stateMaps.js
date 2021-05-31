@@ -70,7 +70,12 @@ export default function mapStateToPropsFactory(component) {
                 groups: state.groups,
                 selectedGroup: state.selectedGroup,
                 error: state.error
-            })
+            });
+        case 'RemoveGroupModal':
+            return state => ({
+                error: state.error,
+                selectedGroup: state.selectedGroup
+            });
         default:
             return null
     }

@@ -257,10 +257,11 @@ export function removeGroup(group) {
             }
         }).then(() => {
             dispatch({type: act.REMOVE_GROUP, group});
-            setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM);
-        }).then(() => {
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
+            dispatch(clearSelectedGroup());
+        }).catch(() => {
             dispatch(setError('Не удалось удалить группу'));
-            setTimeout(() => dispatch(clearError()));
+            setTimeout(() => dispatch(clearError()), 4000);
         });
     }
 }

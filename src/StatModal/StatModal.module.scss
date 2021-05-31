@@ -4,11 +4,8 @@
 .modal {
   width: 600px;
   max-height: 80vh;
-  background-color: white;
-  border-radius: $border-radius;
-  padding: 10px;
-  box-shadow: $main-shadow;
   overflow: auto;
+  @extend %modal_mixin;
 
   h1 {
     text-align: center;

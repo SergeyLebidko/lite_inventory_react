@@ -53,7 +53,7 @@ export const groups = (state = null, action) => {
     switch (action.type) {
         case act.SET_GROUPS:
             return action.groups;
-        case act.ADD_GROUP:
+        case act.ADD_GROUP: {
             let nextState = [...state, action.group];
             nextState.sort((a, b) => {
                 if (a.title > b.title) return 1;
@@ -61,8 +61,10 @@ export const groups = (state = null, action) => {
                 return -1;
             });
             return nextState;
-        case act.REMOVE_GROUP:
-            return state.filter(group => group.id !== action.group);
+        }
+        case act.REMOVE_GROUP: {
+            return state.filter(group => group.id !== action.group.id);
+        }
         case act.CLEAR_GROUPS:
             return null;
         default:

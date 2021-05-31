@@ -1,8 +1,7 @@
-@import '../variables';
 @import '../forms';
 @import '../mixins';
 
 .modal {
-  width: 500px;
+  width: 400px;
   @extend %modal_mixin;
 }
