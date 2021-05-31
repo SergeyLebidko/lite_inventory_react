@@ -4,12 +4,8 @@ import GroupCreateModal from '../GroupCreateModal/GroupCreateModal';
 import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
 import {withRouter} from 'react-router-dom';
-import style from './ControlBlock.module.scss';
-
-import {connect} from 'react-redux';
 import {connector} from '../store/connector';
-// import mapStateToPropsFactory from '../store/stateMaps';
-// import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import style from './ControlBlock.module.scss';
 
 export const CONTROL_BLOCK_MODE = {
     NO_FORM: 'no_form',
@@ -99,6 +95,4 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     );
 }
 
-// let stateMap = mapStateToPropsFactory('ControlBlock');
-// let dispatchMap = mapDispatchToPropsFactory('ControlBlock');
 export default withRouter(connector(ControlBlock));
