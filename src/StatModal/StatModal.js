@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import connector from '../store/storeConnector';
 import style from './StatModal.module.scss';
+
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, setStatSort}) {
     let [showZeroRow, setShowZeroRow] = useState(true);
@@ -192,4 +195,6 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
     )
 }
 
-export default connector(StatModal);
+let stateMap = mapStateToPropsFactory('StatModal');
+let dispatchMap = mapDispatchToPropsFactory('StatModal');
+export default connect(stateMap, dispatchMap)(StatModal);

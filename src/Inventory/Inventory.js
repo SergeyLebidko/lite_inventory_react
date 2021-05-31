@@ -2,8 +2,10 @@ import React from 'react';
 import ControlBlock from '../ControlBlock/ControlBlock';
 import GroupBlock from '../GroupBlock/GroupBlock';
 import EquipmentBlock from '../EquipmentBlock/EquipmentBlock';
-import connector from '../store/storeConnector';
 import style from './Inventory.module.scss';
+
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
 
 function Inventory({hasAccount}) {
     return (
@@ -23,4 +25,5 @@ function Inventory({hasAccount}) {
     )
 }
 
-export default connector(Inventory);
+let stateMap = mapStateToPropsFactory('Inventory');
+export default connect(stateMap)(Inventory);

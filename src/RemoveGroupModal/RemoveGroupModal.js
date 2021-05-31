@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
-import connector from '../store/storeConnector';
 import style from './RemoveGroupModal.module.scss';
+
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function RemoveGroupModal({error, clearError, selectedGroup, removeGroup, closeForm}) {
     // При монтировании сбрасываем ошибки
@@ -18,4 +21,6 @@ function RemoveGroupModal({error, clearError, selectedGroup, removeGroup, closeF
     )
 }
 
-export default connector(RemoveGroupModal);
+let stateMap = mapStateToPropsFactory('RemoveGroupModal');
+let dispatchMap = mapDispatchToPropsFactory('RemoveGroupModal');
+export default connect(stateMap, dispatchMap)(RemoveGroupModal);
