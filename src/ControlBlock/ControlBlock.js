@@ -62,7 +62,7 @@ function ControlBlock({history, selectedGroup, selectedCard, hasGroups, hasCards
                 <input type="button" disabled={!hasCards} value="Добавить"/>
                 <input type="button" disabled={!Boolean(selectedCard)} value="Редактировать"/>
                 <input type="button" disabled={!Boolean(selectedCard)} value="Удалить"/>
-                <input type="button" value="Статистика" onClick={showStatForm}/>
+                <input type="button" disabled={!hasGroups} value="Статистика" onClick={showStatForm}/>
             </div>
             <div ref={modalContainerRef} className={style.modal_container} style={modalContainerStyle}
                  onClick={formContainerMouseHandler}>
