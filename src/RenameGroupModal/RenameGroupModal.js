@@ -1,15 +1,13 @@
 import React from 'react';
+import connector from '../store/storeConnector';
 import style from './RenameGroupModal.module.scss';
-
-import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function RenameGroupModal({closeForm}) {
     return (
         <div className={style.container + ' ' + style.modal}>
             <h1>Введите новое название для группы</h1>
             <table>
+                <tbody>
                 <tr>
                     <td>
                         <label htmlFor="title_field">Название:</label>
@@ -18,6 +16,7 @@ function RenameGroupModal({closeForm}) {
                         <input type="text" id="title_field"/>
                     </td>
                 </tr>
+                </tbody>
             </table>
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
@@ -27,6 +26,4 @@ function RenameGroupModal({closeForm}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('RenameGroupModal');
-let dispatchMap = mapDispatchToPropsFactory('RenameGroupModal');
-export default connect(stateMap, dispatchMap)(RenameGroupModal);
+export default connector(RenameGroupModal);
