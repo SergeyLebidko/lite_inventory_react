@@ -66,7 +66,8 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'GroupCreateModal':
             return state => ({
-                groups: state.groups
+                groups: state.groups,
+                selectedGroup: state.selectedGroup
             })
         default:
             return null

@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function GroupCreateModal({groups, createGroup, closeForm}) {
+function GroupCreateModal({groups, selectedGroup, createGroup, closeForm}) {
     let [title, setTitle] = useState('');
     let [inputError, setInputError] = useState(null);
-    let [selectedGroup, setSelectedGroup] = useState('root');
+    let [selectValue, setSelectValue] = useState(selectedGroup ? selectedGroup.id : 'root');
 
     let titleChangeHandler = event => {
         if (event.target.value.trim() === '') {
@@ -17,14 +17,14 @@ function GroupCreateModal({groups, createGroup, closeForm}) {
         }
         setTitle(event.target.value);
     };
-    let selectHandler = event => setSelectedGroup(event.target.value);
+    let selectHandler = event => setSelectValue(event.target.value);
     let createHandler = () => {
         if (title.length === 0) {
             setInputError('Введите название группы');
             return;
         }
 
-        let group = selectedGroup === 'root' ? null : selectedGroup;
+        let group = selectValue === 'root' ? null : selectValue;
         createGroup(title, group);
     }
 
@@ -47,8 +47,14 @@ function GroupCreateModal({groups, createGroup, closeForm}) {
                     </td>
                     <td>
                         <select id="parent_group_field" onChange={selectHandler}>
-                            <option key="root" value="root">-- поместить в корень --</option>
-                            {groups.map(group => <option key={group.id} value={group.id}>{group.title}</option>)}
+                            <option key="root" value="root" selected={selectValue === 'root'}>
+                                -- поместить в корень --
+                            </option>
+                            {groups.map(group =>
+                                <option key={group.id} value={group.id} selected={selectValue === group.id}>
+                                    {group.title}
+                                </option>
+                            )}
                         </select>
                     </td>
                 </tr>
