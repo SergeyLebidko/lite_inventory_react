@@ -11,7 +11,7 @@ function hasUnderGroup(groups, parentGroupId) {
 }
 
 function GroupList({groups, parentGroupId, selectedGroup, setSelectedGroup, loadEquipments, clearSelectedCard}) {
-    if (groups.length === 0) return '';
+    if (!groups || groups.length === 0) return '';
 
     let currentGroups = groups.filter(value => value.group === parentGroupId);
 

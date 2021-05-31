@@ -38,12 +38,12 @@ export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, acti
 }
 
 // Редуктор для работы с группами
-export const groups = (state = [], action) => {
+export const groups = (state = null, action) => {
     switch (action.type) {
         case act.SET_GROUPS:
             return action.groups;
         case act.CLEAR_GROUPS:
-            return [];
+            return null;
         default:
             return state;
     }
@@ -86,12 +86,12 @@ export const groupsLoadError = (state = null, action) => {
 }
 
 // Редуктор для карточек оборудования
-export const equipmentCards = (state = [], action) => {
+export const equipmentCards = (state = null, action) => {
     switch (action.type) {
         case act.SET_EQUIPMENT_CARDS:
             return action.equipmentCards;
         case act.CLEAR_EQUIPMENT_CARDS:
-            return [];
+            return null;
         default:
             return state
     }
