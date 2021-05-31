@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './GroupCreateModal.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
-function GroupCreateModal({groups, selectedGroup, createGroup, closeForm}) {
+function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup, closeForm}) {
     let [title, setTitle] = useState('');
     let [inputError, setInputError] = useState(null);
     let [selectValue, setSelectValue] = useState(selectedGroup ? selectedGroup.id : 'root');
+
+    // При монтировании сбрасываем ошибки
+    useEffect(() => clearError(), []);
 
     let titleChangeHandler = event => {
         if (event.target.value.trim() === '') {
@@ -21,6 +24,7 @@ function GroupCreateModal({groups, selectedGroup, createGroup, closeForm}) {
     let createHandler = () => {
         if (title.length === 0) {
             setInputError('Введите название группы');
+            setTimeout(() => setInputError(null), 4000);
             return;
         }
 
@@ -43,15 +47,15 @@ function GroupCreateModal({groups, selectedGroup, createGroup, closeForm}) {
                 </tr>
                 <tr>
                     <td>
-                        <label htmlFor="parent_group_field">Размещение:</label>
+                        <label>Размещение:</label>
                     </td>
                     <td>
-                        <select id="parent_group_field" onChange={selectHandler}>
-                            <option key="root" value="root" selected={selectValue === 'root'}>
+                        <select onChange={selectHandler} defaultValue={selectedGroup ? selectedGroup.id : 'root'}>
+                            <option key="root" value="root">
                                 -- поместить в корень --
                             </option>
                             {groups.map(group =>
-                                <option key={group.id} value={group.id} selected={selectValue === group.id}>
+                                <option key={group.id} value={group.id}>
                                     {group.title}
                                 </option>
                             )}
@@ -61,6 +65,7 @@ function GroupCreateModal({groups, selectedGroup, createGroup, closeForm}) {
                 </tbody>
             </table>
             {inputError ? <div className="error">{inputError}</div> : ''}
+            {error ? <div className="error">{error}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
                 <input type="button" value="Создать" onClick={createHandler}/>

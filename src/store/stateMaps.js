@@ -69,6 +69,7 @@ export default function mapStateToPropsFactory(component) {
             return state => ({
                 groups: state.groups,
                 selectedGroup: state.selectedGroup,
+                error: state.error
             })
         default:
             return null

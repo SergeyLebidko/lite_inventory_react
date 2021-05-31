@@ -106,7 +106,8 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'GroupCreateModal':
             return dispatch => ({
-                createGroup: (title, group) => dispatch(createGroup(title, group))
+                createGroup: (title, group) => dispatch(createGroup(title, group)),
+                clearError: () => dispatch(clearError())
             });
         default:
             return null

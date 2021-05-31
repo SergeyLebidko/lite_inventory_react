@@ -241,6 +241,7 @@ export function createGroup(title, group) {
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось создать группу'));
+            setTimeout(() => dispatch(clearError()), 4000);
         });
     }
 }
