@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -6,11 +6,8 @@ import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
 import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
 import ChangePasswordForm from '../ChangePasswordForm/ChangePasswordForm';
 import EditAccountForm from '../EditAccountForm/EditAccountForm';
+import connector from '../store/storeConnector';
 import style from './AccountControl.module.scss';
-
-import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 export const ACCOUNT_CONTROL_MODES = {
     MENU_MODE: 'menu_mode',
@@ -132,7 +129,5 @@ function AccountControl({history, mode, account, setMode, logout}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('AccountControl');
-let dispatchMap = mapDispatchToPropsFactory('AccountControl');
-export default connect(stateMap, dispatchMap)(withRouter(AccountControl));
+export default withRouter(connector(AccountControl));
 
