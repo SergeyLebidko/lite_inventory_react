@@ -23,7 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
-    clearStat, setStatSort, clearGroups, createGroup,
+    clearStat, setStatSort, clearGroups, createGroup, setControlBlockMode,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -94,7 +94,9 @@ export default function mapDispatchToPropsFactory(component) {
                 setSelectedCard: card => dispatch(setSelectedCard(card))
             });
         case 'ControlBlock':
-            return ({});
+            return dispatch => ({
+                setMode: mode => dispatch(setControlBlockMode(mode))
+            });
         case 'StatModal':
             return dispatch => ({
                 loadStat: () => dispatch(loadStat()),

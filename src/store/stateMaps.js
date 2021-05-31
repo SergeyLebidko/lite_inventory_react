@@ -57,7 +57,8 @@ export default function mapStateToPropsFactory(component) {
                 selectedGroup: state.selectedGroup,
                 selectedCard: state.selectedCard,
                 hasGroups: Boolean(state.groups),
-                hasCards: Boolean(state.equipmentCards)
+                hasCards: Boolean(state.equipmentCards),
+                mode: state.controlBlockMode
             });
         case 'StatModal':
             return state => ({
@@ -67,7 +68,7 @@ export default function mapStateToPropsFactory(component) {
         case 'GroupCreateModal':
             return state => ({
                 groups: state.groups,
-                selectedGroup: state.selectedGroup
+                selectedGroup: state.selectedGroup,
             })
         default:
             return null

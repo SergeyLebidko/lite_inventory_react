@@ -3,6 +3,7 @@ import * as act from './actions';
 import * as url from '../urls';
 
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
+import {CONTROL_BLOCK_MODE} from '../ControlBlock/ControlBlock';
 
 const TOKEN_NAME = 'li_token';
 
@@ -237,6 +238,7 @@ export function createGroup(title, group) {
             data: {title, group}
         }).then(createdGroup => {
             dispatch(addGroup(createdGroup));
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось создать группу'));
         });
@@ -360,6 +362,13 @@ export function setResetPasswordUuid(uuid) {
 export function clearResetPasswordUuid() {
     return {
         type: act.CLEAR_RESET_PASSWORD_UUID
+    }
+}
+
+export function setControlBlockMode(mode) {
+    return {
+        type: act.SET_CONTROL_BLOCK_MODE,
+        mode
     }
 }
 

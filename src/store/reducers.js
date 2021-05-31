@@ -1,5 +1,6 @@
 import * as act from './actions';
 import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
+import {CONTROL_BLOCK_MODE} from '../ControlBlock/ControlBlock';
 
 // Редуктор для действий с аккаунтом
 export const account = (state = null, action) => {
@@ -31,6 +32,16 @@ export const resetPasswordUuid = (state = null, action) => {
 export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, action) => {
     switch (action.type) {
         case act.SET_ACCOUNT_CONTROL_MODE:
+            return action.mode;
+        default:
+            return state;
+    }
+}
+
+// Редуктор для режимов компонента с кнопками управления
+export const controlBlockMode = (state = CONTROL_BLOCK_MODE.NO_FORM, action) => {
+    switch (action.type) {
+        case act.SET_CONTROL_BLOCK_MODE:
             return action.mode;
         default:
             return state;
