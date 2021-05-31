@@ -23,11 +23,11 @@ function GroupBlock(props) {
     // При монтировании компонента сбрасываем ошибки и старые данные и загружаем новый список групп
     useEffect(() => {
         clearGroups();
+        clearEquipmentCards();
         clearEquipmentsLoadError();
         clearGroupsLoadError();
         clearSelectedGroup();
         clearSelectedCard();
-        clearEquipmentCards();
         clearEquipmentFeatures();
         clearEquipmentTypes();
         loadGroups();

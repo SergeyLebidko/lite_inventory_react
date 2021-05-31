@@ -12,7 +12,9 @@ const NO_FORM = 'no_form';
 const STAT_FORM = 'stat_form';
 const GROUP_CREATE_FORM = 'group_create_form';
 
-function ControlBlock({history, selectedGroup, selectedCard}) {
+function ControlBlock({history, selectedGroup, selectedCard, hasGroups, hasCards}) {
+    console.log(hasGroups, hasCards)
+
     let [currentForm, setCurrentForm] = useState(NO_FORM);
     let modalContainerRef = useRef(null);
 
@@ -51,13 +53,13 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
     return (
         <>
             <div className={`${style.container} ${style.group_control}`}>
-                <input type="button" value="Добавить" onClick={showGroupCreateForm}/>
+                <input type="button" disabled={!hasGroups} value="Добавить" onClick={showGroupCreateForm}/>
                 <input type="button" disabled={!Boolean(selectedGroup)} value="Переименовать"/>
                 <input type="button" disabled={!Boolean(selectedGroup)} value="Удалить"/>
             </div>
             <div className={`${style.container} ${style.equipment_control}`}>
                 <input type="button" value="На главную" onClick={() => history.push('/')}/>
-                <input type="button" value="Добавить"/>
+                <input type="button" disabled={!hasCards} value="Добавить"/>
                 <input type="button" disabled={!Boolean(selectedCard)} value="Редактировать"/>
                 <input type="button" disabled={!Boolean(selectedCard)} value="Удалить"/>
                 <input type="button" value="Статистика" onClick={showStatForm}/>

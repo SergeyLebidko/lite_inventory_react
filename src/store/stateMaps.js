@@ -55,7 +55,9 @@ export default function mapStateToPropsFactory(component) {
         case 'ControlBlock':
             return state => ({
                 selectedGroup: state.selectedGroup,
-                selectedCard: state.selectedCard
+                selectedCard: state.selectedCard,
+                hasGroups: Boolean(state.groups),
+                hasCards: Boolean(state.equipmentCards)
             });
         case 'StatModal':
             return state => ({
