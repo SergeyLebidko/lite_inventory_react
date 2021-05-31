@@ -11,10 +11,14 @@
   background-color: white;
   box-shadow: $main-shadow;
   border-radius: $border-radius;
+  overflow: auto;
+
+  @extend %scroll_rules;
 
   ul.card_list {
     list-style-type: none;
     padding-left: 0;
+    min-width: 500px;
 
     li.card {
       padding: 10px;
@@ -76,6 +80,4 @@
       color: white;
     }
   }
-
-  @extend %scroll_rules;
 }
