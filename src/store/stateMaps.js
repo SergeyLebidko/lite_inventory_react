@@ -76,6 +76,8 @@ export default function mapStateToPropsFactory(component) {
                 error: state.error,
                 selectedGroup: state.selectedGroup
             });
+        case 'RenameGroupModal':
+            return state => ({})
         default:
             return null
     }

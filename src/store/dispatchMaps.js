@@ -113,7 +113,9 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 clearError: () => dispatch(clearError()),
                 removeGroup: group => dispatch(removeGroup(group))
-            })
+            });
+        case 'RenameGroupModal':
+            return dispatch => ({});
         default:
             return null
     }
