@@ -230,6 +230,7 @@ export function createGroup(title, group) {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
         $.ajax(url.GROUPS_URL, {
+            method: 'post',
             headers: {
                 authorization: token
             },
