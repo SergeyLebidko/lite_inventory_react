@@ -246,6 +246,25 @@ export function createGroup(title, group) {
     }
 }
 
+// Функция выполняет удаление группы
+export function removeGroup(group) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(`${url.GROUPS_URL}${group.id}/`, {
+            method: 'delete',
+            headers: {
+                authorization: token
+            }
+        }).then(() => {
+            dispatch({type: act.REMOVE_GROUP, group});
+            setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM);
+        }).then(() => {
+            dispatch(setError('Не удалось удалить группу'));
+            setTimeout(() => dispatch(clearError()));
+        });
+    }
+}
+
 // Функция выполняет загрузку списка оборудования
 export function loadEquipments(group) {
     return async dispatch => {

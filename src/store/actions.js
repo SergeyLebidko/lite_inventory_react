@@ -13,6 +13,7 @@ export const SET_CONTROL_BLOCK_MODE = 'set_control_block_mode';
 export const SET_GROUPS = 'set_groups';
 export const CLEAR_GROUPS = 'clear_groups';
 export const ADD_GROUP = 'add_group';
+export const REMOVE_GROUP = 'remove_group';
 
 export const SET_GROUPS_LOAD_ERROR = 'set_groups_load_error';
 export const CLEAR_GROUPS_LOAD_ERROR = 'clear_groups_load_error';

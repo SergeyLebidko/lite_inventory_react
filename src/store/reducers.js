@@ -61,6 +61,8 @@ export const groups = (state = null, action) => {
                 return -1;
             });
             return nextState;
+        case act.REMOVE_GROUP:
+            return state.filter(group => group.id !== action.group);
         case act.CLEAR_GROUPS:
             return null;
         default:
