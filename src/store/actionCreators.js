@@ -225,6 +225,23 @@ export function loadGroups() {
     }
 }
 
+// Функция выполняет создание группы
+export function createGroup(title, group) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.GROUPS_URL, {
+            headers: {
+                authorization: token
+            },
+            data: {title, group}
+        }).then(createdGroup => {
+            dispatch(addGroup(createdGroup));
+        }).catch(() => {
+            dispatch(setError('Не удалось создать группу'));
+        });
+    }
+}
+
 // Функция выполняет загрузку списка оборудования
 export function loadEquipments(group) {
     return async dispatch => {
@@ -362,6 +379,13 @@ export function setGroups(groups) {
     return {
         type: act.SET_GROUPS,
         groups
+    }
+}
+
+export function addGroup(group) {
+    return {
+        type: act.ADD_GROUP,
+        group
     }
 }
 

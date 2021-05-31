@@ -23,7 +23,7 @@ import {
     clearEquipmentFeatures,
     clearEquipmentTypes,
     loadStat,
-    clearStat, setStatSort, clearGroups,
+    clearStat, setStatSort, clearGroups, createGroup,
 } from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
@@ -101,7 +101,11 @@ export default function mapDispatchToPropsFactory(component) {
                 clearStat: () => dispatch(clearStat()),
                 setStatSort: (section, field, reverseDirection = false) => dispatch(setStatSort(section, field, reverseDirection)),
                 clearError: () => dispatch(clearError())
-            })
+            });
+        case 'GroupCreateModal':
+            return dispatch => ({
+                createGroup: (title, group) => dispatch(createGroup(title, group))
+            });
         default:
             return null
     }

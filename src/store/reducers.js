@@ -42,6 +42,8 @@ export const groups = (state = null, action) => {
     switch (action.type) {
         case act.SET_GROUPS:
             return action.groups;
+        case act.ADD_GROUP:
+            return [...state.groups, action.group];
         case act.CLEAR_GROUPS:
             return null;
         default:

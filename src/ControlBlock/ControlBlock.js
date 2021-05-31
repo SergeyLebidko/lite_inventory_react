@@ -13,8 +13,6 @@ const STAT_FORM = 'stat_form';
 const GROUP_CREATE_FORM = 'group_create_form';
 
 function ControlBlock({history, selectedGroup, selectedCard, hasGroups, hasCards}) {
-    console.log(hasGroups, hasCards)
-
     let [currentForm, setCurrentForm] = useState(NO_FORM);
     let modalContainerRef = useRef(null);
 
