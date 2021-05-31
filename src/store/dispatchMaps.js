@@ -1,118 +1,92 @@
-import {
-    login,
-    register,
-    loadAccount,
-    logout,
-    setAccountControlMode,
-    resetPassword,
-    resetPasswordConfirm,
-    clearResetPasswordUuid,
-    removeAccount,
-    changePassword,
-    clearError,
-    editAccount,
-    loadGroups,
-    clearSelectedGroup,
-    setSelectedGroup,
-    clearGroupsLoadError,
-    loadEquipments,
-    clearLoadEquipmentsError,
-    setSelectedCard,
-    clearSelectedCard,
-    clearEquipmentCards,
-    clearEquipmentFeatures,
-    clearEquipmentTypes,
-    loadStat,
-    clearStat, setStatSort, clearGroups, createGroup, setControlBlockMode, removeGroup,
-} from './actionCreators';
+import * as act from './actionCreators';
 
 export default function mapDispatchToPropsFactory(component) {
     switch (component) {
         case 'App':
             return dispatch => ({
-                loadAccount: () => dispatch(loadAccount()),
+                loadAccount: () => dispatch(act.loadAccount()),
             })
         case 'AccountControl':
             return dispatch => ({
-                logout: () => dispatch(logout()),
-                setMode: mode => dispatch(setAccountControlMode(mode))
+                logout: () => dispatch(act.logout()),
+                setMode: mode => dispatch(act.setAccountControlMode(mode))
             })
         case 'LoginForm':
             return dispatch => ({
-                login: (username, password) => dispatch(login(username, password)),
-                clearError: () => dispatch(clearError())
+                login: (username, password) => dispatch(act.login(username, password)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'RegisterForm':
             return dispatch => ({
                 register: (username, password, email, firstName, lastName) => {
-                    dispatch(register(username, password, email, firstName, lastName))
+                    dispatch(act.register(username, password, email, firstName, lastName))
                 },
-                clearError: () => dispatch(clearError())
+                clearError: () => dispatch(act.clearError())
             });
         case 'ResetPasswordForm':
             return dispatch => ({
-                resetPassword: email => dispatch(resetPassword(email)),
-                resetPasswordConfirm: (uuid, code, password) => dispatch(resetPasswordConfirm(uuid, code, password)),
-                clearError: () => dispatch(clearError()),
-                clearUuid: () => dispatch(clearResetPasswordUuid())
+                resetPassword: email => dispatch(act.resetPassword(email)),
+                resetPasswordConfirm: (uuid, code, password) => dispatch(act.resetPasswordConfirm(uuid, code, password)),
+                clearError: () => dispatch(act.clearError()),
+                clearUuid: () => dispatch(act.clearResetPasswordUuid())
             });
         case 'RemoveAccountForm':
             return dispatch => ({
-                remove: password => dispatch(removeAccount(password)),
-                clearError: () => dispatch(clearError())
+                remove: password => dispatch(act.removeAccount(password)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'ChangePasswordForm':
             return dispatch => ({
-                change: (currentPassword, nextPassword) => dispatch(changePassword(currentPassword, nextPassword)),
-                clearError: () => dispatch(clearError())
+                change: (currentPassword, nextPassword) => dispatch(act.changePassword(currentPassword, nextPassword)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'EditAccountForm':
             return dispatch => ({
-                edit: data => dispatch(editAccount(data)),
-                clearError: () => dispatch(clearError())
+                edit: data => dispatch(act.editAccount(data)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'GroupBlock':
             return dispatch => ({
-                loadGroups: () => dispatch(loadGroups()),
-                clearGroups: () => dispatch(clearGroups()),
-                clearSelectedGroup: () => dispatch(clearSelectedGroup()),
-                clearSelectedCard: () => dispatch(clearSelectedCard()),
-                clearGroupsLoadError: () => dispatch(clearGroupsLoadError()),
-                clearEquipmentsLoadError: () => dispatch(clearLoadEquipmentsError()),
-                clearEquipmentCards: () => dispatch(clearEquipmentCards()),
-                clearEquipmentFeatures: () => dispatch(clearEquipmentFeatures()),
-                clearEquipmentTypes: () => dispatch(clearEquipmentTypes())
+                loadGroups: () => dispatch(act.loadGroups()),
+                clearGroups: () => dispatch(act.clearGroups()),
+                clearSelectedGroup: () => dispatch(act.clearSelectedGroup()),
+                clearSelectedCard: () => dispatch(act.clearSelectedCard()),
+                clearGroupsLoadError: () => dispatch(act.clearGroupsLoadError()),
+                clearEquipmentsLoadError: () => dispatch(act.clearLoadEquipmentsError()),
+                clearEquipmentCards: () => dispatch(act.clearEquipmentCards()),
+                clearEquipmentFeatures: () => dispatch(act.clearEquipmentFeatures()),
+                clearEquipmentTypes: () => dispatch(act.clearEquipmentTypes())
             });
         case 'GroupList':
             return dispatch => ({
-                setSelectedGroup: group => dispatch(setSelectedGroup(group)),
-                loadEquipments: group => dispatch(loadEquipments(group)),
-                clearSelectedCard: () => dispatch(clearSelectedCard())
+                setSelectedGroup: group => dispatch(act.setSelectedGroup(group)),
+                loadEquipments: group => dispatch(act.loadEquipments(group)),
+                clearSelectedCard: () => dispatch(act.clearSelectedCard())
             });
         case 'EquipmentBlock':
             return dispatch => ({
-                setSelectedCard: card => dispatch(setSelectedCard(card))
+                setSelectedCard: card => dispatch(act.setSelectedCard(card))
             });
         case 'ControlBlock':
             return dispatch => ({
-                setMode: mode => dispatch(setControlBlockMode(mode))
+                setMode: mode => dispatch(act.setControlBlockMode(mode))
             });
         case 'StatModal':
             return dispatch => ({
-                loadStat: () => dispatch(loadStat()),
-                clearStat: () => dispatch(clearStat()),
-                setStatSort: (section, field, reverseDirection = false) => dispatch(setStatSort(section, field, reverseDirection)),
-                clearError: () => dispatch(clearError())
+                loadStat: () => dispatch(act.loadStat()),
+                clearStat: () => dispatch(act.clearStat()),
+                setStatSort: (section, field, reverseDirection = false) => dispatch(act.setStatSort(section, field, reverseDirection)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'GroupCreateModal':
             return dispatch => ({
-                createGroup: (title, group) => dispatch(createGroup(title, group)),
-                clearError: () => dispatch(clearError())
+                createGroup: (title, group) => dispatch(act.createGroup(title, group)),
+                clearError: () => dispatch(act.clearError())
             });
         case 'RemoveGroupModal':
             return dispatch => ({
-                clearError: () => dispatch(clearError()),
-                removeGroup: group => dispatch(removeGroup(group))
+                clearError: () => dispatch(act.clearError()),
+                removeGroup: group => dispatch(act.removeGroup(group))
             });
         case 'RenameGroupModal':
             return dispatch => ({});
