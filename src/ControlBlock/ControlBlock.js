@@ -7,8 +7,9 @@ import {withRouter} from 'react-router-dom';
 import style from './ControlBlock.module.scss';
 
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {connector} from '../store/connector';
+// import mapStateToPropsFactory from '../store/stateMaps';
+// import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 export const CONTROL_BLOCK_MODE = {
     NO_FORM: 'no_form',
@@ -98,6 +99,6 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     );
 }
 
-let stateMap = mapStateToPropsFactory('ControlBlock');
-let dispatchMap = mapDispatchToPropsFactory('ControlBlock');
-export default connect(stateMap, dispatchMap)(withRouter(ControlBlock));
+// let stateMap = mapStateToPropsFactory('ControlBlock');
+// let dispatchMap = mapDispatchToPropsFactory('ControlBlock');
+export default withRouter(connector(ControlBlock));
