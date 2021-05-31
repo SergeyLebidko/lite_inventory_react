@@ -49,7 +49,7 @@ canvas {
 
 /* Общие стилия для кнопок и полей ввода */
 
-input, button {
+input, button, select {
   border: none;
   outline: none;
   border-radius: $border-radius;
@@ -67,7 +67,7 @@ button, input[type=button]:active {
   transition: all 100ms;
 }
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], select {
   padding: 5px 10px;
   background-color: $input-background-color;
 }

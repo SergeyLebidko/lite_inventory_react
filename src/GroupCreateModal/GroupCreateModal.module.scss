@@ -1,0 +1,10 @@
+@import '../variables';
+@import '../forms';
+
+.modal {
+  width: 400px;
+  background-color: white;
+  border-radius: $border-radius;
+  box-shadow: $main-shadow;
+  padding: 10px;
+}

@@ -1,20 +1,24 @@
 import React, {useState, useRef, useEffect} from 'react';
+import StatModal from '../StatModal/StatModal';
+import GroupCreateModal from '../GroupCreateModal/GroupCreateModal';
 import {withRouter} from 'react-router-dom';
 import style from './ControlBlock.module.scss';
 
 import {connect} from 'react-redux';
 import mapStateToPropsFactory from '../store/stateMaps';
 import mapDispatchToPropsFactory from '../store/dispatchMaps';
-import StatModal from "../StatModal/StatModal";
 
 const NO_FORM = 'no_form';
 const STAT_FORM = 'stat_form';
+const GROUP_CREATE_FORM = 'group_create_form';
 
 function ControlBlock({history, selectedGroup, selectedCard}) {
     let [currentForm, setCurrentForm] = useState(NO_FORM);
     let modalContainerRef = useRef(null);
 
     let closeForm = () => setCurrentForm(NO_FORM);
+
+    let showGroupCreateForm = () => setCurrentForm(GROUP_CREATE_FORM);
     let showStatForm = () => setCurrentForm(STAT_FORM);
 
     // Отслеживаем нажатие на клавишу Esc для закрытия форм
@@ -37,6 +41,9 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
         case STAT_FORM:
             form = <StatModal closeForm={closeForm}/>;
             break;
+        case GROUP_CREATE_FORM:
+            form = <GroupCreateModal closeForm={closeForm}/>;
+            break;
     }
 
     let modalContainerStyle = currentForm === NO_FORM ? {display: 'none'} : {display: 'flex'};
@@ -44,7 +51,7 @@ function ControlBlock({history, selectedGroup, selectedCard}) {
     return (
         <>
             <div className={`${style.container} ${style.group_control}`}>
-                <input type="button" value="Добавить"/>
+                <input type="button" value="Добавить" onClick={showGroupCreateForm}/>
                 <input type="button" disabled={!Boolean(selectedGroup)} value="Переименовать"/>
                 <input type="button" disabled={!Boolean(selectedGroup)} value="Удалить"/>
             </div>
