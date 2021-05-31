@@ -32,13 +32,13 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
                 :
                 ''
             }
-            <div className={style.zero_row_control}>
-                Показывать нулевые строки:
-                <input type="checkbox" checked={showZeroRow} onChange={changeShowZeroRowHandler}/>
-            </div>
             {
                 stat && stat.total_count > 0 ?
                     <>
+                        <div className={style.zero_row_control}>
+                            Показывать нулевые строки:
+                            <input type="checkbox" checked={showZeroRow} onChange={changeShowZeroRowHandler}/>
+                        </div>
                         <details>
                             <summary>Количество оборудования по группам (шт.):</summary>
                             <div className={style.sort_control}>
