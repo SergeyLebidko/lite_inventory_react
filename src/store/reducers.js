@@ -43,7 +43,13 @@ export const groups = (state = null, action) => {
         case act.SET_GROUPS:
             return action.groups;
         case act.ADD_GROUP:
-            return [...state.groups, action.group];
+            let nextState = [...state, action.group];
+            nextState.sort((a, b) => {
+                if (a.title > b.title) return 1;
+                if (a.title === b.title) return 0;
+                return -1;
+            });
+            return nextState;
         case act.CLEAR_GROUPS:
             return null;
         default:
