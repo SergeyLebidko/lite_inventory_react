@@ -3,10 +3,9 @@ import {HashRouter, Switch, Route} from 'react-router-dom';
 import MainPage from './MainPage/MainPage';
 import Inventory from './Inventory/Inventory';
 import NoMatch from './NoMatch/NoMatch';
-import './App.css';
-
 import {connect} from 'react-redux';
-import mapDispatchToPropsFactory from './store/dispatchMaps';
+import {createMaps} from './store/maps';
+import './App.css';
 
 function App({loadAccount}) {
     // При монтировании компонента пытаемся получить данные аккаунта
@@ -23,5 +22,4 @@ function App({loadAccount}) {
     );
 }
 
-let dispatchMap = mapDispatchToPropsFactory('App');
-export default connect(null, dispatchMap)(App);
+export default connect(...createMaps('App'))(App);
