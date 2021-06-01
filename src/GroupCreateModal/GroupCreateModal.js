@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './GroupCreateModal.module.scss';
 
 function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup, closeForm}) {
@@ -72,4 +71,4 @@ function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup
     );
 }
 
-export default connect(...connector('GroupCreateModal'))(GroupCreateModal);
+export default connector(GroupCreateModal);

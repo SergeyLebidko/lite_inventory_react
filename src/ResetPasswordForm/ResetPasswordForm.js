@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './ResetPasswordForm.module.scss';
 
 function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, cancelHandler, clearError, clearUuid}) {
@@ -123,4 +122,4 @@ function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, ca
     );
 }
 
-export default connect(...connector('ResetPasswordForm'))(ResetPasswordForm);
+export default connector(ResetPasswordForm);

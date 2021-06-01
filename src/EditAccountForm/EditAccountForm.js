@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './EditAccountForm.module.scss';
 
 function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
@@ -88,4 +87,4 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
     );
 }
 
-export default connect(...connector('EditAccountForm'))(EditAccountForm);
+export default connector(EditAccountForm);

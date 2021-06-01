@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './LoginForm.module.scss';
 
 function LoginForm({error, clearError, login, cancelHandler}) {
@@ -68,4 +67,4 @@ function LoginForm({error, clearError, login, cancelHandler}) {
     );
 }
 
-export default connect(...connector('LoginForm'))(LoginForm);
+export default connector(LoginForm);

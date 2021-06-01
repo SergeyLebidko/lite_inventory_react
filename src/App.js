@@ -3,8 +3,7 @@ import {HashRouter, Switch, Route} from 'react-router-dom';
 import MainPage from './MainPage/MainPage';
 import Inventory from './Inventory/Inventory';
 import NoMatch from './NoMatch/NoMatch';
-import {connect} from 'react-redux';
-import {connector} from './store/maps';
+import {connector} from './store/storeConnector';
 import './App.css';
 
 function App({loadAccount}) {
@@ -22,4 +21,4 @@ function App({loadAccount}) {
     );
 }
 
-export default connect(...connector('App'))(App);
+export default connector(App);

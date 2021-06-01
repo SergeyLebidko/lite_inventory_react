@@ -5,11 +5,8 @@ import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
 import {withRouter} from 'react-router-dom';
 import {CONTROL_BLOCK_MODE} from '../store/actionCreators';
-import {connector} from '../store/maps';
-import {connect} from 'react-redux';
+import {connector} from '../store/storeConnector';
 import style from './ControlBlock.module.scss';
-
-
 
 function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasGroups, hasCards}) {
     // Сразу же при монтировании сбрасываем режим работы
@@ -91,4 +88,4 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     );
 }
 
-export default connect(...connector('ControlBlock'))(withRouter(ControlBlock));
+export default withRouter(connector(ControlBlock));

@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './RenameGroupModal.module.scss';
 
 function RenameGroupModal({closeForm}) {
@@ -25,4 +24,4 @@ function RenameGroupModal({closeForm}) {
     );
 }
 
-export default connect(...connector('RenameGroupModal'))(RenameGroupModal);
+export default connector(RenameGroupModal);

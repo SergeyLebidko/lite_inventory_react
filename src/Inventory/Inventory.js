@@ -2,8 +2,7 @@ import React from 'react';
 import ControlBlock from '../ControlBlock/ControlBlock';
 import GroupBlock from '../GroupBlock/GroupBlock';
 import EquipmentBlock from '../EquipmentBlock/EquipmentBlock';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './Inventory.module.scss';
 
 function Inventory({hasAccount}) {
@@ -24,4 +23,4 @@ function Inventory({hasAccount}) {
     )
 }
 
-export default connect(...connector('Inventory'))(Inventory);
+export default connector(Inventory);

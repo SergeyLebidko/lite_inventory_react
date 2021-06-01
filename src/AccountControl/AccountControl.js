@@ -7,8 +7,7 @@ import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
 import ChangePasswordForm from '../ChangePasswordForm/ChangePasswordForm';
 import EditAccountForm from '../EditAccountForm/EditAccountForm';
 import {ACCOUNT_CONTROL_MODES} from '../store/actionCreators';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './AccountControl.module.scss';
 
 function AccountControl({history, mode, account, setMode, logout}) {
@@ -121,4 +120,4 @@ function AccountControl({history, mode, account, setMode, logout}) {
     );
 }
 
-export default connect(...connector('AccountControl'))(withRouter(AccountControl));
+export default withRouter(connector(AccountControl));

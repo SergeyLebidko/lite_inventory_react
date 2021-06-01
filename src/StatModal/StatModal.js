@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './StatModal.module.scss';
 
 function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, setStatSort}) {
@@ -193,4 +192,4 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
     )
 }
 
-export default connect(...connector('StatModal'))(StatModal);
+export default connector(StatModal);

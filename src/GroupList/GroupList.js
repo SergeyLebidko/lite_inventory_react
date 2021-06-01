@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {connector} from '../store/maps';
+import {connector} from '../store/storeConnector';
 import style from './GroupList.module.scss';
 
 function hasUnderGroup(groups, parentGroupId) {
@@ -56,5 +55,4 @@ GroupList.defaultProps = {
     parentGroupId: null
 }
 
-export default connect(...connector('GroupList'))(GroupList);
-
+export default connector(GroupList);
