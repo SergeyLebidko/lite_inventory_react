@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './ChangePasswordForm.module.scss';
 
 function ChangePasswordForm({error, change, clearError, cancelHandler}) {
@@ -83,4 +83,4 @@ function ChangePasswordForm({error, change, clearError, cancelHandler}) {
     );
 }
 
-export default connect(...createMaps('ChangePasswordForm'))(ChangePasswordForm);
+export default connect(...connector('ChangePasswordForm'))(ChangePasswordForm);

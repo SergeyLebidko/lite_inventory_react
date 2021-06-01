@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './RemoveGroupModal.module.scss';
 
 function RemoveGroupModal({error, clearError, selectedGroup, removeGroup, closeForm}) {
@@ -19,4 +19,4 @@ function RemoveGroupModal({error, clearError, selectedGroup, removeGroup, closeF
     )
 }
 
-export default connect(...createMaps('RemoveGroupModal'))(RemoveGroupModal);
+export default connect(...connector('RemoveGroupModal'))(RemoveGroupModal);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './RenameGroupModal.module.scss';
 
 function RenameGroupModal({closeForm}) {
@@ -25,4 +25,4 @@ function RenameGroupModal({closeForm}) {
     );
 }
 
-export default connect(...createMaps('RenameGroupModal'))(RenameGroupModal);
+export default connect(...connector('RenameGroupModal'))(RenameGroupModal);

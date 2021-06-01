@@ -5,7 +5,7 @@ import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
 import {withRouter} from 'react-router-dom';
 import {CONTROL_BLOCK_MODE} from '../store/actionCreators';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import {connect} from 'react-redux';
 import style from './ControlBlock.module.scss';
 
@@ -91,4 +91,4 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     );
 }
 
-export default connect(...createMaps('ControlBlock'))(withRouter(ControlBlock));
+export default connect(...connector('ControlBlock'))(withRouter(ControlBlock));

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './RegisterForm.module.scss';
 
 function RegisterForm({error, clearError, register, cancelHandler}) {
@@ -107,4 +107,4 @@ function RegisterForm({error, clearError, register, cancelHandler}) {
     );
 }
 
-export default connect(...createMaps('RegisterForm'))(RegisterForm);
+export default connect(...connector('RegisterForm'))(RegisterForm);

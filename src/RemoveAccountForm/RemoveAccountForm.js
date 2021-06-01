@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './RemoveAccount.form.module.scss';
 
 function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
@@ -47,4 +47,4 @@ function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     );
 }
 
-export default connect(...createMaps('RemoveAccountForm'))(RemoveAccountForm);
+export default connect(...connector('RemoveAccountForm'))(RemoveAccountForm);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
@@ -143,4 +143,4 @@ function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadErr
     );
 }
 
-export default connect(...createMaps('EquipmentBlock'))(EquipmentBlock);
+export default connect(...connector('EquipmentBlock'))(EquipmentBlock);

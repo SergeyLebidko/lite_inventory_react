@@ -1,8 +1,9 @@
+import {connect} from 'react-redux';
 import mapStateToPropsFactory from './stateMaps';
 import mapDispatchToPropsFactory from './dispatchMaps';
 
-export function createMaps(component) {
-    let stateMap = mapStateToPropsFactory(component);
-    let dispatchMap = mapDispatchToPropsFactory(component);
-    return [stateMap, dispatchMap];
+export function connector(component) {
+    let stateMap = mapStateToPropsFactory(component.name);
+    let dispatchMap = mapDispatchToPropsFactory(component.name);
+    return connect(stateMap, dispatchMap)(component);
 }

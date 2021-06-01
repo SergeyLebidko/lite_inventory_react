@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import GroupList from '../GroupList/GroupList';
 import {connect} from 'react-redux';
-import {createMaps} from '../store/maps';
+import {connector} from '../store/maps';
 import style from './GroupBlock.module.scss';
 
 function GroupBlock(props) {
@@ -38,4 +38,4 @@ function GroupBlock(props) {
     );
 }
 
-export default connect(...createMaps('GroupBlock'))(GroupBlock);
+export default connect(...connector('GroupBlock'))(GroupBlock);

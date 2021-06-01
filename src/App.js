@@ -4,7 +4,7 @@ import MainPage from './MainPage/MainPage';
 import Inventory from './Inventory/Inventory';
 import NoMatch from './NoMatch/NoMatch';
 import {connect} from 'react-redux';
-import {createMaps} from './store/maps';
+import {connector} from './store/maps';
 import './App.css';
 
 function App({loadAccount}) {
@@ -22,4 +22,4 @@ function App({loadAccount}) {
     );
 }
 
-export default connect(...createMaps('App'))(App);
+export default connect(...connector('App'))(App);
