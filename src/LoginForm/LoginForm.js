@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import style from './LoginForm.module.scss';
-
 import {connect} from 'react-redux';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
-import mapStateToPropsFactory from '../store/stateMaps';
+import {createMaps} from '../store/maps';
+import style from './LoginForm.module.scss';
 
 function LoginForm({error, clearError, login, cancelHandler}) {
     let [username, setUsername] = useState('');
@@ -70,6 +68,4 @@ function LoginForm({error, clearError, login, cancelHandler}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('LoginForm');
-let dispatchMap = mapDispatchToPropsFactory('LoginForm');
-export default connect(stateMap, dispatchMap)(LoginForm);
+export default connect(...createMaps('LoginForm'))(LoginForm);
