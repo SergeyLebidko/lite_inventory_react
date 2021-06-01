@@ -1,9 +1,7 @@
 import React from 'react';
-import style from './EquipmentBlock.module.scss';
-
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {createMaps} from '../store/maps';
+import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
     let getTypeTitle = typeId => {
@@ -145,6 +143,4 @@ function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadErr
     );
 }
 
-let stateMap = mapStateToPropsFactory('EquipmentBlock');
-let dispatchMap = mapDispatchToPropsFactory('EquipmentBlock');
-export default connect(stateMap, dispatchMap)(EquipmentBlock);
+export default connect(...createMaps('EquipmentBlock'))(EquipmentBlock);
