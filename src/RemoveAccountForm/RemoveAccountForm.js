@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {connector} from '../store/connector';
 import style from './RemoveAccount.form.module.scss';
+
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
@@ -46,4 +49,6 @@ function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     );
 }
 
-export default connector(RemoveAccountForm);
+let stateMap = mapStateToPropsFactory('RemoveAccountForm');
+let dispatchMap = mapDispatchToPropsFactory('RemoveAccountForm');
+export default connect(stateMap, dispatchMap)(RemoveAccountForm);
