@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {connector} from '../store/connector';
 import style from './ChangePasswordForm.module.scss';
-
-import {connect} from 'react-redux'
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function ChangePasswordForm({error, change, clearError, cancelHandler}) {
     let [currentPassword, setCurrentPassword] = useState('');
@@ -85,6 +82,4 @@ function ChangePasswordForm({error, change, clearError, cancelHandler}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('ChangePasswordForm');
-let dispatchMap = mapDispatchToPropsFactory('ChangePasswordForm');
-export default connect(stateMap, dispatchMap)(ChangePasswordForm);
+export default connector(ChangePasswordForm);
