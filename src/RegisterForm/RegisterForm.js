@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
-import style from './RegisterForm.module.scss';
-
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {createMaps} from '../store/maps';
+import style from './RegisterForm.module.scss';
 
 function RegisterForm({error, clearError, register, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
@@ -109,6 +107,4 @@ function RegisterForm({error, clearError, register, cancelHandler}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('RegisterForm');
-let dispatchMap = mapDispatchToPropsFactory('RegisterForm');
-export default connect(stateMap, dispatchMap)(RegisterForm);
+export default connect(...createMaps('RegisterForm'))(RegisterForm);
