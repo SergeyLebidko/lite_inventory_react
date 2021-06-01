@@ -107,6 +107,9 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
                        onClick={showRemoveCardForm}
                 />
                 <input type="button"
+                       value="Типы оборудования"
+                />
+                <input type="button"
                        disabled={!hasGroups}
                        value="Статистика"
                        onClick={showStatForm}
