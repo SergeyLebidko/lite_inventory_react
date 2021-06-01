@@ -80,7 +80,12 @@ export default function mapStateToPropsFactory(component) {
             return state => ({
                 selectedGroup: state.selectedGroup,
                 error: state.error
-            })
+            });
+        case 'RemoveCardModal':
+            return state => ({
+                selectedCard: state.selectedCard,
+                error: state.error
+            });
         default:
             return null
     }

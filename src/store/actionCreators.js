@@ -374,6 +374,25 @@ export function loadEquipments(group) {
     }
 }
 
+// Функция выполняет удаление карточки оборудования
+export function removeEquipmentCard(card) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(`${url.EQUIPMENT_CARDS_URL}${card.id}/`, {
+            method: 'delete',
+            headers: {
+                authorization: token
+            }
+        }).then(() => {
+            dispatch({type: act.REMOVE_EQUIPMENT_CARD, card});
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
+        }).catch(() => {
+            dispatch(setError('Не удалось удалить карточку'));
+            setTimeout(() => clearError(), 4000);
+        });
+    }
+}
+
 // Функция для выполнения загрузки статистики
 export function loadStat() {
     return dispatch => {

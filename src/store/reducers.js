@@ -120,6 +120,8 @@ export const equipmentCards = (state = null, action) => {
             return action.equipmentCards;
         case act.CLEAR_EQUIPMENT_CARDS:
             return null;
+        case act.REMOVE_EQUIPMENT_CARD:
+            return state.filter(card => card.id !== action.card.id);
         default:
             return state
     }

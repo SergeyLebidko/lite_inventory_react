@@ -93,6 +93,11 @@ export default function mapDispatchToPropsFactory(component) {
                 clearError: () => dispatch(act.clearError()),
                 rename: (groupId, title) => dispatch(act.renameGroup(groupId, title))
             });
+        case 'RemoveCardModal':
+            return dispatch => ({
+                remove: card => dispatch(act.removeEquipmentCard(card)),
+                clearError: () => dispatch(act.clearError())
+            })
         default:
             return null
     }
