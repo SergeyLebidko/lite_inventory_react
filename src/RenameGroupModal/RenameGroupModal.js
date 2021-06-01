@@ -1,9 +1,7 @@
 import React from 'react';
-import style from './RenameGroupModal.module.scss';
-
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {createMaps} from '../store/maps';
+import style from './RenameGroupModal.module.scss';
 
 function RenameGroupModal({closeForm}) {
     return (
@@ -27,6 +25,4 @@ function RenameGroupModal({closeForm}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('RenameGroupModal');
-let dispatchMap = mapDispatchToPropsFactory('RenameGroupModal');
-export default connect(stateMap, dispatchMap)(RenameGroupModal);
+export default connect(...createMaps('RenameGroupModal'))(RenameGroupModal);
