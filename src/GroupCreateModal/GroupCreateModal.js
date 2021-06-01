@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {connector} from '../store/connector';
 import style from './GroupCreateModal.module.scss';
+
+import {connect} from 'react-redux';
+import mapStateToPropsFactory from '../store/stateMaps';
+import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup, closeForm}) {
     let [title, setTitle] = useState('');
@@ -71,4 +74,6 @@ function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup
     );
 }
 
-export default connector(GroupCreateModal);
+let stateMap = mapStateToPropsFactory('GroupCreateModal');
+let dispatchMap = mapDispatchToPropsFactory('GroupCreateModal');
+export default connect(stateMap, dispatchMap)(GroupCreateModal);
