@@ -1,6 +1,6 @@
 import * as act from './actions';
 import {ACCOUNT_CONTROL_MODES} from './actionCreators';
-import {CONTROL_BLOCK_MODE} from './actionCreators';
+import {CONTROL_BLOCK_MODES} from './actionCreators';
 
 // Редуктор для действий с аккаунтом
 export const account = (state = null, action) => {
@@ -39,7 +39,7 @@ export const accountControlMode = (state = ACCOUNT_CONTROL_MODES.MENU_MODE, acti
 }
 
 // Редуктор для режимов компонента с кнопками управления
-export const controlBlockMode = (state = CONTROL_BLOCK_MODE.NO_FORM, action) => {
+export const controlBlockMode = (state = CONTROL_BLOCK_MODES.NO_FORM, action) => {
     switch (action.type) {
         case act.SET_CONTROL_BLOCK_MODE:
             return action.mode;

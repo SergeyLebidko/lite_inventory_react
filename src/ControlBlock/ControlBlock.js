@@ -4,27 +4,29 @@ import GroupCreateModal from '../GroupCreateModal/GroupCreateModal';
 import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
 import {withRouter} from 'react-router-dom';
-import {CONTROL_BLOCK_MODE} from '../store/actionCreators';
+import {CONTROL_BLOCK_MODES} from '../store/actionCreators';
 import {connector} from '../store/storeConnector';
 import style from './ControlBlock.module.scss';
+import RemoveCardModal from "../RemoveCardModal/RemoveCardModal";
 
 function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasGroups, hasCards}) {
     // Сразу же при монтировании сбрасываем режим работы
-    useEffect(() => setMode(CONTROL_BLOCK_MODE.NO_FORM), []);
+    useEffect(() => setMode(CONTROL_BLOCK_MODES.NO_FORM), []);
 
     let modalContainerRef = useRef(null);
 
-    let closeForm = () => setMode(CONTROL_BLOCK_MODE.NO_FORM);
+    let closeForm = () => setMode(CONTROL_BLOCK_MODES.NO_FORM);
 
-    let showGroupCreateForm = () => setMode(CONTROL_BLOCK_MODE.GROUP_CREATE_FORM);
-    let showRemoveGroupForm = () => setMode(CONTROL_BLOCK_MODE.REMOVE_GROUP_FORM);
-    let showRenameGroupForm = () => setMode(CONTROL_BLOCK_MODE.RENAME_GROUP_FORM);
-    let showStatForm = () => setMode(CONTROL_BLOCK_MODE.STAT_FORM);
+    let showGroupCreateForm = () => setMode(CONTROL_BLOCK_MODES.GROUP_CREATE_FORM);
+    let showRemoveGroupForm = () => setMode(CONTROL_BLOCK_MODES.REMOVE_GROUP_FORM);
+    let showRenameGroupForm = () => setMode(CONTROL_BLOCK_MODES.RENAME_GROUP_FORM);
+    let showRemoveCardForm = () => setMode(CONTROL_BLOCK_MODES.REMOVE_CARD_FORM);
+    let showStatForm = () => setMode(CONTROL_BLOCK_MODES.STAT_FORM);
 
     // Отслеживаем нажатие на клавишу Esc для закрытия форм
     useEffect(() => {
         let formContainerKeyHandler = event => {
-            if (event.key === 'Escape' && mode !== CONTROL_BLOCK_MODE.NO_FORM) closeForm();
+            if (event.key === 'Escape' && mode !== CONTROL_BLOCK_MODES.NO_FORM) closeForm();
         };
         document.addEventListener('keydown', formContainerKeyHandler)
         return () => document.removeEventListener('keydown', formContainerKeyHandler);
@@ -38,21 +40,24 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
 
     let form;
     switch (mode) {
-        case CONTROL_BLOCK_MODE.STAT_FORM:
+        case CONTROL_BLOCK_MODES.STAT_FORM:
             form = <StatModal closeForm={closeForm}/>;
             break;
-        case CONTROL_BLOCK_MODE.GROUP_CREATE_FORM:
+        case CONTROL_BLOCK_MODES.GROUP_CREATE_FORM:
             form = <GroupCreateModal closeForm={closeForm}/>;
             break;
-        case CONTROL_BLOCK_MODE.REMOVE_GROUP_FORM:
+        case CONTROL_BLOCK_MODES.REMOVE_GROUP_FORM:
             form = <RemoveGroupModal closeForm={closeForm}/>;
             break;
-        case CONTROL_BLOCK_MODE.RENAME_GROUP_FORM:
+        case CONTROL_BLOCK_MODES.RENAME_GROUP_FORM:
             form = <RenameGroupModal closeForm={closeForm}/>;
+            break;
+        case CONTROL_BLOCK_MODES.REMOVE_CARD_FORM:
+            form = <RemoveCardModal closeForm={closeForm}/>;
             break;
     }
 
-    let modalContainerStyle = mode === CONTROL_BLOCK_MODE.NO_FORM ? {display: 'none'} : {display: 'flex'};
+    let modalContainerStyle = mode === CONTROL_BLOCK_MODES.NO_FORM ? {display: 'none'} : {display: 'flex'};
 
     return (
         <>
@@ -77,7 +82,7 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
                 <input type="button" value="На главную" onClick={() => history.push('/')}/>
                 <input type="button" disabled={!hasCards} value="Добавить"/>
                 <input type="button" disabled={!Boolean(selectedCard)} value="Редактировать"/>
-                <input type="button" disabled={!Boolean(selectedCard)} value="Удалить"/>
+                <input type="button" disabled={!Boolean(selectedCard)} value="Удалить" onClick={showRemoveCardForm}/>
                 <input type="button" disabled={!hasGroups} value="Статистика" onClick={showStatForm}/>
             </div>
             <div ref={modalContainerRef} className={style.modal_container} style={modalContainerStyle}

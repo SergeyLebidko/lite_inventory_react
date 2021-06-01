@@ -12,12 +12,13 @@ export const ACCOUNT_CONTROL_MODES = {
     EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
 }
 
-export const CONTROL_BLOCK_MODE = {
+export const CONTROL_BLOCK_MODES = {
     NO_FORM: 'no_form',
     STAT_FORM: 'stat_form',
     GROUP_CREATE_FORM: 'group_create_form',
     REMOVE_GROUP_FORM: 'remove_group_form',
-    RENAME_GROUP_FORM: 'rename_group_form'
+    RENAME_GROUP_FORM: 'rename_group_form',
+    REMOVE_CARD_FORM: 'remove_card_form'
 }
 
 const TOKEN_NAME = 'li_token';
@@ -253,7 +254,7 @@ export function createGroup(title, group) {
             data: {title, group}
         }).then(createdGroup => {
             dispatch(addGroup(createdGroup));
-            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось создать группу'));
             setTimeout(() => dispatch(clearError()), 4000);
@@ -272,7 +273,7 @@ export function removeGroup(group) {
             }
         }).then(() => {
             dispatch({type: act.REMOVE_GROUP, group});
-            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
             dispatch(clearSelectedGroup());
         }).catch(() => {
             dispatch(setError('Не удалось удалить группу'));
@@ -295,10 +296,10 @@ export function renameGroup(groupId, title) {
             }
         }).then(group => {
             dispatch({type: act.RENAME_GROUP, group});
-            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
-        }).catch(()=>{
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
+        }).catch(() => {
             dispatch(setError('Не удалось переименовать группу'));
-            setTimeout(()=>dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), 4000);
         })
     }
 }
