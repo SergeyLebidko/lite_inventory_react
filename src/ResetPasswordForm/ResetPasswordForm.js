@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
-import style from './ResetPasswordForm.module.scss';
-
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {createMaps} from '../store/maps';
+import style from './ResetPasswordForm.module.scss';
 
 function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, cancelHandler, clearError, clearUuid}) {
     let [inputError, setInputError] = useState(null);
@@ -125,6 +123,4 @@ function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, ca
     );
 }
 
-let stateMap = mapStateToPropsFactory('ResetPasswordForm');
-let dispatchMap = mapDispatchToPropsFactory('ResetPasswordForm');
-export default connect(stateMap, dispatchMap)(ResetPasswordForm);
+export default connect(...createMaps('ResetPasswordForm'))(ResetPasswordForm);
