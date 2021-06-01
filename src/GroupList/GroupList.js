@@ -1,9 +1,7 @@
 import React from 'react';
-import style from './GroupList.module.scss';
-
 import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
+import {createMaps} from '../store/maps';
+import style from './GroupList.module.scss';
 
 function hasUnderGroup(groups, parentGroupId) {
     for (let group of groups) if (group.group === parentGroupId) return true;
@@ -58,7 +56,5 @@ GroupList.defaultProps = {
     parentGroupId: null
 }
 
-let stateMap = mapStateToPropsFactory('GroupList');
-let dispatchMap = mapDispatchToPropsFactory('GroupList');
-export default connect(stateMap, dispatchMap)(GroupList);
+export default connect(...createMaps('GroupList'))(GroupList);
 
