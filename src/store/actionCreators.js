@@ -2,8 +2,23 @@ import $ from 'jquery';
 import * as act from './actions';
 import * as url from '../urls';
 
-import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
-import {CONTROL_BLOCK_MODE} from '../ControlBlock/ControlBlock';
+export const ACCOUNT_CONTROL_MODES = {
+    MENU_MODE: 'menu_mode',
+    LOGIN_FORM_MODE: 'login_form_mode',
+    REGISTER_FORM_MODE: 'register_form_mode',
+    RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode',
+    REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode',
+    CHANGE_PASSWORD_FORM_MODE: 'change_password_form_mode',
+    EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
+}
+
+export const CONTROL_BLOCK_MODE = {
+    NO_FORM: 'no_form',
+    STAT_FORM: 'stat_form',
+    GROUP_CREATE_FORM: 'group_create_form',
+    REMOVE_GROUP_FORM: 'remove_group_form',
+    RENAME_GROUP_FORM: 'rename_group_form'
+}
 
 const TOKEN_NAME = 'li_token';
 

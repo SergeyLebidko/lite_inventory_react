@@ -4,17 +4,12 @@ import GroupCreateModal from '../GroupCreateModal/GroupCreateModal';
 import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
 import {withRouter} from 'react-router-dom';
+import {CONTROL_BLOCK_MODE} from '../store/actionCreators';
 import {createMaps} from '../store/maps';
 import {connect} from 'react-redux';
 import style from './ControlBlock.module.scss';
 
-export const CONTROL_BLOCK_MODE = {
-    NO_FORM: 'no_form',
-    STAT_FORM: 'stat_form',
-    GROUP_CREATE_FORM: 'group_create_form',
-    REMOVE_GROUP_FORM: 'remove_group_form',
-    RENAME_GROUP_FORM: 'rename_group_form'
-}
+
 
 function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasGroups, hasCards}) {
     // Сразу же при монтировании сбрасываем режим работы

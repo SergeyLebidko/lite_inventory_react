@@ -1,6 +1,6 @@
 import * as act from './actions';
-import {ACCOUNT_CONTROL_MODES} from '../AccountControl/AccountControl';
-import {CONTROL_BLOCK_MODE} from '../ControlBlock/ControlBlock';
+import {ACCOUNT_CONTROL_MODES} from './actionCreators';
+import {CONTROL_BLOCK_MODE} from './actionCreators';
 
 // Редуктор для действий с аккаунтом
 export const account = (state = null, action) => {

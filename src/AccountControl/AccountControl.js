@@ -6,19 +6,10 @@ import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm';
 import RemoveAccountForm from '../RemoveAccountForm/RemoveAccountForm';
 import ChangePasswordForm from '../ChangePasswordForm/ChangePasswordForm';
 import EditAccountForm from '../EditAccountForm/EditAccountForm';
+import {ACCOUNT_CONTROL_MODES} from '../store/actionCreators';
 import {connect} from 'react-redux';
 import {createMaps} from '../store/maps';
 import style from './AccountControl.module.scss';
-
-export const ACCOUNT_CONTROL_MODES = {
-    MENU_MODE: 'menu_mode',
-    LOGIN_FORM_MODE: 'login_form_mode',
-    REGISTER_FORM_MODE: 'register_form_mode',
-    RESET_PASSWORD_FORM_MODE: 'reset_password_form_mode',
-    REMOVE_ACCOUNT_FORM_MODE: 'remove_account_form_mode',
-    CHANGE_PASSWORD_FORM_MODE: 'change_password_form_mode',
-    EDIT_ACCOUNT_FORM_MODE: 'edit_account_form_mode'
-}
 
 function AccountControl({history, mode, account, setMode, logout}) {
     let cancelHandler = () => setMode(ACCOUNT_CONTROL_MODES.MENU_MODE);
