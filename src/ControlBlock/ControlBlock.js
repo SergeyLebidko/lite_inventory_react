@@ -8,6 +8,7 @@ import {CONTROL_BLOCK_MODES} from '../store/actionCreators';
 import {connector} from '../store/storeConnector';
 import style from './ControlBlock.module.scss';
 import RemoveCardModal from "../RemoveCardModal/RemoveCardModal";
+import CardModal from "../CardModal/CardModal";
 
 function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasGroups, hasCards}) {
     // Сразу же при монтировании сбрасываем режим работы
@@ -21,6 +22,8 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     let showRemoveGroupForm = () => setMode(CONTROL_BLOCK_MODES.REMOVE_GROUP_FORM);
     let showRenameGroupForm = () => setMode(CONTROL_BLOCK_MODES.RENAME_GROUP_FORM);
     let showRemoveCardForm = () => setMode(CONTROL_BLOCK_MODES.REMOVE_CARD_FORM);
+    let showEditCardForm = () => setMode(CONTROL_BLOCK_MODES.EDIT_CARD_FORM);
+    let showCreateCardForm = () => setMode(CONTROL_BLOCK_MODES.CREATE_CARD_FORM);
     let showStatForm = () => setMode(CONTROL_BLOCK_MODES.STAT_FORM);
 
     // Отслеживаем нажатие на клавишу Esc для закрытия форм
@@ -55,6 +58,11 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
         case CONTROL_BLOCK_MODES.REMOVE_CARD_FORM:
             form = <RemoveCardModal closeForm={closeForm}/>;
             break;
+        case CONTROL_BLOCK_MODES.EDIT_CARD_FORM:
+            form = <CardModal closeForm={closeForm}/>;
+            break;
+        case CONTROL_BLOCK_MODES.CREATE_CARD_FORM:
+            form = <CardModal closeForm={closeForm}/>;
     }
 
     let modalContainerStyle = mode === CONTROL_BLOCK_MODES.NO_FORM ? {display: 'none'} : {display: 'flex'};
@@ -79,11 +87,30 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
                 />
             </div>
             <div className={`${style.container} ${style.equipment_control}`}>
-                <input type="button" value="На главную" onClick={() => history.push('/')}/>
-                <input type="button" disabled={!hasCards} value="Добавить"/>
-                <input type="button" disabled={!Boolean(selectedCard)} value="Редактировать"/>
-                <input type="button" disabled={!Boolean(selectedCard)} value="Удалить" onClick={showRemoveCardForm}/>
-                <input type="button" disabled={!hasGroups} value="Статистика" onClick={showStatForm}/>
+                <input type="button"
+                       value="На главную"
+                       onClick={() => history.push('/')}
+                />
+                <input type="button"
+                       disabled={!hasCards}
+                       value="Добавить"
+                       onClick={showCreateCardForm}
+                />
+                <input type="button"
+                       disabled={!Boolean(selectedCard)}
+                       value="Редактировать"
+                       onClick={showEditCardForm}
+                />
+                <input type="button"
+                       disabled={!Boolean(selectedCard)}
+                       value="Удалить"
+                       onClick={showRemoveCardForm}
+                />
+                <input type="button"
+                       disabled={!hasGroups}
+                       value="Статистика"
+                       onClick={showStatForm}
+                />
             </div>
             <div ref={modalContainerRef} className={style.modal_container} style={modalContainerStyle}
                  onClick={formContainerMouseHandler}>
