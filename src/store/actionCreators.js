@@ -281,6 +281,28 @@ export function removeGroup(group) {
     }
 }
 
+// Функция выполняет переименование группы
+export function renameGroup(groupId, title) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(`${url.GROUPS_URL}${groupId}/`, {
+            method: 'patch',
+            headers: {
+                authorization: token
+            },
+            data: {
+                title
+            }
+        }).then(group => {
+            dispatch({type: act.RENAME_GROUP, group});
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODE.NO_FORM));
+        }).catch(()=>{
+            dispatch(setError('Не удалось переименовать группу'));
+            setTimeout(()=>dispatch(clearError()), 4000);
+        })
+    }
+}
+
 // Функция выполняет загрузку списка оборудования
 export function loadEquipments(group) {
     return async dispatch => {

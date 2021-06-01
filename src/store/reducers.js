@@ -65,6 +65,11 @@ export const groups = (state = null, action) => {
         case act.REMOVE_GROUP: {
             return state.filter(group => group.id !== action.group.id);
         }
+        case act.RENAME_GROUP:
+            return state.map(group => {
+                if (group.id !== action.group.id) return group;
+                return action.group;
+            });
         case act.CLEAR_GROUPS:
             return null;
         default:

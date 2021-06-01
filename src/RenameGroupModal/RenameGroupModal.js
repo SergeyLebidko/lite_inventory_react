@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './RenameGroupModal.module.scss';
 
-function RenameGroupModal({error, clearError, selectedGroup, closeForm}) {
+function RenameGroupModal({rename, error, clearError, selectedGroup, closeForm}) {
     let [title, setTitle] = useState(selectedGroup.title);
     let [inputError, setInputError] = useState(null);
 
@@ -21,8 +21,7 @@ function RenameGroupModal({error, clearError, selectedGroup, closeForm}) {
             setTimeout(() => setInputError(null), 4000);
             return;
         }
-
-        // TODO Вставить код сохранения изменений
+        rename(selectedGroup.id, title);
     }
 
     return (
