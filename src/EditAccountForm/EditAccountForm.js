@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
+import {connector} from '../store/connector';
 import style from './EditAccountForm.module.scss';
-
-import {connect} from 'react-redux';
-import mapStateToPropsFactory from '../store/stateMaps';
-import mapDispatchToPropsFactory from '../store/dispatchMaps';
 
 function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
     let [username, setUsername] = useState(account.username);
@@ -90,6 +87,4 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
     );
 }
 
-let stateMap = mapStateToPropsFactory('EditAccountForm');
-let dispatchMap = mapDispatchToPropsFactory('EditAccountForm');
-export default connect(stateMap, dispatchMap)(EditAccountForm);
+export default connector(EditAccountForm);
