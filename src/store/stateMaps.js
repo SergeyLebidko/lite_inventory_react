@@ -50,7 +50,7 @@ export default function mapStateToPropsFactory(component) {
                 types: state.equipmentTypes,
                 features: state.equipmentFeatures,
                 selectedCard: state.selectedCard,
-                equipmentsLoadError: state.equipmentsLoadError
+                equipmentsLoadError: state.loadEquipmentsError
             });
         case 'ControlBlock':
             return state => ({

@@ -365,7 +365,10 @@ export function loadEquipments(group) {
             dispatch(setEquipmentCards(cards));
             dispatch(setEquipmentFeatures(features));
             dispatch(setEquipmentTypes(types));
+
+            console.log('Ошибка не произошла')
         } catch (err) {
+            console.log('Ошибка произошла')
 
             // В случае невозможности загрузки списка карточек - сбрасываем состояние хранилища и диспатчим ошибку
             dispatch(clearEquipmentCards());
