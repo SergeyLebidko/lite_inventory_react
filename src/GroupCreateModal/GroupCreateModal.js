@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './GroupCreateModal.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup, closeForm}) {
     let [title, setTitle] = useState('');
@@ -21,7 +22,7 @@ function GroupCreateModal({groups, selectedGroup, error, clearError, createGroup
     let createHandler = () => {
         if (title.length === 0) {
             setInputError('Введите название группы');
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

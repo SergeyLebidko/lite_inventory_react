@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import {connector} from '../store/storeConnector';
 import style from './EditAccountForm.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
     let [username, setUsername] = useState(account.username);
@@ -25,7 +26,7 @@ function EditAccountForm({error, account, edit, clearError, cancelHandler}) {
         if (!validate(email)) errors.push('Введите корректный email.');
         if (errors.length > 0) {
             setInputError(errors.join(' '));
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

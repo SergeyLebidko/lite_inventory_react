@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './LoginForm.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function LoginForm({error, clearError, login, cancelHandler}) {
     let [username, setUsername] = useState('');
@@ -20,7 +21,7 @@ function LoginForm({error, clearError, login, cancelHandler}) {
         if (!password) errorList.push('Введите пароль.');
         if (errorList.length > 0) {
             setInputError(errorList.join(' '));
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
         login(username, password);

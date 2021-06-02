@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './ChangePasswordForm.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
+
 
 function ChangePasswordForm({error, change, clearError, cancelHandler}) {
     let [currentPassword, setCurrentPassword] = useState('');
@@ -22,7 +24,7 @@ function ChangePasswordForm({error, change, clearError, cancelHandler}) {
         if (password1 && password2 && password1 !== password2) errors.push('Пароль и подтверждение не совпадают.');
         if (errors.length > 0) {
             setInputError(errors.join(' '));
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

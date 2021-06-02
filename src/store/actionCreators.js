@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import * as act from './actions';
 import * as url from '../urls';
+import {ERROR_TIMEOUT} from '../settings';
 
 export const ACCOUNT_CONTROL_MODES = {
     MENU_MODE: 'menu_mode',
@@ -63,7 +64,7 @@ export function register(username, password, email, firstName, lastName) {
         }).catch(err => {
             if (err.status === 400) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -93,7 +94,7 @@ export function login(username, password) {
             dispatch(clearAccount());
             if (err.statusText === 'Forbidden') dispatch(setError('Неверное имя пользователя и/или пароль.'));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -109,7 +110,7 @@ export function resetPassword(email) {
         }).catch(err => {
             if (err.status === 400) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -131,7 +132,7 @@ export function resetPasswordConfirm(uuid, code, password) {
             if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
             if (err.status === 404) dispatch(setError('Неверный UUID запроса. Попробуйте запросить код сброса еще раз.'));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -175,7 +176,7 @@ export function changePassword(currentPassword, nextPassword) {
         }).catch(err => {
             if (err.status === 403 || err.status === 400) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -201,7 +202,7 @@ export function editAccount(data) {
         }).catch(err => {
             if (err.status === 400 || err.status === 403) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Произошла сетевая ошибка.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -224,7 +225,7 @@ export function removeAccount(password) {
         }).catch(err => {
             if (err.status === 403) dispatch(setError(err.responseJSON['detail']));
             if (err.statusText === 'error') dispatch(setError('Сервис временно недоступен.'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -261,7 +262,7 @@ export function createGroup(title, group) {
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось создать группу'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -281,7 +282,7 @@ export function removeGroup(group) {
             dispatch(clearSelectedGroup());
         }).catch(() => {
             dispatch(setError('Не удалось удалить группу'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         });
     }
 }
@@ -303,7 +304,7 @@ export function renameGroup(groupId, title) {
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось переименовать группу'));
-            setTimeout(() => dispatch(clearError()), 4000);
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         })
     }
 }
@@ -411,7 +412,7 @@ export function removeEquipmentCard(card) {
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось удалить карточку'));
-            setTimeout(() => clearError(), 4000);
+            setTimeout(() => clearError(), ERROR_TIMEOUT);
         });
     }
 }

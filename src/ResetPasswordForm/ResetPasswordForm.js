@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import {connector} from '../store/storeConnector';
 import style from './ResetPasswordForm.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, cancelHandler, clearError, clearUuid}) {
     let [inputError, setInputError] = useState(null);
@@ -31,7 +32,7 @@ function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, ca
     let sendCodeHandler = () => {
         if (!validate(email)) {
             setInputError('Введите корректный email');
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
         resetPassword(email);
@@ -45,7 +46,7 @@ function ResetPasswordForm({error, uuid, resetPassword, resetPasswordConfirm, ca
         if (password1 !== password2) errors.push('Пароль и подтверждение не совпадают');
         if (errors.length > 0) {
             setInputError(errors.join(' '));
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

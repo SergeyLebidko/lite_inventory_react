@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {validate} from 'email-validator';
 import {connector} from '../store/storeConnector';
 import style from './RegisterForm.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function RegisterForm({error, clearError, register, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
@@ -32,7 +33,7 @@ function RegisterForm({error, clearError, register, cancelHandler}) {
 
         if (errors.length > 0) {
             setInputError(errors.join(' '));
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './RemoveAccount.form.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     let [inputError, setInputError] = useState(null);
@@ -14,7 +15,7 @@ function RemoveAccountForm({error, clearError, remove, cancelHandler}) {
     let removeClickHandler = () => {
         if (!password) {
             setInputError('Введите пароль');
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import style from './TypesModal.module.scss';
+import {ERROR_TIMEOUT} from '../settings';
 
 const NO_FORM = 'no_form';
 const EDIT_FORM = 'edit_form';
@@ -97,7 +98,7 @@ function TypesModal({types, loadTypes, clearTypes, error, clearError, loadError,
 
         if (error) {
             setInputError(error);
-            setTimeout(() => setInputError(null), 4000);
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return true;
         }
         return false
