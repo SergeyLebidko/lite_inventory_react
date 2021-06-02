@@ -16,6 +16,31 @@
     }
   }
 
+  div.inner_form {
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: $border-radius;
+
+    div:nth-child(1) {
+      display: flex;
+      justify-content: flex-end;
+
+      input[type=text] {
+        background-color: white;
+        flex: 1;
+      }
+
+      input[type=button] {
+        margin-left: 5px;
+      }
+    }
+
+    div:nth-child(2) {
+      margin: 5px 0 0 0;
+    }
+  }
+
   ul {
     background-color: rgb(240, 240, 240);
     padding: 10px;
