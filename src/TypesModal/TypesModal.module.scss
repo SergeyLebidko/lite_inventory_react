@@ -1,7 +1,38 @@
+@import '../variables';
 @import '../forms';
 @import '../mixins';
 
 .modal {
   width: 600px;
+  max-height: 85vh;
+  overflow: auto;
+
+  div.type_control {
+    margin: 15px 0;
+    text-align: center;
+
+    input + input {
+      margin-left: 5px;
+    }
+  }
+
+  ul {
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    border-radius: $border-radius;
+    list-style-type: none;
+
+    li {
+      padding: 5px;
+    }
+
+    li.selected {
+      background-color: $dark-background-color;
+      color: white;
+      border-radius: $border-radius;
+    }
+  }
+
+  @extend %scroll_rules;
   @extend %modal_mixin;
 }

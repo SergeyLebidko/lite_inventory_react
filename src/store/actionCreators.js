@@ -393,7 +393,6 @@ export function loadEquipmentTypes() {
             dispatch(setEquipmentTypes(equipmentTypes));
         }).catch(() => {
             dispatch(setLoadTypesError('Не удалось загрузить список типов оборудования'));
-            setTimeout(() => dispatch(clearLoadTypesError()), 4000);
         });
     }
 }
