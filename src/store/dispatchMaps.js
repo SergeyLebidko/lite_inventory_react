@@ -97,7 +97,14 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 remove: card => dispatch(act.removeEquipmentCard(card)),
                 clearError: () => dispatch(act.clearError())
-            })
+            });
+        case 'TypesModal':
+            return dispatch => ({
+                loadTypes: () => dispatch(act.loadEquipmentTypes()),
+                clearLoadError: () => dispatch(act.clearLoadTypesError()),
+                clearTypes: () => dispatch(act.clearEquipmentTypes()),
+                clearError: () => dispatch(act.clearError())
+            });
         default:
             return null
     }

@@ -4,7 +4,7 @@ import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
     let getTypeTitle = typeId => {
-        for (let type of types) if (type.id === typeId) return type.title;
+        for (let type of (types || [])) if (type.id === typeId) return type.title;
         return null;
     }
 

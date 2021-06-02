@@ -381,6 +381,23 @@ export function loadEquipments(group) {
     }
 }
 
+// Функция выполняет загрузку списка типов оборудования
+export function loadEquipmentTypes() {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        $.ajax(url.EQUIPMENT_TYPES_URL, {
+            headers: {
+                authorization: token
+            }
+        }).then(equipmentTypes => {
+            dispatch(setEquipmentTypes(equipmentTypes));
+        }).catch(() => {
+            dispatch(setLoadTypesError('Не удалось загрузить список типов оборудования'));
+            setTimeout(() => dispatch(clearLoadTypesError()), 4000);
+        });
+    }
+}
+
 // Функция выполняет удаление карточки оборудования
 export function removeEquipmentCard(card) {
     return dispatch => {
@@ -578,6 +595,19 @@ export function setLoadEquipmentsError(loadError) {
 export function clearLoadEquipmentsError() {
     return {
         type: act.CLEAR_LOAD_EQUIPMENTS_ERROR
+    }
+}
+
+export function setLoadTypesError(loadError) {
+    return {
+        type: act.SET_LOAD_TYPES_ERROR,
+        loadError
+    }
+}
+
+export function clearLoadTypesError() {
+    return {
+        type: act.CLEAR_LOAD_TYPES_ERROR
     }
 }
 

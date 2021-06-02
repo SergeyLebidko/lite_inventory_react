@@ -140,18 +140,18 @@ export const equipmentFeatures = (state = [], action) => {
 }
 
 // Редуктор для работы с типами оборудования
-export const equipmentTypes = (state = [], action) => {
+export const equipmentTypes = (state = null, action) => {
     switch (action.type) {
         case act.SET_EQUIPMENT_TYPES:
             return action.equipmentTypes;
         case act.CLEAR_EQUIPMENT_TYPES:
-            return [];
+            return null;
         default:
             return state;
     }
 }
 
-// Редуктор для ошибок загрузки оборудования и его характеристик
+// Редуктор для ошибок загрузки списка оборудования и его характеристик
 export const loadEquipmentsError = (state = null, action) => {
     switch (action.type) {
         case act.SET_LOAD_EQUIPMENTS_ERROR:
@@ -160,6 +160,18 @@ export const loadEquipmentsError = (state = null, action) => {
             return null;
         default:
             return state;
+    }
+}
+
+// Редуктор для ошибок загрузки типов оборудования
+export const loadTypesError = (state = null, action) => {
+    switch (action.type) {
+        case act.SET_LOAD_TYPES_ERROR:
+            return action.loadError;
+        case act.CLEAR_LOAD_TYPES_ERROR:
+            return null;
+        default:
+            return state
     }
 }
 
