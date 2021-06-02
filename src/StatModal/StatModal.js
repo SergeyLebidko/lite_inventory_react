@@ -16,7 +16,7 @@ function StatModal({stat, error, closeForm, loadStat, clearStat, clearError, set
 
     return (
         <div className={style.modal}>
-            <h1>Сводные данные по вашему инвентарю</h1>
+            <h1>Сводные данные по вашему оборудованию</h1>
             {stat ?
                 <ul>
                     <li>

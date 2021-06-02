@@ -20,7 +20,9 @@ export const CONTROL_BLOCK_MODES = {
     RENAME_GROUP_FORM: 'rename_group_form',
     REMOVE_CARD_FORM: 'remove_card_form',
     EDIT_CARD_FORM: 'edit_card_form',
-    CREATE_CARD_FORM: 'create_card_form'
+    CREATE_CARD_FORM: 'create_card_form',
+    TYPES_FORM: 'types_form'
+
 }
 
 const TOKEN_NAME = 'li_token';

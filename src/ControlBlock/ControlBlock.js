@@ -1,14 +1,15 @@
 import React, {useRef, useEffect} from 'react';
+import {withRouter} from 'react-router-dom';
 import StatModal from '../StatModal/StatModal';
 import GroupCreateModal from '../GroupCreateModal/GroupCreateModal';
 import RemoveGroupModal from '../RemoveGroupModal/RemoveGroupModal';
 import RenameGroupModal from '../RenameGroupModal/RenameGroupModal';
-import {withRouter} from 'react-router-dom';
+import RemoveCardModal from '../RemoveCardModal/RemoveCardModal';
+import CardModal from '../CardModal/CardModal';
+import TypesModal from '../TypesModal/TypesModal';
 import {CONTROL_BLOCK_MODES} from '../store/actionCreators';
 import {connector} from '../store/storeConnector';
 import style from './ControlBlock.module.scss';
-import RemoveCardModal from "../RemoveCardModal/RemoveCardModal";
-import CardModal from "../CardModal/CardModal";
 
 function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasGroups, hasCards}) {
     // Сразу же при монтировании сбрасываем режим работы
@@ -24,6 +25,7 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
     let showRemoveCardForm = () => setMode(CONTROL_BLOCK_MODES.REMOVE_CARD_FORM);
     let showEditCardForm = () => setMode(CONTROL_BLOCK_MODES.EDIT_CARD_FORM);
     let showCreateCardForm = () => setMode(CONTROL_BLOCK_MODES.CREATE_CARD_FORM);
+    let showTypesForm = () => setMode(CONTROL_BLOCK_MODES.TYPES_FORM);
     let showStatForm = () => setMode(CONTROL_BLOCK_MODES.STAT_FORM);
 
     // Отслеживаем нажатие на клавишу Esc для закрытия форм
@@ -63,6 +65,10 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
             break;
         case CONTROL_BLOCK_MODES.CREATE_CARD_FORM:
             form = <CardModal closeForm={closeForm}/>;
+            break;
+        case CONTROL_BLOCK_MODES.TYPES_FORM:
+            form = <TypesModal closeForm={closeForm}/>;
+            break;
     }
 
     let modalContainerStyle = mode === CONTROL_BLOCK_MODES.NO_FORM ? {display: 'none'} : {display: 'flex'};
@@ -108,6 +114,7 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
                 />
                 <input type="button"
                        value="Типы оборудования"
+                       onClick={showTypesForm}
                 />
                 <input type="button"
                        disabled={!hasGroups}
