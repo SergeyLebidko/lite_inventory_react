@@ -401,11 +401,23 @@ export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
         let token = localStorage.getItem(TOKEN_NAME);
         let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, fields);
 
-        console.log('Удалить из базы:', toRemove);
-        console.log('Обновить в базе:', toUpdate);
-        console.log('Создать в базе:', toCreate);
-
-        dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM))
+        $.ajax(url.UPDATE_TYPES_LIST_URL, {
+            method: 'post',
+            headers: {
+                authorization: token
+            },
+            data: {
+                to_remove: JSON.stringify(toRemove),
+                to_update: JSON.stringify(toUpdate),
+                to_create: JSON.stringify(toCreate)
+            }
+        }).then(nextTypeList => {
+            dispatch(setEquipmentTypes(nextTypeList));
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
+        }).catch(() => {
+            dispatch(setError('Не удалось сохранить данные'));
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
+        });
     }
 }
 

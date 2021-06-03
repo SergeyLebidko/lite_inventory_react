@@ -17,3 +17,4 @@ export const EQUIPMENT_CARDS_URL = URL_PREFIX + 'equipment_cards/';
 export const EQUIPMENT_FEATURES_URL = URL_PREFIX + 'equipment_features';
 export const EQUIPMENT_TYPES_URL = URL_PREFIX + 'equipment_types/';
 export const STAT_URL = URL_PREFIX + 'stat/';
+export const UPDATE_TYPES_LIST_URL = 'update_equipment_types_list';
