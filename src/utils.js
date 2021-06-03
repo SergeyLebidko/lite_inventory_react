@@ -4,9 +4,6 @@ export function getUpdates(srcList, destList, fields) {
     let toUpdate;
     let toCreate;
 
-    console.log('srcList', srcList);
-    console.log('destList', destList);
-
     // Ищем объекты, которые нужно создать в БД (у таких объектов нет id, присваиваемого базой данных)
     toCreate = destList.filter(destItem => !('id' in destItem));
 
