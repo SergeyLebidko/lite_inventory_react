@@ -397,7 +397,7 @@ export function loadEquipmentTypes() {
 
 // Функция выполняет обновление справочника типов оборудования
 export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
-    return dispatch => {
+    return (dispatch, getState) => {
         let token = localStorage.getItem(TOKEN_NAME);
         let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, fields);
 
@@ -413,6 +413,25 @@ export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
             }
         }).then(nextTypeList => {
             dispatch(setEquipmentTypes(nextTypeList));
+
+            // После обновления списка типов обновляем список отображаемых карточек
+            let selectedGroup = getState().selectedGroup;
+            if (selectedGroup) {
+                dispatch(loadEquipments(selectedGroup));
+
+                // Проверяем, существует ли еще выделенная карточка. Если нет - сбрасываем её
+                let selectedCard = getState().selectedCard;
+                let cards = getState().equipmentCards;
+                let cardFind = false;
+                for (let card of cards) {
+                    if (card.id === selectedCard.id) {
+                        cardFind = true;
+                        break;
+                    }
+                }
+                if (!cardFind) dispatch(clearSelectedCard());
+            }
+
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         }).catch(() => {
             dispatch(setError('Не удалось сохранить данные'));
