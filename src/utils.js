@@ -4,6 +4,9 @@ export function getUpdates(srcList, destList, fields) {
     let toUpdate;
     let toCreate;
 
+    console.log('srcList', srcList);
+    console.log('destList', destList);
+
     // Ищем объекты, которые нужно создать в БД (у таких объектов нет id, присваиваемого базой данных)
     toCreate = destList.filter(destItem => !('id' in destItem));
 
@@ -11,8 +14,10 @@ export function getUpdates(srcList, destList, fields) {
     toRemove = srcList.filter(srcItem => {
         let findFlag = false;
         for (let destItem of destList) {
-            if (srcItem.id === destItem.id) findFlag = true;
-            break;
+            if (srcItem.id === destItem.id) {
+                findFlag = true;
+                break;
+            }
         }
         return !findFlag;
     });

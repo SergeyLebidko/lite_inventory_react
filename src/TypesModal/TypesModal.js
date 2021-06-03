@@ -53,7 +53,7 @@ function TypesModal({update, types, loadTypes, clearTypes, error, clearError, lo
     };
 
     // Обработчик нажатия на кнопку Сохранить
-    let saveChangeHandler = () => update(types, tmpTypes);
+    let saveChangeHandler = () => update(types, tmpTypes, ['title']);
 
     // Обработчик нажатия на кнопку Отмена во внутренней форме
     let innerFormCancelHandler = () => setInnerFormMode(NO_FORM);

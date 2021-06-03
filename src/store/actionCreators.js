@@ -400,14 +400,16 @@ export function loadEquipmentTypes() {
 }
 
 // Функция выполняет обновление справочника типов оборудования
-export function updateEquipmentTypes(currentTypes, nextTypes) {
+export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
     return dispatch => {
         let token = localStorage.getItem(TOKEN_NAME);
-        let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, '');
+        let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, fields);
 
         console.log('Удалить из базы:', toRemove);
         console.log('Обновить в базе:', toUpdate);
         console.log('Создать в базе:', toCreate);
+
+        dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM))
     }
 }
 
