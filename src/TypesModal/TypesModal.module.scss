@@ -49,6 +49,11 @@
 
     li {
       padding: 5px;
+      cursor: pointer;
+    }
+
+    li + li {
+      border-top: 1px dashed lightgray;
     }
 
     li.selected {

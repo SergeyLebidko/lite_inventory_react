@@ -2,6 +2,7 @@ import $ from 'jquery';
 import * as act from './actions';
 import * as url from '../urls';
 import {ERROR_TIMEOUT} from '../settings';
+import {getUpdates} from '../utils';
 
 export const ACCOUNT_CONTROL_MODES = {
     MENU_MODE: 'menu_mode',
@@ -395,6 +396,18 @@ export function loadEquipmentTypes() {
         }).catch(() => {
             dispatch(setLoadTypesError('Не удалось загрузить список типов оборудования'));
         });
+    }
+}
+
+// Функция выполняет обновление справочника типов оборудования
+export function updateEquipmentTypes(currentTypes, nextTypes) {
+    return dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, '');
+
+        console.log('Удалить из базы:', toRemove);
+        console.log('Обновить в базе:', toUpdate);
+        console.log('Создать в базе:', toCreate);
     }
 }
 

@@ -103,7 +103,8 @@ export default function mapDispatchToPropsFactory(component) {
                 loadTypes: () => dispatch(act.loadEquipmentTypes()),
                 clearLoadError: () => dispatch(act.clearLoadTypesError()),
                 clearTypes: () => dispatch(act.clearEquipmentTypes()),
-                clearError: () => dispatch(act.clearError())
+                clearError: () => dispatch(act.clearError()),
+                update: (currentTypes, nextTypes) => dispatch(act.updateEquipmentTypes(currentTypes, nextTypes))
             });
         default:
             return null

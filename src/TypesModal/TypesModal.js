@@ -13,7 +13,7 @@ let typesComparator = (a, b) => {
     return 1
 }
 
-function TypesModal({types, loadTypes, clearTypes, error, clearError, loadError, clearLoadError, closeForm}) {
+function TypesModal({update, types, loadTypes, clearTypes, error, clearError, loadError, clearLoadError, closeForm}) {
     let [tmpTypes, setTmpTypes] = useState(types);
     let [selectedType, setSelectedType] = useState(null);
 
@@ -51,6 +51,9 @@ function TypesModal({types, loadTypes, clearTypes, error, clearError, loadError,
         setInnerFormMode(EDIT_FORM);
         setInputValue(selectedType.title);
     };
+
+    // Обработчик нажатия на кнопку Сохранить
+    let saveChangeHandler = () => update(types, tmpTypes);
 
     // Обработчик нажатия на кнопку Отмена во внутренней форме
     let innerFormCancelHandler = () => setInnerFormMode(NO_FORM);
@@ -154,7 +157,7 @@ function TypesModal({types, loadTypes, clearTypes, error, clearError, loadError,
             {error ? <div className="error">{error}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
-                <input type="button" value="Сохранить" disabled={!Boolean(types)}/>
+                <input type="button" value="Сохранить" disabled={!Boolean(types)} onClick={saveChangeHandler}/>
             </div>
         </div>
     );
