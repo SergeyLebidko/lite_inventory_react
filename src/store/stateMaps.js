@@ -92,6 +92,11 @@ export default function mapStateToPropsFactory(component) {
                 loadError: state.loadTypesError,
                 error: state.error
             });
+        case 'CardModal':
+            return state => ({
+                card: state.selectedCard,
+                types: state.equipmentTypes
+            });
         default:
             return null
     }

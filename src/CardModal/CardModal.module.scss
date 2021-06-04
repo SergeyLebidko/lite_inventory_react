@@ -2,6 +2,13 @@
 @import '../mixins';
 
 .modal {
-  width: 600px;
-  @extend %modal_mixin
+  width: 700px;
+  max-height: 80vh;
+
+  td:first-child {
+    max-width: 100px;
+  }
+
+  @extend %scroll_rules;
+  @extend %modal_mixin;
 }
