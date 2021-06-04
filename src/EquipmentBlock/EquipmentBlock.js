@@ -1,13 +1,9 @@
 import React from 'react';
 import {connector} from '../store/storeConnector';
-import {getTypeTitle} from '../utils';
+import {getTypeTitle, getFeaturesList} from '../utils';
 import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
-    let getFeaturesList = cardId => {
-        return features.filter(feature => feature.equipment_card === cardId);
-    }
-
     let cardList = '';
     if (cards) {
         cardList = cards.map(card => {
@@ -15,7 +11,7 @@ function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadErr
             if (!typeTitle) typeTitle =
                 <span className="load_error">{"...не удалось определить тип оборудования..."}</span>;
 
-            let featureList = getFeaturesList(card.id);
+            let featureList = getFeaturesList(features, card.id);
 
             let cardClass = style.card;
             if (selectedCard && selectedCard.id === card.id) cardClass += ' ' + style.selected;

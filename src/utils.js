@@ -39,3 +39,8 @@ export function getTypeTitle(types, typeId) {
     for (let type of (types || [])) if (type.id === typeId) return type.title;
     return null;
 }
+
+// Функция возвращает список характеристик, принадлежащих только переданной карточке
+export function getFeaturesList(features, cardId) {
+    return features.filter(feature => feature.equipment_card === cardId);
+}
