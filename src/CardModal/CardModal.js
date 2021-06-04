@@ -3,7 +3,7 @@ import {connector} from '../store/storeConnector';
 import {getTypeTitle} from '../utils';
 import style from './CardModal.module.scss';
 
-function CardModal({card, types, closeForm}) {
+function CardModal({card, types, selectedGroup, save, closeForm}) {
     let [invNumber, setInvNumber] = useState(card === null ? '' : card.inv_number);
     let [type, setType] = useState(card === null ? types[0].id : card.equipment_type);
     let [title, setTitle] = useState(card === null ? '' : card.title);
@@ -19,8 +19,25 @@ function CardModal({card, types, closeForm}) {
     let workerChangeHandler = event => setWorker(event.target.value);
     let purchaseDateChangeHandler = event => setPurchaseDate(event.target.value);
     let priceChangeHandler = event => {
+        if (isNaN(+event.target.value)) return;
         setPrice(event.target.value);
     }
+
+    let saveHandler = () => save(
+        Object.assign(
+            card || {},
+            {
+                group: (card || {}).group || selectedGroup.id,
+                inv_number: invNumber,
+                equipment_type: type,
+                title,
+                comment,
+                worker,
+                purchase_date: purchaseDate,
+                price
+            }
+        )
+    );
 
     return (
         <div className={style.container + ' ' + style.modal}>
@@ -97,7 +114,7 @@ function CardModal({card, types, closeForm}) {
             </table>
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
-                <input type="button" value="Сохранить"/>
+                <input type="button" value="Сохранить" onClick={saveHandler}/>
             </div>
         </div>
     );

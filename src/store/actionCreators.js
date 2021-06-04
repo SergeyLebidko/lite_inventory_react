@@ -379,6 +379,31 @@ export function loadEquipments(group) {
     }
 }
 
+export function saveEquipmentCard(card) {
+    return async dispatch => {
+        let token = localStorage.getItem(TOKEN_NAME);
+        let method = 'id' in card ? 'patch' : 'post';
+        let cardUrl = 'id' in card ? `${url.EQUIPMENT_CARDS_URL}${card.id}/` : url.EQUIPMENT_CARDS_URL;
+
+        let saveCard = () => $.ajax(cardUrl, {
+            headers: {
+                authorization: token
+            },
+            method,
+            data: {...card}
+        });
+
+        let savedCard;
+        try {
+            savedCard = await saveCard();
+        } catch (err) {
+            console.log(err);
+        }
+
+        console.log(savedCard);
+    }
+}
+
 // Функция выполняет загрузку списка типов оборудования
 export function loadEquipmentTypes() {
     return dispatch => {
