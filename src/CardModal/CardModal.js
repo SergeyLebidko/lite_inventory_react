@@ -1,19 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
-import {getTypeTitle} from '../utils';
+import {getTypeTitle, getFeaturesList} from '../utils';
 import style from './CardModal.module.scss';
 
-function CardModal({card, types, selectedGroup, error, clearError, save, closeForm}) {
-    let [invNumber, setInvNumber] = useState(card === null ? '' : card.inv_number);
-    let [type, setType] = useState(card === null ? types[0].id : card.equipment_type);
-    let [title, setTitle] = useState(card === null ? '' : card.title);
-    let [comment, setComment] = useState(card === null ? '' : card.comment);
-    let [worker, setWorker] = useState(card === null ? '' : card.worker);
-    let [purchaseDate, setPurchaseDate] = useState(card === null ? '' : card.purchase_date);
-    let [price, setPrice] = useState(card === null ? '' : card.price);
+function CardModal({card, types, features, selectedGroup, error, clearError, save, closeForm}) {
+    let hasCard = card !== null;
+
+    let [invNumber, setInvNumber] = useState(hasCard ? card.inv_number : '');
+    let [type, setType] = useState(hasCard ? card.equipment_type : types[0].id);
+    let [title, setTitle] = useState(hasCard ? card.title : '');
+    let [comment, setComment] = useState(hasCard ? card.comment : '');
+    let [worker, setWorker] = useState(hasCard ? card.worker : '');
+    let [purchaseDate, setPurchaseDate] = useState(hasCard ? card.purchase_date : '');
+    let [price, setPrice] = useState(hasCard ? card.price : '');
+
+    let [tmpFeatures, setTmpFeatures] = useState(hasCard ? getFeaturesList(features, card.id) : []);
+    let [inputError, setInputError] = useState(null);
 
     // Сбрасываем ошибки при монтировании
-    useEffect(()=> clearError(), []);
+    useEffect(() => clearError(), []);
 
     let invNumberChangeHandler = event => setInvNumber(event.target.value);
     let typeChangeHandler = event => setType(event.target.value);
@@ -115,6 +120,34 @@ function CardModal({card, types, selectedGroup, error, clearError, save, closeFo
                 </tr>
                 </tbody>
             </table>
+            <div>
+                <h1>Вводите, редактируйте или удаляйте характеристики</h1>
+                <div>
+                    <input type="button" value="Добавить"/>
+                    <input type="button" value="Изменить"/>
+                    <input type="button" value="Удалить"/>
+                </div>
+                <div>
+                    <div>
+                        <input type="text"/>
+                        <input type="button" value="Отмена"/>
+                        <input type="button" value="Сохранить"/>
+                    </div>
+                    {inputError ? <div className="error">{inputError}</div> : ''}
+                </div>
+                {tmpFeatures.length > 0 ?
+                    <ul>
+                        {tmpFeatures.map(feature => (
+                            <li>
+                                <span>{feature.name}</span>
+                                <span>{feature.value}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    :
+                    ''
+                }
+            </div>
             {error ? <div className="error">{error}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
@@ -129,4 +162,3 @@ CardModal.defaultProps = {
 }
 
 export default connector(CardModal);
-

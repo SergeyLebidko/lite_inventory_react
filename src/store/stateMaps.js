@@ -96,6 +96,7 @@ export default function mapStateToPropsFactory(component) {
             return state => ({
                 types: state.equipmentTypes,
                 error: state.error,
+                features: state.equipmentFeatures,
                 selectedGroup: state.selectedGroup
             });
         default:
