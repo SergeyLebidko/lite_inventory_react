@@ -120,20 +120,39 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                 </tr>
                 </tbody>
             </table>
-            <div>
+            <div className={style.features_block}>
                 <h1>Вводите, редактируйте или удаляйте характеристики</h1>
-                <div>
+                <div className={style.features_control}>
                     <input type="button" value="Добавить"/>
                     <input type="button" value="Изменить"/>
                     <input type="button" value="Удалить"/>
                 </div>
-                <div>
+                <div className={style.features_form}>
                     <div>
-                        <input type="text"/>
-                        <input type="button" value="Отмена"/>
-                        <input type="button" value="Сохранить"/>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label htmlFor="feature_name_field">Характеристика:</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="feature_name_field"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="feature_value_field">Значение:</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="feature_value_field"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     {inputError ? <div className="error">{inputError}</div> : ''}
+                    <input type="button" value="Сохранить"/>
+                    <input type="button" value="Отмена"/>
                 </div>
                 {tmpFeatures.length > 0 ?
                     <ul>
