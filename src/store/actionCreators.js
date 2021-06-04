@@ -381,9 +381,11 @@ export function loadEquipments(group) {
 
 export function saveEquipmentCard(card) {
     return async dispatch => {
+        let hasUpdate = 'id' in card;
         let token = localStorage.getItem(TOKEN_NAME);
-        let method = 'id' in card ? 'patch' : 'post';
-        let cardUrl = 'id' in card ? `${url.EQUIPMENT_CARDS_URL}${card.id}/` : url.EQUIPMENT_CARDS_URL;
+
+        let method = hasUpdate ? 'patch' : 'post';
+        let cardUrl = hasUpdate ? `${url.EQUIPMENT_CARDS_URL}${card.id}/` : url.EQUIPMENT_CARDS_URL;
 
         let saveCard = () => $.ajax(cardUrl, {
             headers: {
@@ -396,11 +398,17 @@ export function saveEquipmentCard(card) {
         let savedCard;
         try {
             savedCard = await saveCard();
+            if (hasUpdate) {
+                dispatch(replaceEquipmentCard(savedCard));
+            } else {
+                dispatch(addEquipmentCard(savedCard));
+            }
+            dispatch(setSelectedCard(savedCard));
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
         } catch (err) {
-            console.log(err);
+            dispatch(setError('Не удалось сохранить изменения'));
+            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         }
-
-        console.log(savedCard);
     }
 }
 
@@ -617,6 +625,20 @@ export function setEquipmentCards(equipmentCards) {
     return {
         type: act.SET_EQUIPMENT_CARDS,
         equipmentCards
+    }
+}
+
+export function addEquipmentCard(card) {
+    return {
+        type: act.ADD_EQUIPMENT_CARD,
+        card
+    }
+}
+
+export function replaceEquipmentCard(card) {
+    return {
+        type: act.REPLACE_EQUIPMENT_CARD,
+        card
     }
 }
 

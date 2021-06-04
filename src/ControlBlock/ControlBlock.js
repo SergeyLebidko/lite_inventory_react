@@ -61,13 +61,13 @@ function ControlBlock({mode, setMode, history, selectedGroup, selectedCard, hasG
             form = <RemoveCardModal closeForm={closeForm}/>;
             break;
         case CONTROL_BLOCK_MODES.EDIT_CARD_FORM:
-            form = <CardModal closeForm={closeForm}/>;
+            form = <CardModal card={selectedCard} closeForm={closeForm}/>;
             break;
         case CONTROL_BLOCK_MODES.CREATE_CARD_FORM:
             form = <CardModal closeForm={closeForm}/>;
             break;
         case CONTROL_BLOCK_MODES.TYPES_FORM:
-            form = <TypesModal card={selectedCard} closeForm={closeForm}/>;
+            form = <TypesModal closeForm={closeForm}/>;
             break;
     }
 

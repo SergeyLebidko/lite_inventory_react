@@ -120,6 +120,13 @@ export const equipmentCards = (state = null, action) => {
             return action.equipmentCards;
         case act.CLEAR_EQUIPMENT_CARDS:
             return null;
+        case act.ADD_EQUIPMENT_CARD:
+            return [...state, action.card];
+        case act.REPLACE_EQUIPMENT_CARD:
+            return state.map(card => {
+                if (card.id !== action.card.id) return card;
+                return action.card;
+            });
         case act.REMOVE_EQUIPMENT_CARD:
             return state.filter(card => card.id !== action.card.id);
         default:

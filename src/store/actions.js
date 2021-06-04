@@ -24,6 +24,8 @@ export const CLEAR_SELECTED_GROUP = 'clear_selected_group';
 
 export const SET_EQUIPMENT_CARDS = 'set_equipment_cards';
 export const CLEAR_EQUIPMENT_CARDS = 'clear_equipment_cards';
+export const ADD_EQUIPMENT_CARD = 'add_equipment_card';
+export const REPLACE_EQUIPMENT_CARD = 'replace_equipment_card';
 export const REMOVE_EQUIPMENT_CARD = 'remove_equipment_card';
 
 export const SET_EQUIPMENT_TYPES = 'set_equipment_types';

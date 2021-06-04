@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import {getTypeTitle} from '../utils';
 import style from './CardModal.module.scss';
 
-function CardModal({card, types, selectedGroup, save, closeForm}) {
+function CardModal({card, types, selectedGroup, error, clearError, save, closeForm}) {
     let [invNumber, setInvNumber] = useState(card === null ? '' : card.inv_number);
     let [type, setType] = useState(card === null ? types[0].id : card.equipment_type);
     let [title, setTitle] = useState(card === null ? '' : card.title);
@@ -11,6 +11,9 @@ function CardModal({card, types, selectedGroup, save, closeForm}) {
     let [worker, setWorker] = useState(card === null ? '' : card.worker);
     let [purchaseDate, setPurchaseDate] = useState(card === null ? '' : card.purchase_date);
     let [price, setPrice] = useState(card === null ? '' : card.price);
+
+    // Сбрасываем ошибки при монтировании
+    useEffect(()=> clearError(), []);
 
     let invNumberChangeHandler = event => setInvNumber(event.target.value);
     let typeChangeHandler = event => setType(event.target.value);
@@ -112,6 +115,7 @@ function CardModal({card, types, selectedGroup, save, closeForm}) {
                 </tr>
                 </tbody>
             </table>
+            {error ? <div className="error">{error}</div> : ''}
             <div className={style.control}>
                 <input type="button" value="Отмена" onClick={closeForm}/>
                 <input type="button" value="Сохранить" onClick={saveHandler}/>
