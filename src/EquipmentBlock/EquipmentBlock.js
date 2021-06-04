@@ -1,13 +1,9 @@
 import React from 'react';
 import {connector} from '../store/storeConnector';
+import {getTypeTitle} from '../utils';
 import style from './EquipmentBlock.module.scss';
 
 function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadError, setSelectedCard}) {
-    let getTypeTitle = typeId => {
-        for (let type of (types || [])) if (type.id === typeId) return type.title;
-        return null;
-    }
-
     let getFeaturesList = cardId => {
         return features.filter(feature => feature.equipment_card === cardId);
     }
@@ -15,7 +11,7 @@ function EquipmentBlock({cards, types, features, selectedCard, equipmentsLoadErr
     let cardList = '';
     if (cards) {
         cardList = cards.map(card => {
-            let typeTitle = getTypeTitle(card.equipment_type);
+            let typeTitle = getTypeTitle(types, card.equipment_type);
             if (!typeTitle) typeTitle =
                 <span className="load_error">{"...не удалось определить тип оборудования..."}</span>;
 

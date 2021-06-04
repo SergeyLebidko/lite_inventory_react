@@ -33,3 +33,9 @@ export function getUpdates(srcList, destList, fields) {
 
     return {toRemove, toUpdate, toCreate};
 }
+
+// Функция возвращает текстовое описание типа по его идентификатору или null - если описание найти не удалось
+export function getTypeTitle(types, typeId) {
+    for (let type of (types || [])) if (type.id === typeId) return type.title;
+    return null;
+}
