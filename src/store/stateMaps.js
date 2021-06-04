@@ -94,7 +94,6 @@ export default function mapStateToPropsFactory(component) {
             });
         case 'CardModal':
             return state => ({
-                card: state.selectedCard,
                 types: state.equipmentTypes
             });
         default:
