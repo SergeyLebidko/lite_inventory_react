@@ -1,7 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {connector} from '../store/storeConnector';
 import {getTypeTitle, getFeaturesList} from '../utils';
+import {ERROR_TIMEOUT} from '../settings';
 import style from './CardModal.module.scss';
+
+const NO_FORM = 'no_form';
+const EDIT_MODE = 'edit_mode';
+const CREATE_MODE = 'create_mode';
+
+let featureComparator = (a, b) => {
+    if (a.name > b.name) return 1;
+    if (a.name === b.name) return 0;
+    return -1
+}
 
 function CardModal({card, types, features, selectedGroup, error, clearError, save, closeForm}) {
     let hasCard = card !== null;
@@ -14,6 +25,7 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     let [purchaseDate, setPurchaseDate] = useState(hasCard ? card.purchase_date : '');
     let [price, setPrice] = useState(hasCard ? card.price : '');
 
+    let [featureFormMode, setFeatureFormMode] = useState(NO_FORM);
     let [tmpFeatures, setTmpFeatures] = useState(hasCard ? getFeaturesList(features, card.id) : []);
     let [selectedFeature, setSelectedFeature] = useState(null);
     let [featureName, setFeatureName] = useState('');
@@ -37,6 +49,50 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     let featureNameChangeHandler = event => setFeatureName(event.target.value);
     let featureValueChangeHandler = event => setFeatureValue(event.target.value);
 
+    let createFeatureHandler = () => {
+        setInputError(null);
+        setFeatureName('');
+        setFeatureValue('');
+        setFeatureFormMode(CREATE_MODE);
+    }
+
+    let editFeatureHandler = () => {
+        if (!selectedFeature) return;
+        setInputError(null);
+        setFeatureName(selectedFeature.name);
+        setFeatureValue(selectedFeature.value);
+        setFeatureFormMode(EDIT_MODE);
+    }
+
+    let removeFeatureHandler = () => {
+        if (!selectedFeature) return;
+        setTmpFeatures(tmpFeatures.filter(feature => feature.id !== selectedFeature.id));
+        setSelectedFeature(null);
+    }
+
+    let featureFormCancelHandler = () => setFeatureFormMode(NO_FORM);
+    let featureFormSaveHandler = () => {
+        if (featureName.trim() === '' || featureValue.trim() === '') {
+            setInputError('Пустые значения недопустимы');
+            setTimeout(() => setInputError(null), ERROR_TIMEOUT);
+            return;
+        }
+
+        switch (featureFormMode) {
+            case CREATE_MODE:
+                let createdFeature = {
+                    name: featureName.trim(),
+                    value: featureValue.trim()
+                }
+                if (card) createdFeature.equipment_card = card.id;
+                setTmpFeatures([...tmpFeatures, createdFeature].sort(featureComparator));
+                break;
+            case EDIT_MODE:
+                // TODO Вставить код редактирования характеристики
+                break;
+        }
+    }
+
     // Сохраняем введенные данные
     let saveHandler = () => {
         save(
@@ -45,13 +101,13 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                 card ? {...card} : {},
                 {
                     group: (card || {}).group || selectedGroup.id,
-                    inv_number: invNumber,
+                    inv_number: invNumber.trim(),
                     equipment_type: type,
-                    title,
-                    comment,
-                    worker,
+                    title: title.trim(),
+                    comment: comment.trim(),
+                    worker: worker.trim(),
                     purchase_date: purchaseDate,
-                    price
+                    price: price.trim()
                 }
             )
         );
@@ -133,45 +189,49 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
             <div className={style.features_block}>
                 <h1>Вводите, редактируйте или удаляйте характеристики</h1>
                 <div className={style.features_control}>
-                    <input type="button" value="Добавить"/>
-                    <input type="button" value="Изменить"/>
-                    <input type="button" value="Удалить"/>
+                    <input type="button" value="Добавить" onClick={createFeatureHandler}/>
+                    <input type="button" value="Изменить" onClick={editFeatureHandler}/>
+                    <input type="button" value="Удалить" onClick={removeFeatureHandler}/>
                 </div>
-                <div className={style.features_form}>
-                    <div>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <label htmlFor="feature_name_field">Характеристика:</label>
-                                </td>
-                                <td>
-                                    <input type="text"
-                                           id="feature_name_field"
-                                           value={featureName}
-                                           onChange={featureNameChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label htmlFor="feature_value_field">Значение:</label>
-                                </td>
-                                <td>
-                                    <input type="text"
-                                           id="feature_value_field"
-                                           value={featureValue}
-                                           onChange={featureValueChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                {featureFormMode !== NO_FORM ?
+                    <div className={style.features_form}>
+                        <div>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="feature_name_field">Характеристика:</label>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               id="feature_name_field"
+                                               value={featureName}
+                                               onChange={featureNameChangeHandler}
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="feature_value_field">Значение:</label>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               id="feature_value_field"
+                                               value={featureValue}
+                                               onChange={featureValueChangeHandler}
+                                        />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {inputError ? <div className="error">{inputError}</div> : ''}
+                        <input type="button" value="Сохранить" onClick={featureFormSaveHandler}/>
+                        <input type="button" value="Отмена" onClick={featureFormCancelHandler}/>
                     </div>
-                    {inputError ? <div className="error">{inputError}</div> : ''}
-                    <input type="button" value="Сохранить"/>
-                    <input type="button" value="Отмена"/>
-                </div>
+                    :
+                    ''
+                }
                 {tmpFeatures.length > 0 ?
                     <ul>
                         {tmpFeatures.map((feature, index) => (
