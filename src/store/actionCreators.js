@@ -289,8 +289,13 @@ export function removeGroup(group) {
 }
 
 // Функция выполняет переименование группы
-export function renameGroup(groupId, title) {
+export function renameGroup(groupId, currentTitle, nextTitle) {
     return dispatch => {
+        if (currentTitle === nextTitle) {
+            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
+            return;
+        }
+
         let token = localStorage.getItem(TOKEN_NAME);
         $.ajax(`${url.GROUPS_URL}${groupId}/`, {
             method: 'patch',
@@ -298,7 +303,7 @@ export function renameGroup(groupId, title) {
                 authorization: token
             },
             data: {
-                title
+                title: nextTitle
             }
         }).then(group => {
             dispatch({type: act.RENAME_GROUP, group});

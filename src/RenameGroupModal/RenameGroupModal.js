@@ -22,13 +22,14 @@ function RenameGroupModal({rename, error, clearError, selectedGroup, closeForm})
             setTimeout(() => setInputError(null), ERROR_TIMEOUT);
             return;
         }
-        rename(selectedGroup.id, title);
+        rename(selectedGroup.id, selectedGroup.title, title);
     }
 
     return (
         <div className={style.container + ' ' + style.modal}>
             <h1>Введите новое название для группы<br/>{selectedGroup.title}</h1>
             <table>
+                <tbody>
                 <tr>
                     <td>
                         <label htmlFor="title_field">Название:</label>
@@ -37,6 +38,7 @@ function RenameGroupModal({rename, error, clearError, selectedGroup, closeForm})
                         <input type="text" id="title_field" value={title} onChange={changeTitleHandler}/>
                     </td>
                 </tr>
+                </tbody>
             </table>
             {error ? <div className="error">{error}</div> : ''}
             {inputError ? <div className="error">{inputError}</div> : ''}
