@@ -15,6 +15,7 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     let [price, setPrice] = useState(hasCard ? card.price : '');
 
     let [tmpFeatures, setTmpFeatures] = useState(hasCard ? getFeaturesList(features, card.id) : []);
+    let [selectedFeature, setSelectedFeature] = useState(null);
     let [featureName, setFeatureName] = useState('');
     let [featureValue, setFeatureValue] = useState('');
     let [inputError, setInputError] = useState(null);
@@ -174,7 +175,11 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                 {tmpFeatures.length > 0 ?
                     <ul>
                         {tmpFeatures.map((feature, index) => (
-                            <li key={index}>
+                            <li
+                                key={index}
+                                onClick={() => setSelectedFeature(feature)}
+                                className={selectedFeature === feature ? style.selected : ''}
+                            >
                                 <span>{feature.name}</span>
                                 <span>{feature.value}</span>
                             </li>
