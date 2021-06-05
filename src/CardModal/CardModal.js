@@ -15,6 +15,8 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     let [price, setPrice] = useState(hasCard ? card.price : '');
 
     let [tmpFeatures, setTmpFeatures] = useState(hasCard ? getFeaturesList(features, card.id) : []);
+    let [featureName, setFeatureName] = useState('');
+    let [featureValue, setFeatureValue] = useState('');
     let [inputError, setInputError] = useState(null);
 
     // Сбрасываем ошибки при монтировании
@@ -31,22 +33,28 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
         setPrice(event.target.value);
     }
 
-    let saveHandler = () => save(
-        card,
-        Object.assign(
-            card ? {...card} : {},
-            {
-                group: (card || {}).group || selectedGroup.id,
-                inv_number: invNumber,
-                equipment_type: type,
-                title,
-                comment,
-                worker,
-                purchase_date: purchaseDate,
-                price
-            }
-        )
-    );
+    let featureNameChangeHandler = event => setFeatureName(event.target.value);
+    let featureValueChangeHandler = event => setFeatureValue(event.target.value);
+
+    // Сохраняем введенные данные
+    let saveHandler = () => {
+        save(
+            card,
+            Object.assign(
+                card ? {...card} : {},
+                {
+                    group: (card || {}).group || selectedGroup.id,
+                    inv_number: invNumber,
+                    equipment_type: type,
+                    title,
+                    comment,
+                    worker,
+                    purchase_date: purchaseDate,
+                    price
+                }
+            )
+        );
+    };
 
     return (
         <div className={style.container + ' ' + style.modal}>
@@ -137,7 +145,11 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                                     <label htmlFor="feature_name_field">Характеристика:</label>
                                 </td>
                                 <td>
-                                    <input type="text" id="feature_name_field"/>
+                                    <input type="text"
+                                           id="feature_name_field"
+                                           value={featureName}
+                                           onChange={featureNameChangeHandler}
+                                    />
                                 </td>
                             </tr>
                             <tr>
@@ -145,7 +157,11 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                                     <label htmlFor="feature_value_field">Значение:</label>
                                 </td>
                                 <td>
-                                    <input type="text" id="feature_value_field"/>
+                                    <input type="text"
+                                           id="feature_value_field"
+                                           value={featureValue}
+                                           onChange={featureValueChangeHandler}
+                                    />
                                 </td>
                             </tr>
                             </tbody>
