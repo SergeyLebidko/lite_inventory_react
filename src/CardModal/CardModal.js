@@ -88,9 +88,19 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                 setTmpFeatures([...tmpFeatures, createdFeature].sort(featureComparator));
                 break;
             case EDIT_MODE:
-                // TODO Вставить код редактирования характеристики
+                setTmpFeatures(tmpFeatures.map(feature => {
+                    if (feature !== selectedFeature) return feature;
+                    return {
+                        ...selectedFeature,
+                        name: featureName.trim(),
+                        value: featureValue.trim()
+                    }
+                }).sort(featureComparator));
                 break;
         }
+
+        // Закрываем форму
+        setFeatureFormMode(NO_FORM);
     }
 
     // Сохраняем введенные данные
@@ -238,7 +248,7 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                             <li
                                 key={index}
                                 onClick={() => {
-                                    if(featureFormMode !== EDIT_MODE) setSelectedFeature(feature)
+                                    if (featureFormMode !== EDIT_MODE) setSelectedFeature(feature)
                                 }}
                                 className={selectedFeature === feature ? style.selected : ''}
                             >
