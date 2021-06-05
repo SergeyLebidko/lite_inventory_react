@@ -75,7 +75,9 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 loadStat: () => dispatch(act.loadStat()),
                 clearStat: () => dispatch(act.clearStat()),
-                setStatSort: (section, field, reverseDirection = false) => dispatch(act.setStatSort(section, field, reverseDirection)),
+                setStatSort: (section, field, reverseDirection = false) => {
+                    dispatch(act.setStatSort(section, field, reverseDirection))
+                },
                 clearError: () => dispatch(act.clearError())
             });
         case 'GroupCreateModal':
@@ -108,7 +110,9 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'CardModal':
             return dispatch => ({
-                save: (currentCard, nextCard) => dispatch(act.saveEquipmentCard(currentCard, nextCard)),
+                save: (currentCard, nextCard, currentFeatures, nextFeatures) => {
+                    dispatch(act.saveEquipmentCard(currentCard, nextCard, currentFeatures, nextFeatures))
+                },
                 clearError: () => dispatch(act.clearError())
             })
         default:

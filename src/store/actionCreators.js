@@ -385,7 +385,7 @@ export function loadEquipments(group) {
 }
 
 // Функция выполняет сохранение карточки оборудования
-export function saveEquipmentCard(currentCard, nextCard) {
+export function saveEquipmentCard(currentCard, nextCard, currentFeatures, nextFeatures) {
     return async dispatch => {
         // Снчала определяем, нужно ли производить с карточкой какое-либо действие
         let cardAction = 'no_action';
@@ -401,6 +401,7 @@ export function saveEquipmentCard(currentCard, nextCard) {
         let hasError = false;
 
         // Если карточку нужно обновить или создать, то подготавливаем данные и выполняем запрос
+        let savedCard;
         if (cardAction !== 'no_action') {
             let method = cardAction === 'update' ? 'patch' : 'post';
             let cardUrl = cardAction === 'update' ? `${url.EQUIPMENT_CARDS_URL}${nextCard.id}/` : url.EQUIPMENT_CARDS_URL;
@@ -413,7 +414,6 @@ export function saveEquipmentCard(currentCard, nextCard) {
                 data: {...nextCard}
             });
 
-            let savedCard;
             try {
                 savedCard = await saveCard();
                 if (cardAction === 'update') {
@@ -427,6 +427,14 @@ export function saveEquipmentCard(currentCard, nextCard) {
                 dispatch(setError('Не удалось сохранить изменения'));
                 setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
             }
+        }
+
+        // Подготавливаем списки характеристик
+        let {toRemove, toUpdate, toCreate} = getUpdates(currentFeatures, nextFeatures);
+        if (toRemove.length > 0 || toUpdate.length > 0 || toCreate.length > 0) {
+            // TODO Вставить код присвоения equipment_card всем объектам для создания
+
+            // TODO Вставить код обновления списка характеристик
         }
 
         // Если ошибок не возникло, то закрываем форму

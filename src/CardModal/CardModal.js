@@ -104,6 +104,7 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     }
 
     // Сохраняем введенные данные
+    // Передаем исходные данные карточки, обновленные данные, исходный список характеристик и обновленный
     let saveHandler = () => {
         save(
             card,
@@ -119,7 +120,9 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                     purchase_date: purchaseDate,
                     price: price.trim()
                 }
-            )
+            ),
+            hasCard ? getFeaturesList(features, card.id) : [],
+            tmpFeatures
         );
     };
 
