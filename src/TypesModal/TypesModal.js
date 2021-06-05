@@ -137,7 +137,9 @@ function TypesModal({update, types, loadTypes, clearTypes, error, clearError, lo
                         {tmpTypes.map((type, index) =>
                             <li key={index}
                                 className={type === selectedType ? style.selected : ''}
-                                onClick={() => setSelectedType(type)}
+                                onClick={() => {
+                                    if (innerFormMode !== EDIT_FORM) setSelectedType(type);
+                                }}
                             >
                                 {type.title}
                             </li>

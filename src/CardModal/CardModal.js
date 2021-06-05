@@ -238,7 +238,7 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                             <li
                                 key={index}
                                 onClick={() => {
-                                    if(featureFormMode === NO_FORM) setSelectedFeature(feature)
+                                    if(featureFormMode !== EDIT_MODE) setSelectedFeature(feature)
                                 }}
                                 className={selectedFeature === feature ? style.selected : ''}
                             >
