@@ -237,7 +237,9 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                         {tmpFeatures.map((feature, index) => (
                             <li
                                 key={index}
-                                onClick={() => setSelectedFeature(feature)}
+                                onClick={() => {
+                                    if(featureFormMode === NO_FORM) setSelectedFeature(feature)
+                                }}
                                 className={selectedFeature === feature ? style.selected : ''}
                             >
                                 <span>{feature.name}</span>
