@@ -429,12 +429,12 @@ export function loadEquipmentTypes() {
 }
 
 // Функция выполняет обновление справочника типов оборудования
-export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
-    return (dispatch, getState) => {
+export function updateEquipmentTypes(currentTypes, nextTypes) {
+    return async (dispatch, getState) => {
         let token = localStorage.getItem(TOKEN_NAME);
-        let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, fields);
+        let {toRemove, toUpdate, toCreate} = getUpdates(currentTypes, nextTypes, ['title']);
 
-        $.ajax(url.UPDATE_TYPES_LIST_URL, {
+        let update = () => $.ajax(url.UPDATE_TYPES_LIST_URL, {
             method: 'post',
             headers: {
                 authorization: token
@@ -444,32 +444,36 @@ export function updateEquipmentTypes(currentTypes, nextTypes, fields) {
                 to_update: JSON.stringify(toUpdate),
                 to_create: JSON.stringify(toCreate)
             }
-        }).then(nextTypeList => {
-            dispatch(setEquipmentTypes(nextTypeList));
+        });
 
-            // После обновления списка типов обновляем список отображаемых карточек
-            let selectedGroup = getState().selectedGroup;
-            if (selectedGroup) {
-                dispatch(loadEquipments(selectedGroup));
+        try {
+            if (toRemove.length > 0 || toUpdate.length > 0 || toCreate.length > 0) {
+                let nextTypeList = await update();
+                dispatch(setEquipmentTypes(nextTypeList));
 
-                // Проверяем, существует ли еще выделенная карточка. Если нет - сбрасываем её
-                let selectedCard = getState().selectedCard;
-                let cards = getState().equipmentCards;
-                let cardFind = false;
-                for (let card of cards) {
-                    if (card.id === selectedCard.id) {
-                        cardFind = true;
-                        break;
+                // После обновления списка типов обновляем список отображаемых карточек
+                let selectedGroup = getState().selectedGroup;
+                if (selectedGroup) {
+                    dispatch(loadEquipments(selectedGroup));
+
+                    // Проверяем, существует ли еще выделенная карточка. Если нет - сбрасываем её
+                    let selectedCard = getState().selectedCard;
+                    let cards = getState().equipmentCards;
+                    let cardFind = false;
+                    for (let card of cards) {
+                        if (card.id === selectedCard.id) {
+                            cardFind = true;
+                            break;
+                        }
                     }
+                    if (!cardFind) dispatch(clearSelectedCard());
                 }
-                if (!cardFind) dispatch(clearSelectedCard());
             }
-
             dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
-        }).catch(() => {
+        } catch (err) {
             dispatch(setError('Не удалось сохранить данные'));
             setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
-        });
+        }
     }
 }
 

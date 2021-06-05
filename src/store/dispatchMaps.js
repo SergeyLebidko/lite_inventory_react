@@ -104,7 +104,7 @@ export default function mapDispatchToPropsFactory(component) {
                 clearLoadError: () => dispatch(act.clearLoadTypesError()),
                 clearTypes: () => dispatch(act.clearEquipmentTypes()),
                 clearError: () => dispatch(act.clearError()),
-                update: (currentTypes, nextTypes, fields) => dispatch(act.updateEquipmentTypes(currentTypes, nextTypes, fields))
+                update: (currentTypes, nextTypes) => dispatch(act.updateEquipmentTypes(currentTypes, nextTypes))
             });
         case 'CardModal':
             return dispatch => ({
