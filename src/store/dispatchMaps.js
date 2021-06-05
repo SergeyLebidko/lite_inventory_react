@@ -108,7 +108,7 @@ export default function mapDispatchToPropsFactory(component) {
             });
         case 'CardModal':
             return dispatch => ({
-                save: card => dispatch(act.saveEquipmentCard(card)),
+                save: (currentCard, nextCard) => dispatch(act.saveEquipmentCard(currentCard, nextCard)),
                 clearError: () => dispatch(act.clearError())
             })
         default:

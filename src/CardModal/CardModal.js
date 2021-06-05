@@ -32,8 +32,9 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
     }
 
     let saveHandler = () => save(
+        card,
         Object.assign(
-            card || {},
+            card ? {...card} : {},
             {
                 group: (card || {}).group || selectedGroup.id,
                 inv_number: invNumber,
@@ -156,8 +157,8 @@ function CardModal({card, types, features, selectedGroup, error, clearError, sav
                 </div>
                 {tmpFeatures.length > 0 ?
                     <ul>
-                        {tmpFeatures.map(feature => (
-                            <li>
+                        {tmpFeatures.map((feature, index) => (
+                            <li key={index}>
                                 <span>{feature.name}</span>
                                 <span>{feature.value}</span>
                             </li>

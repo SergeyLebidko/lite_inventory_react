@@ -379,36 +379,53 @@ export function loadEquipments(group) {
     }
 }
 
-export function saveEquipmentCard(card) {
+// Функция выполняет сохранение карточки оборудования
+export function saveEquipmentCard(currentCard, nextCard) {
     return async dispatch => {
-        let hasUpdate = 'id' in card;
+        // Снчала определяем, нужно ли производить с карточкой какое-либо действие
+        let cardAction = 'no_action';
+        if (currentCard) {
+            if (JSON.stringify(currentCard) !== JSON.stringify(nextCard)) cardAction = 'update';
+        } else {
+            cardAction = 'create';
+        }
+
         let token = localStorage.getItem(TOKEN_NAME);
 
-        let method = hasUpdate ? 'patch' : 'post';
-        let cardUrl = hasUpdate ? `${url.EQUIPMENT_CARDS_URL}${card.id}/` : url.EQUIPMENT_CARDS_URL;
+        // Флаг ошибок, если true, то при выполнении запросов возникли ошибки и форму закрывать не нужно
+        let hasError = false;
 
-        let saveCard = () => $.ajax(cardUrl, {
-            headers: {
-                authorization: token
-            },
-            method,
-            data: {...card}
-        });
+        // Если карточку нужно обновить или создать, то подготавливаем данные и выполняем запрос
+        if (cardAction !== 'no_action') {
+            let method = cardAction === 'update' ? 'patch' : 'post';
+            let cardUrl = cardAction === 'update' ? `${url.EQUIPMENT_CARDS_URL}${nextCard.id}/` : url.EQUIPMENT_CARDS_URL;
 
-        let savedCard;
-        try {
-            savedCard = await saveCard();
-            if (hasUpdate) {
-                dispatch(replaceEquipmentCard(savedCard));
-            } else {
-                dispatch(addEquipmentCard(savedCard));
+            let saveCard = () => $.ajax(cardUrl, {
+                headers: {
+                    authorization: token
+                },
+                method,
+                data: {...nextCard}
+            });
+
+            let savedCard;
+            try {
+                savedCard = await saveCard();
+                if (cardAction === 'update') {
+                    dispatch(replaceEquipmentCard(savedCard));
+                } else {
+                    dispatch(addEquipmentCard(savedCard));
+                }
+                dispatch(setSelectedCard(savedCard));
+            } catch (err) {
+                hasError = true;
+                dispatch(setError('Не удалось сохранить изменения'));
+                setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
             }
-            dispatch(setSelectedCard(savedCard));
-            dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
-        } catch (err) {
-            dispatch(setError('Не удалось сохранить изменения'));
-            setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
         }
+
+        // Если ошибок не возникло, то закрываем форму
+        if (!hasError) dispatch(setControlBlockMode(CONTROL_BLOCK_MODES.NO_FORM));
     }
 }
 
