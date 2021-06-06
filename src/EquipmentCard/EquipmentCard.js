@@ -12,7 +12,7 @@ function EquipmentCard({card, types, featureList, selectedCard, setSelectedCard}
         <span className="load_error">{"...не удалось определить тип оборудования..."}</span>;
 
     return (
-        <li key={card.id} className={cardClass} onClick={() => setSelectedCard(card)}>
+        <li className={cardClass} onClick={() => setSelectedCard(card)}>
             <table>
                 <tbody>
                 {card.inv_number ?

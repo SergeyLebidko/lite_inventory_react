@@ -115,6 +115,10 @@ export default function mapDispatchToPropsFactory(component) {
             return dispatch => ({
                 setSelectedCard: card => dispatch(act.setSelectedCard(card))
             });
+        case 'EquipmentBlock':
+            return dispatch => ({
+                clearSelectedCard: () => dispatch(act.clearSelectedCard())
+            });
         default:
             return null
     }

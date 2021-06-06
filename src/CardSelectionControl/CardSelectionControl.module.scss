@@ -1,0 +1,19 @@
+.container {
+  padding: 5px;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  select {
+    margin-left: 5px;
+
+    option.all {
+      color: gray;
+      font-style: italic;
+    }
+  }
+}
