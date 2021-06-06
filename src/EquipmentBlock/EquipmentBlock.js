@@ -1,12 +1,28 @@
 import React, {useState} from 'react';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
-import CardSelectionControl, {ALL_TYPES} from '../CardSelectionControl/CardSelectionControl';
+import CardSelectionControl, {
+    ALL_TYPES,
+    SORT_PARAMS,
+    SORT_DIRECTIONS
+} from '../CardSelectionControl/CardSelectionControl';
 import {connector} from '../store/storeConnector';
 import {getFeaturesList} from '../utils';
 import style from './EquipmentBlock.module.scss';
 
+function getComparator(field, direction) {
+    return (a, b) => {
+        let result = 0;
+        if (a[field] < b[field]) result = -1;
+        if (a[field] > b[field]) result = 1;
+        result *= direction;
+        return result;
+    }
+}
+
 function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard, equipmentsLoadError}) {
     let [typeSelection, setTypeSelection] = useState(ALL_TYPES);
+    let [sortField, setSortField] = useState(SORT_PARAMS.NO_SORT);
+    let [sortDirection, setSortDirection] = useState(SORT_DIRECTIONS.UP);
 
     // Показываем только выбранный тип, отсекая все остальные
     let tmpCards = cards ? [...cards] : [];
@@ -35,7 +51,12 @@ function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard
                 <div className="load_error">{equipmentsLoadError}</div>
                 :
                 <>
-                    <CardSelectionControl types={types} setTypeSelection={setTypeSelection}/>
+                    <CardSelectionControl
+                        types={types}
+                        setTypeSelection={setTypeSelection}
+                        setSortField={setSortField}
+                        setSortDirection={setSortDirection}
+                    />
                     <ul className={style.card_list}>{cardList}</ul>
                 </>
             }

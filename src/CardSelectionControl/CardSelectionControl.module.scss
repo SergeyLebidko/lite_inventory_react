@@ -5,13 +5,17 @@
     list-style-type: none;
     padding-left: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+
+    li.types_selector {
+      margin-left: auto;
+    }
   }
 
   select {
     margin-left: 5px;
 
-    option.all {
+    option.default {
       color: gray;
       font-style: italic;
     }
