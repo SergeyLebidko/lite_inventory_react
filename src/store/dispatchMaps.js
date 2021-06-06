@@ -63,10 +63,6 @@ export default function mapDispatchToPropsFactory(component) {
                 loadEquipments: group => dispatch(act.loadEquipments(group)),
                 clearSelectedCard: () => dispatch(act.clearSelectedCard())
             });
-        case 'EquipmentBlock':
-            return dispatch => ({
-                setSelectedCard: card => dispatch(act.setSelectedCard(card))
-            });
         case 'ControlBlock':
             return dispatch => ({
                 setMode: mode => dispatch(act.setControlBlockMode(mode))
@@ -115,6 +111,10 @@ export default function mapDispatchToPropsFactory(component) {
                 },
                 clearError: () => dispatch(act.clearError())
             })
+        case 'EquipmentCard':
+            return dispatch => ({
+                setSelectedCard: card => dispatch(act.setSelectedCard(card))
+            });
         default:
             return null
     }

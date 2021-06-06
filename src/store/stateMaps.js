@@ -49,7 +49,6 @@ export default function mapStateToPropsFactory(component) {
                 cards: state.equipmentCards,
                 types: state.equipmentTypes,
                 features: state.equipmentFeatures,
-                selectedCard: state.selectedCard,
                 equipmentsLoadError: state.loadEquipmentsError
             });
         case 'ControlBlock':
@@ -98,6 +97,10 @@ export default function mapStateToPropsFactory(component) {
                 error: state.error,
                 features: state.equipmentFeatures,
                 selectedGroup: state.selectedGroup
+            });
+        case 'EquipmentCard':
+            return state => ({
+                selectedCard: state.selectedCard
             });
         default:
             return null

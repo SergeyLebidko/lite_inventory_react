@@ -1,0 +1,61 @@
+@import '../variables.scss';
+
+li.card {
+  padding: 10px;
+  background-color: rgb(240, 240, 240);
+  border-radius: $border-radius;
+
+  td {
+    min-width: 15em;
+  }
+
+  details {
+    max-width: 80%;
+    background-color: white;
+    border-radius: $border-radius;
+    padding: 10px;
+
+    summary {
+      color: gray;
+      cursor: pointer;
+    }
+
+    &[open] {
+      summary {
+        color: black;
+        margin-bottom: 10px;
+      }
+    }
+
+    ul.feature_list {
+      list-style-type: none;
+      padding-left: 0;
+
+      li.feature {
+        &:not(:last-child) {
+          padding-bottom: 5px;
+          margin-bottom: 5px;
+          border-bottom: 1px dashed lightgray;
+        }
+
+        span {
+          display: inline-block;
+          color: black;
+        }
+
+        span:first-child {
+          width: 30%;
+        }
+      }
+    }
+  }
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+li.selected {
+  background-color: $dark-background-color;
+  color: white;
+}
