@@ -40,3 +40,10 @@ export function getTypeTitle(types, typeId) {
 export function getFeaturesList(features, cardId) {
     return features.filter(feature => feature.equipment_card === cardId);
 }
+
+// Функция форматирования даты
+export function formatDate(dateString) {
+    let [_, y, m, d] = /(\d{4})-(\d{2})-(\d{2})/.exec(dateString);
+    let months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    return `${d} ${months[+m - 1]} ${y} г.`;
+}

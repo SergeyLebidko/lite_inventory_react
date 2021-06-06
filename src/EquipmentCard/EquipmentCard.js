@@ -1,6 +1,6 @@
 import React from 'react';
 import {connector} from '../store/storeConnector';
-import {getTypeTitle} from '../utils';
+import {getTypeTitle, formatDate} from '../utils';
 import style from './EquipmentCard.module.scss';
 
 function EquipmentCard({card, types, featureList, selectedCard, setSelectedCard}) {
@@ -77,7 +77,7 @@ function EquipmentCard({card, types, featureList, selectedCard, setSelectedCard}
                             Дата приобретения:
                         </td>
                         <td>
-                            {card.purchase_date}
+                            {formatDate(card.purchase_date)}
                         </td>
                     </tr>
                     :
