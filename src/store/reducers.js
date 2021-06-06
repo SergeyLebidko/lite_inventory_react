@@ -141,6 +141,11 @@ export const equipmentFeatures = (state = [], action) => {
             return action.equipmentFeatures;
         case act.CLEAR_EQUIPMENT_FEATURES:
             return [];
+        case act.UPDATE_EQUIPMENT_FEATURES:
+            return Array.prototype.concat(
+                state.filter(feature => feature.equipment_card !== action.equipmentCard.id),
+                action.equipmentFeatures
+            );
         default:
             return state;
     }

@@ -401,7 +401,7 @@ export function saveEquipmentCard(currentCard, nextCard, currentFeatures, nextFe
         let hasError = false;
 
         // Если карточку нужно обновить или создать, то подготавливаем данные и выполняем запрос
-        let savedCard;
+        let savedCard = currentCard;
         if (cardAction !== 'no_action') {
             let method = cardAction === 'update' ? 'patch' : 'post';
             let cardUrl = cardAction === 'update' ? `${url.EQUIPMENT_CARDS_URL}${nextCard.id}/` : url.EQUIPMENT_CARDS_URL;
@@ -424,17 +424,37 @@ export function saveEquipmentCard(currentCard, nextCard, currentFeatures, nextFe
                 dispatch(setSelectedCard(savedCard));
             } catch (err) {
                 hasError = true;
-                dispatch(setError('Не удалось сохранить изменения'));
+                dispatch(setError('Не удалось сохранить изменения в карточке'));
                 setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
             }
         }
 
         // Подготавливаем списки характеристик
-        let {toRemove, toUpdate, toCreate} = getUpdates(currentFeatures, nextFeatures);
+        let {toRemove, toUpdate, toCreate} = getUpdates(currentFeatures, nextFeatures, ['name', 'value']);
         if (toRemove.length > 0 || toUpdate.length > 0 || toCreate.length > 0) {
-            // TODO Вставить код присвоения equipment_card всем объектам для создания
+            // Присваиваем equipment_card всем объектам для создания
+            for (let feature of toCreate) feature.equipment_card = savedCard.id;
 
-            // TODO Вставить код обновления списка характеристик
+            let saveFeature = () => $.ajax(url.UPDATE_FEATURES_LIST_URL, {
+                method: 'post',
+                headers: {
+                    'authorization': token
+                },
+                data: {
+                    to_remove: JSON.stringify(toRemove),
+                    to_create: JSON.stringify(toCreate),
+                    to_update: JSON.stringify(toUpdate)
+                }
+            });
+
+            try {
+                let savedFeatures = await saveFeature();
+                dispatch(updateEquipmentFeatures(savedFeatures, savedCard))
+            } catch (err) {
+                hasError = true;
+                dispatch(setError('Не удалось сохранить изменения в характеристиках оборудования'));
+                setTimeout(() => dispatch(clearError()), ERROR_TIMEOUT);
+            }
         }
 
         // Если ошибок не возникло, то закрываем форму
@@ -686,6 +706,14 @@ export function setEquipmentFeatures(equipmentFeatures) {
     return {
         type: act.SET_EQUIPMENT_FEATURES,
         equipmentFeatures
+    }
+}
+
+export function updateEquipmentFeatures(equipmentFeatures, equipmentCard) {
+    return {
+        type: act.UPDATE_EQUIPMENT_FEATURES,
+        equipmentFeatures,
+        equipmentCard
     }
 }
 

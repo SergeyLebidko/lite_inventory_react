@@ -33,6 +33,7 @@ export const CLEAR_EQUIPMENT_TYPES = 'clear_equipment_types';
 
 export const SET_EQUIPMENT_FEATURES = 'set_equipment_features';
 export const CLEAR_EQUIPMENT_FEATURES = 'clear_equipment_features';
+export const UPDATE_EQUIPMENT_FEATURES = 'update_equipment_features';
 
 export const SET_LOAD_EQUIPMENTS_ERROR = 'set_load_equipments_error';
 export const CLEAR_LOAD_EQUIPMENTS_ERROR = 'clear_load_equipments_error';

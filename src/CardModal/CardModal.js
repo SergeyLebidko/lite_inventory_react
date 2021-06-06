@@ -17,13 +17,13 @@ let featureComparator = (a, b) => {
 function CardModal({card, types, features, selectedGroup, error, clearError, save, closeForm}) {
     let hasCard = card !== null;
 
-    let [invNumber, setInvNumber] = useState(hasCard ? card.inv_number : '');
+    let [invNumber, setInvNumber] = useState(hasCard ? card.inv_number || '' : '');
     let [type, setType] = useState(hasCard ? card.equipment_type : types[0].id);
-    let [title, setTitle] = useState(hasCard ? card.title : '');
-    let [comment, setComment] = useState(hasCard ? card.comment : '');
-    let [worker, setWorker] = useState(hasCard ? card.worker : '');
-    let [purchaseDate, setPurchaseDate] = useState(hasCard ? card.purchase_date : '');
-    let [price, setPrice] = useState(hasCard ? card.price : '');
+    let [title, setTitle] = useState(hasCard ? card.title || '' : '');
+    let [comment, setComment] = useState(hasCard ? card.comment || '' : '');
+    let [worker, setWorker] = useState(hasCard ? card.worker || '' : '');
+    let [purchaseDate, setPurchaseDate] = useState(hasCard ? card.purchase_date || '' : '');
+    let [price, setPrice] = useState(hasCard ? card.price || '' : '');
 
     let [featureFormMode, setFeatureFormMode] = useState(NO_FORM);
     let [tmpFeatures, setTmpFeatures] = useState(hasCard ? getFeaturesList(features, card.id) : []);
