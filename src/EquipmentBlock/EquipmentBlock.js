@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
 import {connector} from '../store/storeConnector';
-import {getFeaturesList} from '../utils';
+import {getFeaturesList, getTypeTitle} from '../utils';
 import style from './EquipmentBlock.module.scss';
 
 const ALL_TYPES = 'all_types';
 
+// Подразумеваем, что отсутствие сортировки - это на самом деле сортировка по id, который не виден пользователю
 const SORT_PARAMS = {
-    NO_SORT: 'no_sort',
+    NO_SORT: 'id',
     INV_NUMBER_FIELD: 'inv_number',
     TYPE_FIELD: 'equipment_type',
     WORKER_FIELD: 'worker',
@@ -20,13 +21,53 @@ export const SORT_DIRECTIONS = {
     DOWN: -1
 }
 
-function getComparator(field, direction) {
-    return (a, b) => {
-        let result = 0;
-        if (a[field] < b[field]) result = -1;
-        if (a[field] > b[field]) result = 1;
-        result *= direction;
-        return result;
+function getComparator(field, direction, types) {
+    // Функция сортировки для полей с числовыми значениями
+    if (field === SORT_PARAMS.PRICE_FIELD || field === SORT_PARAMS.NO_SORT) {
+        return (a, b) => {
+            let result = 0;
+            if (+a[field] < +b[field]) result = -1;
+            if (+a[field] > +b[field]) result = 1;
+            if (field !== SORT_PARAMS.NO_SORT) result *= direction;
+            return result;
+        }
+    }
+
+    // Функция сортировки для полей со строковыми изначениями
+    if (field === SORT_PARAMS.INV_NUMBER_FIELD || field === SORT_PARAMS.TYPE_FIELD || field === SORT_PARAMS.WORKER_FIELD) {
+        return (a, b) => {
+            let aValue = a[field];
+            let bValue = b[field];
+
+            if (field === SORT_PARAMS.TYPE_FIELD) {
+                aValue = getTypeTitle(types, aValue);
+                bValue = getTypeTitle(types, bValue);
+            }
+
+            let result = 0;
+            if (aValue < bValue) result = -1;
+            if (aValue > bValue) result = 1;
+            result *= direction;
+            return result;
+        }
+    }
+
+    // Функция сортировки для полей с датами
+    if (field === SORT_PARAMS.PURCHASE_DATE_FIELD) {
+        return (a, b) => {
+            let aDate = Date.parse(a[field]);
+            let bDate = Date.parse(b[field]);
+
+            let result = 0;
+
+            if (isNaN(aDate) && !isNaN(bDate)) result = -1;
+            if (!isNaN(aDate) && isNaN(bDate)) result = 1;
+
+            if (+aDate < +bDate) result = -1;
+            if (+aDate > +bDate) result = 1;
+            result *= direction;
+            return result;
+        }
     }
 }
 
@@ -40,18 +81,23 @@ function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard
     let sortSelectionHandler = event => setSortField(event.target.value);
     let sortDirectionHandler = event => setSortDirection(event.target.value);
 
-    // Показываем только выбранный тип, отсекая все остальные
     let tmpCards = cards ? [...cards] : [];
+
+    // Применяем выбранную сортировку
+    tmpCards.sort(getComparator(sortField, sortDirection, types));
+
+    // Показываем только выбранный тип, отсекая все остальные
     if (typeSelection !== ALL_TYPES) {
         tmpCards = tmpCards.filter(card => card.equipment_type === +typeSelection);
     }
 
+    // Формируем список компонентов-карточек
     let cardList = tmpCards.map(card => {
         let featureList = getFeaturesList(features, card.id);
         return <EquipmentCard key={card.id} card={card} types={types} featureList={featureList}/>
     });
 
-    // Если выбранная карточка не входит в отображаемые сейчас - сбрасываем её
+    // Если выбранная карточка не входит в отображаемые в данный момент - сбрасываем её
     let hasShowSelectedCard = false;
     for (let card of tmpCards) {
         if (selectedCard && card.id === selectedCard.id) {
@@ -94,7 +140,10 @@ function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard
                                     </select>
                                 </li>
                                 <li>
-                                    <select onChange={sortDirectionHandler}>
+                                    <select
+                                        onChange={sortDirectionHandler}
+                                        disabled={sortField === SORT_PARAMS.NO_SORT}
+                                    >
                                         <option value={SORT_DIRECTIONS.UP}>По возрастанию</option>
                                         <option value={SORT_DIRECTIONS.DOWN}>По убыванию</option>
                                     </select>
