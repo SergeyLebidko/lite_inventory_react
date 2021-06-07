@@ -25,3 +25,27 @@
 .container > div {
   margin-bottom: 10px;
 }
+
+.selector_container {
+  padding: 5px;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    justify-content: flex-start;
+
+    li.types_selector {
+      margin-left: auto;
+    }
+  }
+
+  select {
+    margin-left: 5px;
+
+    option.default {
+      color: gray;
+      font-style: italic;
+    }
+  }
+}

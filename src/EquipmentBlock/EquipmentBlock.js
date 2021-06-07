@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
-import CardSelectionControl, {
-    ALL_TYPES,
-    SORT_PARAMS,
-    SORT_DIRECTIONS
-} from '../CardSelectionControl/CardSelectionControl';
 import {connector} from '../store/storeConnector';
 import {getFeaturesList} from '../utils';
 import style from './EquipmentBlock.module.scss';
+
+const ALL_TYPES = 'all_types';
+
+const SORT_PARAMS = {
+    NO_SORT: 'no_sort',
+    INV_NUMBER_FIELD: 'inv_number',
+    TYPE_FIELD: 'equipment_type',
+    WORKER_FIELD: 'worker',
+    PURCHASE_DATE_FIELD: 'purchase_date',
+    PRICE_FIELD: 'price'
+}
+
+export const SORT_DIRECTIONS = {
+    UP: 1,
+    DOWN: -1
+}
 
 function getComparator(field, direction) {
     return (a, b) => {
@@ -23,6 +34,11 @@ function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard
     let [typeSelection, setTypeSelection] = useState(ALL_TYPES);
     let [sortField, setSortField] = useState(SORT_PARAMS.NO_SORT);
     let [sortDirection, setSortDirection] = useState(SORT_DIRECTIONS.UP);
+
+    // Обработчики событий для блока сортировки и отбора
+    let typeSelectionChangeHandler = event => setTypeSelection(event.target.value);
+    let sortSelectionHandler = event => setSortField(event.target.value);
+    let sortDirectionHandler = event => setSortDirection(event.target.value);
 
     // Показываем только выбранный тип, отсекая все остальные
     let tmpCards = cards ? [...cards] : [];
@@ -51,12 +67,52 @@ function EquipmentBlock({cards, types, features, selectedCard, clearSelectedCard
                 <div className="load_error">{equipmentsLoadError}</div>
                 :
                 <>
-                    <CardSelectionControl
-                        types={types}
-                        setTypeSelection={setTypeSelection}
-                        setSortField={setSortField}
-                        setSortDirection={setSortDirection}
-                    />
+                    {(cards && types) && (cards.length > 0) ?
+                        <div className={style.selector_container}>
+                            <ul>
+                                <li>
+                                    <span>Сортировать:</span>
+                                    <select onChange={sortSelectionHandler}>
+                                        <option value={SORT_PARAMS.NO_SORT} className={style.default}>
+                                            -- не сортировать --
+                                        </option>
+                                        <option value={SORT_PARAMS.INV_NUMBER_FIELD}>
+                                            Инв. номер
+                                        </option>
+                                        <option value={SORT_PARAMS.TYPE_FIELD}>
+                                            Тип
+                                        </option>
+                                        <option value={SORT_PARAMS.WORKER_FIELD}>
+                                            Должность пользователя
+                                        </option>
+                                        <option value={SORT_PARAMS.PURCHASE_DATE_FIELD}>
+                                            Дата приобретения
+                                        </option>
+                                        <option value={SORT_PARAMS.PRICE_FIELD}>
+                                            Цена
+                                        </option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select onChange={sortDirectionHandler}>
+                                        <option value={SORT_DIRECTIONS.UP}>По возрастанию</option>
+                                        <option value={SORT_DIRECTIONS.DOWN}>По убыванию</option>
+                                    </select>
+                                </li>
+                                <li className={style.types_selector}>
+                                    <span>Показать:</span>
+                                    <select onChange={typeSelectionChangeHandler}>
+                                        <option key={ALL_TYPES} value={ALL_TYPES} className={style.default}>-- все типы
+                                            --
+                                        </option>
+                                        {types.map(type => <option key={type.id} value={type.id}>{type.title}</option>)}
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                        :
+                        ''
+                    }
                     <ul className={style.card_list}>{cardList}</ul>
                 </>
             }
