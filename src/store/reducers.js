@@ -134,7 +134,7 @@ export const equipmentCards = (state = null, action) => {
     }
 }
 
-// Редактор для характеристик оборудования
+// Редуктор для характеристик оборудования
 export const equipmentFeatures = (state = [], action) => {
     switch (action.type) {
         case act.SET_EQUIPMENT_FEATURES:
